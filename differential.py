@@ -21,9 +21,7 @@ for op in tokens:
     op1 = ops.pop()
     op2 = ops.pop()
     ops.append("(" + op1 + op + op2 + ")")
-
-print "Infix form of the function: " + ops.pop()
-print ""
+print "Infix form of the function: " + ops.pop() + "\n"
 
 class Node(object):
   def __init__(self, val, parent=None, left=None, right=None):
@@ -42,7 +40,7 @@ for op in expr:
   temp = Node(op, parent = curr)
   if curr.left == None and (not isTrig(curr.val)):
     curr.left = temp
-  elif (curr.right == None):
+  else:
     curr.right = temp
   if isOperator(op):
     curr = temp
