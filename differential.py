@@ -6,7 +6,7 @@ def isTrig(x):
   return (x == 'sin' or x == 'cos')
 
 ops = []
-#var = raw_input("Enter variable name here: ")
+var = raw_input("Enter variable name here: ")
 arg = raw_input("Enter expression here: ")
 expr = arg.split()
 tokens = reversed(expr)
@@ -24,47 +24,67 @@ for op in tokens:
 print "Infix form of the function: " + ops.pop() + "\n"
 
 class Node(object):
-  def __init__(self, val, parent=None, left=None, right=None):
+  def __init__(self, val, parent, left=None, right=None):
     self.val = val
     self.parent = parent
     self.left = left
     self.right = right
   def isFull(self):
-    return ((curr.left != None and curr.right != None) or (isTrig(self.val) and curr.right != None)) 
+    return ((self.left != None and self.right != None) or (isTrig(self.val) and self.right != None)) 
 
-root = Node(expr.pop(0))
-print "root: " + root.val
+root = Node(expr.pop(0), None)
 curr = root
 
 for op in expr:
-  temp = Node(op, parent = curr)
+  temp = Node(op, curr)
   if curr.left == None and (not isTrig(curr.val)):
     curr.left = temp
   else:
     curr.right = temp
-  if isOperator(op):
-    curr = temp
+  curr = temp
   if isOperand(op):
-    print "old up: " + curr.val
     curr = curr.parent
-    print "new up: " + curr.val
-    while curr.parent != None and curr != root and curr.isFull():
+    while curr.isFull() and  curr != root:
       curr = curr.parent
 
-print "\n tree check"
-temp = root
-while (temp.left != None):
-  print temp.val
-  temp = temp.left
-
 def derive(target):
-  if (target.val == var):
-    return 1
-  elif (target.val.isDigit()): 
-    return 0
-  elif (target.val == '^'):
-    return "(" + target.right.val + " * (" + target.left.val + ")^" + (target.right.val - 1) + ")"
-  elif (target.val == '+' or target.val == '-'):
-    return ("(" + derive(target.left) + ") " + target.val + " (" + defive(target.right) + ")")
-  elif (target.val == 'sin'):
-    tmp = target
+  if (isOperand(target.val)):
+    print "hitting operand"
+    if (target.val == var):
+      return "1"
+    else:
+      return "0"
+  else:
+    if (target.val == '^'):
+      return "(" + target.right.val + " * (" + target.left.val + ")^" + (str(int(target.right.val) - 1)) + ")"
+    elif (target.val == '+' or target.val == '-'):
+      return ("(" + derive(target.left) + ") " + target.val + " (" + derive(target.right) + ")")
+    elif (target.val == '*'):
+      du = derive(target.left)
+      dv = derive(target.right)
+      u = inorder(target.left)
+      v = inorder(target.right)
+      return "(("+v+") * ("+du+") + ("+u+") * ("+dv+"))" 
+    elif (target.val == '/'):
+      du = derive(target.left)
+      dv = derive(target.right)
+      u = inorder(target.left)
+      v = inorder(target.right)
+      return "( (("+v+") * ("+du+") + ("+u+") * ("+dv+")) / ("+v+")^2)" 
+    elif (target.val == 'sin'):
+      u = inorder(target.right)
+      du = derive(target.right)
+      return "(cos("+u+") * ("+du+"))"
+    elif (target.val == 'cos'):
+      u = inorder(target.right)
+      du = derive(target.right)
+      return "(- (sin("+u+") ) * ("+du+"))"
+
+def inorder(target):
+  if target == None:
+    return ""
+  else:
+    return "("+str(inorder(target.left)) + str(target.val) + str(inorder(target.right))+")"
+
+answer = derive(root)
+print answer
