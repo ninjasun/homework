@@ -1,0 +1,54 @@
+Bilal Quadri
+Homework 8
+
+I.)
+	a.)Counter-example: 
+		a maps to b, c maps to b;
+		Symmetric closure of this mapping will have a mapping to b and c without a also mapping to c.
+		Thus, the symmetric closure will not be a transitive relation
+	b.)This is true by the definition of a closure.
+
+II.)
+	a.)
+		i.)R1 is an equivalence relation iff it is a transitive, reflexive, and symmetrical relation.
+			Proof of Reflexiveness:
+				RTP: (a^2-b^2)=(a^2-b^2)
+					True by arithmetic
+					Thus, there is reflexivity.
+					QED
+			Proof of Symmetry:
+				For some arbitrary a,b,c and d.
+				(a^2-b^2) = (b^2-a^2) and (c^2-d^2) = (d^2-c^2)
+				Therfore there is a relation between (a,b) and (c,d) and between (c,d) and (a,b)
+				Thus, there is symmetry.
+				QED
+			Proof of Transitivity:
+				Let (a^2-b^2) = (c^2-d^2)
+				Let (c^2-d^2) = (e^2-f^2) for some arbitrary e and f
+				(a^2-b^2) = (e^2-f^2) by arithmetic
+				Thus, there is transitivity.
+				QED
+		ii.)Equivalence class of (0,0) exists where x=y in the x,y coordinate plane.
+
+	b.)
+		i.) (1,1), (1,2), (1,4), (2,2), (2,4), (3,3), (3,6), (4,1), (4,2), (4,4), (5,5), (6,3), (6,6), (7,7)
+		ii.) 
+			R2 is an equivalence relation iff it is a transitive, reflexive, and symmetrical relation.
+			Proof of Reflexiveness:
+				RTP:(a/b) = 2^k and 2^k = (a/b), where k is an element in the set of integers
+					True by arithmetic 
+					Thus, there is reflexivity.
+					QED
+			Proof of Symmetry:
+				For some arbitrary a and b.
+				(a/b) = 2^k and (b/a) = 2^k
+				Therfore there is a relation between (a,b) and 2^k and between (b,a) and 2^k.
+				Thus, there is symmetry.
+				QED
+			Proof of Transitivity:
+				Let (a/b)=2^k for some arbitrary a and b
+				Let (c/d)=2^k for some arbitrary c and d
+				(a/b) == 2^k by arithmetic
+				Thus, there is transitivity.
+				QED
+

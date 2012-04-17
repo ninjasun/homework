@@ -1,0 +1,31 @@
+Bilal Quadri
+CS205
+Homework 7
+
+
+1.) Which of the assertion(s) named (A thru G) are the "loop invariant".
+2.) Discover the loop invariant that will ensure that G implies POST
+3.) List the actual assertions besides each of the names below:
+
+ Assertion     Formula
+   PRE              n>=0
+   A				k<=n  
+
+   B				y=0
+
+   C				k!=n, n>0
+
+   C'				k<n
+
+   D				y= sum from i=0 to k-1 (1+2i)
+
+   E				first=1+2k
+
+   F				k<=n
+
+   G				y= sum from k=0 to n-1 (1+2k)
+
+   POST           y=n*n
+
+Loop invariant: k<=n; y= sum from i=0 to k-1 (1+2i)
+Assertion D is the loop invariant

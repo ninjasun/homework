@@ -1,0 +1,22 @@
+Equivalent relation R over set A is:
+	(r)reflexive
+	(r)symmetric
+	(r)transitive
+
+Equivalent class of a exists in A: {b | (a,b) exists in R}
+
+Partition of set A:
+	collection of sets B(sub i) such that the union of all sets B(sub i) = A
+
+If R is an equivalent relation over A, then
+	i.) aRb
+	ii.) [a]=[b]
+	iii.) [a]union[b] =/= 0 (empty set)
+
+	(i) iff (ii) iff (iii)
+
+Theorm trans_closure
+tc(R) must be (i) Transitive
+			  (ii) contain R
+			  (iii)"minimal" if S' is a transitive rel containing R,
+			  		then tc(R) is a subset of S'

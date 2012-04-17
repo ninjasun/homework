@@ -1,0 +1,57 @@
+Bilal Quadri
+Homework 9
+
+1.)
+//Let ^ be the empty string
+A = 8
+B = (9 | ^)
+C = 8*
+D = 9
+
+8989:
+	This is in the language of the expression, becase it can be represented as a combination of A,B,C, and D.
+	A -> 8
+	B -> 9
+	C -> 8
+	D -> 9
+	=8989
+
+889:
+	This is in the language of the expression, becase it can be represented as a combination of A,B,C, and D.
+	A -> 8
+	B -> ^
+	C -> 8
+	D -> 9
+	=889
+
+989:
+	This is not in the language of the expression, because the first character
+	must be an 8.
+
+89:
+	This is in the language of the expression, becase it can be represented as a combination of A,B,C, and D.
+	A -> 8
+	B -> ^
+	C -> ^
+	D -> 9
+	=89
+	
+2.)
+	a.) a*(baa)*
+	b.) a*(ba*b)*a*
+
+
+3.) 
+	a.)
+		RTP: R* = R*R*
+		lhs = R*
+		rhs = R*R*
+		rhs = (empty string)R* 		pick an empty string for the first R*
+		rhs = R*					because empty string plus another string is the other string
+		lhs = rhs					QED
+	
+	b.) False
+		Counter-example:
+		"R" is in the language of the rhs
+		"R" is not in language of the lhs
+		Thus, the lhs != rhs because their languages do express the same strings.
