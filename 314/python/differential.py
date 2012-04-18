@@ -22,6 +22,8 @@ def derive(target):
     return "0" #when target is some other operand
   else: #when target is an operator
     if (target.val == '^'): #exponentiation
+      if (isTrig(target.left.val)):
+        return "(("+target.right.val+"*"+inorder(target.left)+")*"+derive(target.left)+")"
       if (target.right.val == '2'):
         return "("+target.right.val+"*("+target.left.val+"))"
       return "("+target.right.val+"*("+target.left.val+")^"+(str(int(target.right.val)-1))+")"
