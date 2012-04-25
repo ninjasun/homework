@@ -6,6 +6,12 @@ using namespace std;
 
 class MayanDate {
   // Bak'tun, Ka'tun, etc stuff ...
+  private:
+    unsigned int baktun;
+    unsigned int katun;
+    unsigned int tun;
+    unsigned int uinal;
+    unsigned int kin;
   public:
     MayanDate();
     MayanDate( unsigned int, unsigned int, unsigned int, unsigned int, unsigned int );
