@@ -2,7 +2,6 @@
 #define __MAYANCALC_H 
 
 #include <iostream> 
-using namespace std;
 
 class MayanDate {
   // Bak'tun, Ka'tun, etc stuff ...
@@ -15,15 +14,16 @@ class MayanDate {
   public:
     MayanDate();
     MayanDate( unsigned int, unsigned int, unsigned int, unsigned int, unsigned int );
-    void          set( unsigned int, unsigned int, unsigned int, unsigned int, unsigned int );
-    MayanDate &   operator++();
-    int           operator-( const MayanDate & ) const;
-    MayanDate     operator+( unsigned int ) const;
-    MayanDate     operator-( unsigned int ) const;
-    bool          operator==( const MayanDate & ) const;
-    bool          operator!=( const MayanDate & m ) const;
-    void          get_string( char *, unsigned int ) const;
-    int           toDays();
+    void              set( unsigned int, unsigned int, unsigned int, unsigned int, unsigned int );
+    MayanDate &       operator++();
+    int               operator-( const MayanDate & ) const;
+    MayanDate         operator+( unsigned int ) const;
+    MayanDate         operator-( unsigned int ) const;
+    bool              operator==( const MayanDate & ) const;
+    bool              operator!=( const MayanDate & m ) const;
+    void              get_string( char *, unsigned int ) const;
+    unsigned int      toDays();
+    static MayanDate  toMayan(int days);
 };
 
 class GregorianDate {
@@ -42,5 +42,6 @@ public:
 };
 
   bool isLeap(int year);
+  using namespace std;
 
 #endif
