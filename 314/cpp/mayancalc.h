@@ -2,6 +2,8 @@
 #define __MAYANCALC_H 
 
 #include <iostream> 
+#include <string>
+#include <sstream>
 
 /*Day Chart
 Days              Long Count period    Long Count unit
@@ -10,6 +12,15 @@ Days              Long Count period    Long Count unit
 360               18 Uinal             1 Tun
 7,200             20 Tun               1 Ka'tun
 144,000           20 Ka'tun            1 Bak'tun
+*/
+
+/*Arguments
+argv[1]  argv[2]          argv[3]         output
+m+d      Mayan date       number of days  Mayan date
+m-d      Mayan date       number of days  Mayan date
+m-m      Mayan date       Mayan date      number of days
+g=       Gregorian date   -               Mayan date
+m=       Mayan date       -               Gregorian date
 */
 
 class MayanDate {
@@ -24,16 +35,16 @@ class MayanDate {
     MayanDate();
     MayanDate( unsigned int, unsigned int, unsigned int, unsigned int, unsigned int );
     void              set( unsigned int, unsigned int, unsigned int, unsigned int, unsigned int );
-    MayanDate*        operator++();
+    MayanDate         operator++() const;
     int               operator-( const MayanDate & ) const;
     MayanDate         operator+( unsigned int ) const;
     MayanDate         operator-( unsigned int ) const;
     bool              operator==( const MayanDate & ) const;
     bool              operator!=( const MayanDate & m ) const;
     void              get_string( char *, unsigned int ) const;
-    unsigned int      toDays();
-    char*            toString();
-    static MayanDate*  toMayan(unsigned int);
+    unsigned int      toDays() const;
+    std::string       toString() const;
+    static MayanDate  toMayan(unsigned int) const;
 };
 
 class GregorianDate {
