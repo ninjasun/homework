@@ -24,7 +24,13 @@ void MayanDate::set(unsigned int bak, unsigned int kat, unsigned int t, unsigned
   kin = k;
 }
 
-MayanDate & MayanDate::operator++() {
+MayanDate* MayanDate::operator++() {
+  unsigned int days = toDays();
+  days += 1;
+  return MayanDate::toMayan(days);
+}
+
+MayanDate MayanDate::operator+(unsigned int add) const {
 
 }
 
@@ -33,15 +39,19 @@ unsigned int MayanDate::toDays() {
   return days;
 }
 
-static MayanDate::toMayan(int days) {
+static MayanDate* toMayan(unsigned int days){
+  unsigned int ba = days / 144000;
+  unsigned int ka = (days-ba) / 7200;
+  unsigned int tu = (days-ba-ka) / 360;
+  unsigned int ui = (days-ba-ka-tu) / 20;
+  unsigned int ki = (days-ba-ka-tu-ui);
+  MayanDate* foo =  new MayanDate(ba, ka, tu, ui, ki);
+  return foo;
+};
 
-}
-
-
-
-
-//stringstream s;
-//s << "sample" << " piece";
-//return s.str();
-
+//char* MayanDate::toString() {
+  //std::stringstream s;
+  //s << baktun << "." << katun << "." << tun << "." << uinal << "." << kin;
+  //s.str();
+//}
 

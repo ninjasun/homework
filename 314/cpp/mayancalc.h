@@ -3,6 +3,15 @@
 
 #include <iostream> 
 
+/*Day Chart
+Days              Long Count period    Long Count unit
+1                 -                    1 Kin
+20                20 Kin               1 Uinal
+360               18 Uinal             1 Tun
+7,200             20 Tun               1 Ka'tun
+144,000           20 Ka'tun            1 Bak'tun
+*/
+
 class MayanDate {
   // Bak'tun, Ka'tun, etc stuff ...
   private:
@@ -15,7 +24,7 @@ class MayanDate {
     MayanDate();
     MayanDate( unsigned int, unsigned int, unsigned int, unsigned int, unsigned int );
     void              set( unsigned int, unsigned int, unsigned int, unsigned int, unsigned int );
-    MayanDate &       operator++();
+    MayanDate*        operator++();
     int               operator-( const MayanDate & ) const;
     MayanDate         operator+( unsigned int ) const;
     MayanDate         operator-( unsigned int ) const;
@@ -23,7 +32,8 @@ class MayanDate {
     bool              operator!=( const MayanDate & m ) const;
     void              get_string( char *, unsigned int ) const;
     unsigned int      toDays();
-    static MayanDate  toMayan(int days);
+    char*            toString();
+    static MayanDate*  toMayan(unsigned int);
 };
 
 class GregorianDate {
