@@ -49,22 +49,28 @@ class MayanDate {
 };
 
 class GregorianDate {
- // year, month, day data
-public:
-   GregorianDate();
-   GregorianDate( unsigned int, unsigned int, unsigned int );
-   void  set( unsigned int, unsigned int, int );
-   GregorianDate & operator++();
-   bool  operator==( const GregorianDate & ) const;
-   bool  operator!=( const GregorianDate & g ) const;
-   int  operator-( const GregorianDate & ) const;
-   GregorianDate operator-( unsigned int ) const;
-   GregorianDate operator+( unsigned int ) const;
-   void  get_string( char *, unsigned int ) const;
+  private:
+    int day;
+    int month;
+    int year;
+  public:
+     GregorianDate();
+     GregorianDate(int, int, int );
+     std::string      toString();
+     unsigned int     toDays();
+     //void  set(unsigned int, unsigned int, int );
+     //GregorianDate & operator++();
+     //bool  operator==( const GregorianDate & ) const;
+     //bool  operator!=( const GregorianDate & g ) const;
+     //int  operator-( const GregorianDate & ) const;
+     //GregorianDate operator-( unsigned int ) const;
+     //GregorianDate operator+( unsigned int ) const;
+     //void  get_string( char *, unsigned int ) const;
 };
 
   bool isLeap(int year);
   MayanDate toMayan(unsigned int);
+  GregorianDate toGreg(unsigned int);
   using namespace std;
 
 #endif

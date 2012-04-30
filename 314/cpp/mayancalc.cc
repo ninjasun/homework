@@ -12,7 +12,7 @@ int main(int argc, const char *argv[])
 
   if (command.compare("m+d") == 0) {
     int count = 0;
-    int units[5];
+    unsigned int units[5];
     char* tok = strtok(op, delim);
     while (tok != NULL){
       units[count] = atoi(tok); count ++;
@@ -27,7 +27,7 @@ int main(int argc, const char *argv[])
   }
   else if (command.compare("m-d") == 0) {
     int count = 0;
-    int units[5];
+    unsigned int units[5];
     char* tok = strtok(op, delim);
     while (tok != NULL){
       units[count] = atoi(tok); count ++;
@@ -42,7 +42,7 @@ int main(int argc, const char *argv[])
   }
   else if (command.compare("m-m") == 0) {
     int count = 0;
-    int units[5];
+    unsigned int units[5];
     char* tok = strtok(op, delim);
     while (tok != NULL){
       units[count] = atoi(tok); count ++;
@@ -65,10 +65,42 @@ int main(int argc, const char *argv[])
     cout << (day1 - day2) << "\n";
   }
   else if (command.compare("g=") == 0) {
+    int count = 0;
+    const char* gdelim = "/";
+    op = (char*) argv[2];
+    cout << "op: " << op << "\n";
+    char* tok = strtok(op, gdelim);
+    int gunits[3];
+    while (tok != NULL){
+      gunits[count] = atoi(tok); 
+      tok = strtok(NULL, gdelim);
+      count ++;
+    }
+
+    GregorianDate date = GregorianDate(gunits[1], gunits[0], gunits[2]);
+    cout << date.toString() << "\n";
+
+    /**answer
+    unsigned int tempDays = date.toDays();
+    cout << toMayan(tempDays).toString() << "\n";
+    */
 
   }
   else if (command.compare("m=") == 0) {
+    int count = 0;
+    unsigned int units[5];
+    char* tok = strtok(op, delim);
+    while (tok != NULL){
+      units[count] = atoi(tok); count ++;
+      tok = strtok(NULL, delim);
+    }
+    
+    MayanDate date = MayanDate(units[0],units[1],units[2],units[3], units[4]);
+    unsigned int dayCount = date.toDays();
 
+    /**answer
+    cout << toGreg(dayCount).toString() << "\n";
+    */
   }
   else {
     cout << "Invalid command. Please try again. \n";
@@ -88,14 +120,3 @@ bool isLeap(int year)
   else
     return false;
 }
-
-MayanDate toMayan(unsigned int days) {
-  unsigned int ba = days / 144000;
-  unsigned int ka = (days-ba*144000) / 7200;
-  unsigned int tu = (days-ba*144000-ka*7200) / 360;
-  unsigned int ui = (days-ba*144000-ka*7200-tu*360) / 20;
-  unsigned int ki = (days-ba*144000-ka*7200-tu*360-ui*20);
-  MayanDate foo =  MayanDate(ba, ka, tu, ui, ki);
-  return foo;
-};
-
