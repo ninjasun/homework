@@ -4,6 +4,8 @@
 #include <iostream> 
 #include <string>
 #include <sstream>
+#include <string.h>
+#include <stdlib.h>
 
 /*Day Chart
 Days              Long Count period    Long Count unit
@@ -35,16 +37,15 @@ class MayanDate {
     MayanDate();
     MayanDate( unsigned int, unsigned int, unsigned int, unsigned int, unsigned int );
     void              set( unsigned int, unsigned int, unsigned int, unsigned int, unsigned int );
-    MayanDate         operator++() const;
-    int               operator-( const MayanDate & ) const;
-    MayanDate         operator+( unsigned int ) const;
-    MayanDate         operator-( unsigned int ) const;
-    bool              operator==( const MayanDate & ) const;
-    bool              operator!=( const MayanDate & m ) const;
-    void              get_string( char *, unsigned int ) const;
     unsigned int      toDays() const;
     std::string       toString() const;
-    static MayanDate  toMayan(unsigned int) const;
+    //MayanDate         operator++() const;
+    //int               operator-( const MayanDate & ) const;
+    //MayanDate         operator+( unsigned int ) const;
+    //MayanDate         operator-( unsigned int ) const;
+    //bool              operator==( const MayanDate & ) const;
+    //bool              operator!=( const MayanDate & m ) const;
+    //void              get_string( char *, unsigned int ) const;
 };
 
 class GregorianDate {
@@ -63,6 +64,7 @@ public:
 };
 
   bool isLeap(int year);
+  MayanDate toMayan(unsigned int);
   using namespace std;
 
 #endif
