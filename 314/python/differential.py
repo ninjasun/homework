@@ -1,7 +1,6 @@
 import sys
 
 def isOperand(x):
-  """Checks if argument x is an operand"""
   return x not in ['+','-','*','/','^','sin','cos']
 
 def isTrig(x):

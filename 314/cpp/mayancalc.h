@@ -58,6 +58,7 @@ class GregorianDate {
      GregorianDate(int, int, int );
      std::string      toString();
      unsigned int     toDays();
+     bool             isSame(int, int, int);
      //void  set(unsigned int, unsigned int, int );
      //GregorianDate & operator++();
      //bool  operator==( const GregorianDate & ) const;

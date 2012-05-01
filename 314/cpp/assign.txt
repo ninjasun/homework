@@ -37,7 +37,7 @@ they are way to large.
 
 RELATIONSHIP BETWEEN MAYAN AND GREGORIAN DATES
 
-The Mayan date will be represented as (Bak'tun, Ka'tun, Tun, Uinal, Kin).  The Mayan date 0.0.0.0.0 corresponds to the Gregorian year August 13, 3114 BC.  This Gregorian date can be represented as (8, 13, -3113).  For our program, a Mayan date will be represented as five dot-separated integers, e.g. 12 Bak'tun, 3 Ka'tun, 14 Tun, 5 Uinal, 18 Kin would be entered and output as 12.3.14.5.18 .  A Gregorian date for our program would be entered and output in the form mm/dd/yyyy.
+The Mayan date will be represented as (Bak'tun, Ka'tun, Tun, Uinal, Kin).  The Mayan date 0.0.0.0.0 corresponds to the Gregorian year August 11, 3114 BC.  This Gregorian date can be represented as (8, 11, -3113).  For our program, a Mayan date will be represented as five dot-separated integers, e.g. 12 Bak'tun, 3 Ka'tun, 14 Tun, 5 Uinal, 18 Kin would be entered and output as 12.3.14.5.18 .  A Gregorian date for our program would be entered and output in the form mm/dd/yyyy.
 
 LEAP YEARS IN THE GREGORIAN CALENDAR
 

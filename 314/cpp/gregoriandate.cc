@@ -2,14 +2,18 @@
 
 GregorianDate::GregorianDate() {
   day = 8;
-  month = 13;
-  year = -3133;
+  month = 11;
+  year = -3113;
 }
 
 GregorianDate::GregorianDate(int d, int m, int y) {
   day = d;
   month = m;
   year = y;
+}
+
+bool GregorianDate::isSame(int m, int d, int y) {
+  return (m == month && d == day && y == year);
 }
 
 string GregorianDate::toString() {
@@ -38,6 +42,8 @@ string GregorianDate::toString() {
 //TODO:
 unsigned int GregorianDate::toDays() {
   unsigned int answer = 0;
+  GregorianDate();
+  
   return answer;
 }
 
