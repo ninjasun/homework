@@ -93,18 +93,14 @@ int main(int argc, const char *argv[])
       units[count] = atoi(tok); count ++;
       tok = strtok(NULL, delim);
     }
-    
     MayanDate date = MayanDate(units[0],units[1],units[2],units[3], units[4]);
     unsigned int dayCount = date.toDays();
 
-    /**answer
     cout << toGreg(dayCount).toString() << "\n";
-    */
   }
   else {
     cout << "Invalid command. Please try again. \n";
   }
-
   return 0;
 }
 
