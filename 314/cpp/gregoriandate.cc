@@ -41,13 +41,44 @@ string GregorianDate::toString() {
 
 //TODO:
 unsigned int GregorianDate::toDays() {
-  unsigned int answer = 0;
-  GregorianDate();
-  
-  return answer;
+  unsigned int dayCount = 0;
+  int d = 11;
+  int m = 8;
+  int y = -3113;
+
+  int months[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+  while (y != year || m < month || d < day) {
+    cout << "y value: " << y << "\n";
+    int dayLimit = (m == 2 && isLeap(y)) ? 29 : months[m-1];
+    dayCount = dayCount+1;
+    if (d < dayLimit) {
+      d = d+1;
+    }
+    else {
+      d=1;
+      if (m == 12) {
+        y = y+1;
+        m = 1;
+      }
+      else {
+        m = m+1;
+      }
+    }
+  }
+  return dayCount;
 }
 
 //TODO:
 GregorianDate toGreg(unsigned int days) {
+  unsigned int dayCount = days;
+  int months[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+  unsigned int d = 11;
+  unsigned int m = 8;
+  unsigned int y = -3113;
+
+  //while (dayCount > 0){
+
+    //dayCount--;
+  //}
   return GregorianDate();
 }

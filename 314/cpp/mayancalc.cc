@@ -80,10 +80,9 @@ int main(int argc, const char *argv[])
     GregorianDate date = GregorianDate(gunits[1], gunits[0], gunits[2]);
     cout << date.toString() << "\n";
 
-    /**answer
     unsigned int tempDays = date.toDays();
+    cout << "tempdays: " << tempDays << "\n";
     cout << toMayan(tempDays).toString() << "\n";
-    */
 
   }
   else if (command.compare("m=") == 0) {

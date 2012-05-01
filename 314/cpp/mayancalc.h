@@ -39,13 +39,6 @@ class MayanDate {
     void              set( unsigned int, unsigned int, unsigned int, unsigned int, unsigned int );
     unsigned int      toDays() const;
     std::string       toString() const;
-    //MayanDate         operator++() const;
-    //int               operator-( const MayanDate & ) const;
-    //MayanDate         operator+( unsigned int ) const;
-    //MayanDate         operator-( unsigned int ) const;
-    //bool              operator==( const MayanDate & ) const;
-    //bool              operator!=( const MayanDate & m ) const;
-    //void              get_string( char *, unsigned int ) const;
 };
 
 class GregorianDate {
@@ -59,14 +52,6 @@ class GregorianDate {
      std::string      toString();
      unsigned int     toDays();
      bool             isSame(int, int, int);
-     //void  set(unsigned int, unsigned int, int );
-     //GregorianDate & operator++();
-     //bool  operator==( const GregorianDate & ) const;
-     //bool  operator!=( const GregorianDate & g ) const;
-     //int  operator-( const GregorianDate & ) const;
-     //GregorianDate operator-( unsigned int ) const;
-     //GregorianDate operator+( unsigned int ) const;
-     //void  get_string( char *, unsigned int ) const;
 };
 
   bool isLeap(int year);
