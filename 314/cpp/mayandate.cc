@@ -16,14 +16,6 @@ MayanDate::MayanDate(unsigned int bak, unsigned int kat, unsigned int t, unsigne
   kin = k;
 }
 
-void MayanDate::set(unsigned int bak, unsigned int kat, unsigned int t, unsigned int ui, unsigned int k){
-  baktun = bak;
-  katun = kat;
-  tun = t;
-  uinal = ui;
-  kin = k;
-}
-
 unsigned int MayanDate::toDays() const{
   unsigned int days = kin + uinal * 20 + tun * 360 + katun * 7200 + baktun * 144000;
   return days;

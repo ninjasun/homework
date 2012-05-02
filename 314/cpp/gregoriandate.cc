@@ -12,10 +12,6 @@ GregorianDate::GregorianDate(int d, int m, int y) {
   year = y;
 }
 
-bool GregorianDate::isSame(int m, int d, int y) {
-  return (m == month && d == day && y == year);
-}
-
 string GregorianDate::toString() {
   stringstream s;
   if (month < 10)
@@ -73,21 +69,43 @@ GregorianDate toGreg(unsigned int days) {
 
   while (dayCount > 0){
     int dayLimit = (m == 2 && isLeap(y)) ? 29 : months[m-1];
-
-    if(d < dayLimit) {
+    if(d < dayLimit) 
       d = d + 1;
-    }
     else {
       d = 1;
       if (m == 12) {
         m = 1;
         y++;
       }
-      else {
+      else
         m++;
-      }
     }
     dayCount--;
   }
   return GregorianDate(d, m, y);
+}
+
+GregorianDate yearify(unsigned int days) {
+  unsigned int dayCount = days;
+  int months[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+  unsigned int d = 0;
+  unsigned int m = 0;
+  unsigned int y = 0;
+
+  while (dayCount > 0){
+    int dayLimit = (m == 1 && isLeap(y)) ? 29 : months[m];
+    if(d < dayLimit)
+      d = d + 1;
+    else {
+      d = 1;
+      if (m == 11) {
+        m = 1;
+        y++;
+      }
+      else
+        m++;
+    }
+    dayCount--;
+  }
+  cout << "Extra Credit: " << y << " year(s), " << m << " month(s), and " << d << " day(s)\n";
 }
