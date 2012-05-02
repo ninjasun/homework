@@ -43,5 +43,6 @@ class GregorianDate {
   MayanDate toMayan(unsigned int); //Converts days to a MayanDate
   GregorianDate toGreg(unsigned int); //Converts days to a GregorianDate
   GregorianDate yearify(unsigned int); //Handles extra credit year evaluation
+
   using namespace std;
 #endif
