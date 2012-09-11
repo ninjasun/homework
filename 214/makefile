@@ -1,4 +1,4 @@
 all:
 	gcc -Wall -g -o tokenizer tokenizer.c
 clean:
-	rm -f tokenizer tokenizer.o
+	rm -rf tokenizer tokenizer.o tokenizer.dSYM
