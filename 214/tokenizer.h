@@ -11,7 +11,10 @@
 #define TOKENIZER_H_
 
 /* Define opaque type for tokenizer objects */
-typedef struct TKTokenizerT_ TKTokenizerT;
+typedef struct TKTokenizerT_ {
+  struct TKTokenizerT_ *next;
+  char *token;
+} TKTokenizerT;
 
 /*
  * TKCreate creates a new TokenizerT object.

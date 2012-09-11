@@ -2,6 +2,8 @@
  * tokenizer.c
  */
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 
 /*
@@ -17,7 +19,7 @@ typedef struct TokenizerT_ TokenizerT;
 /*
  * TKCreate creates a new TokenizerT object for a given set of separator
  * characters (given as a string) and a token stream (given as a string).
- * 
+ *
  * TKCreate should copy the two arguments so that it is not dependent on
  * them staying immutable after returning.  (In the future, this may change
  * to increase efficiency.)
@@ -29,6 +31,25 @@ typedef struct TokenizerT_ TokenizerT;
  */
 
 TokenizerT *TKCreate(char *separators, char *ts) {
+  int i;
+  int startIndex = 0;
+  int tsLen = strlen(ts);
+  char *buffer = malloc(sizeof(char)*(tsLen + 1));
+
+  for (i = 0; i < tsLen; i++) {
+    //Iterate through ts string
+
+    int j;
+    int sepLen = strlen(separators);
+
+    for (j = 0; j < sepLen; j++) {
+      if (ts[i] == separators[j]){
+        /*char *currentToken = */
+      }
+      else {
+      }
+    }
+  }
 
   return NULL;
 }
@@ -69,6 +90,18 @@ char *TKGetNextToken(TokenizerT *tk) {
  */
 
 int main(int argc, char **argv) {
+	if (argc != 3) {
+    printf("Invalid input. Two arguments are required\n");
+    return 1;
+  }
+
+  char *delims = argv[1];
+  char *original = argv[2];
+
+  printf("%s\n", delims);
+  printf("%s\n", original);
+
+
 
   return 0;
 }
