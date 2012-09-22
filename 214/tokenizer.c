@@ -2,7 +2,9 @@
  * tokenizer.c
  */
 #include <stdio.h>
-
+#include <stdlib.h>
+#include <string.h>
+#include "tokenizer.h"
 
 /*
  * Tokenizer type.  You need to fill in the type as part of your implementation.
@@ -74,10 +76,10 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  char *delims = argv[1];
+  char *delimiters = argv[1];
   char *stream = argv[2];
 
-  printf("%s\n", delims);
+  printf("%s\n", delimiters);
   printf("%s\n", stream);
 
   return 0;

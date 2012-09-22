@@ -12,7 +12,8 @@
 
 /* Define opaque type for tokenizer objects */
 typedef struct TKTokenizerT_ {
-
+  char *delims;
+  char *tokenStream;
 } TKTokenizerT;
 
 /*
