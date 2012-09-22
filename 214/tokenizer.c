@@ -69,6 +69,16 @@ char *TKGetNextToken(TokenizerT *tk) {
  */
 
 int main(int argc, char **argv) {
+  if (argc != 3) {
+    printf("Invalid input. Two arguments are required\n");
+    return 1;
+  }
+
+  char *delims = argv[1];
+  char *stream = argv[2];
+
+  printf("%s\n", delims);
+  printf("%s\n", stream);
 
   return 0;
 }
