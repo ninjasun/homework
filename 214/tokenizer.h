@@ -11,10 +11,7 @@
 #define TOKENIZER_H_
 
 /* Define opaque type for tokenizer objects */
-typedef struct TKTokenizerT_ {
-  char *delims;
-  char *tokenStream;
-} TKTokenizerT;
+typedef struct TKTokenizerT_ TKTokenizerT;
 
 /*
  * TKCreate creates a new TokenizerT object.

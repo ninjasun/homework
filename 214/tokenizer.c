@@ -2,9 +2,7 @@
  * tokenizer.c
  */
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "tokenizer.h"
+
 
 /*
  * Tokenizer type.  You need to fill in the type as part of your implementation.
@@ -19,7 +17,7 @@ typedef struct TokenizerT_ TokenizerT;
 /*
  * TKCreate creates a new TokenizerT object for a given set of separator
  * characters (given as a string) and a token stream (given as a string).
- *
+ * 
  * TKCreate should copy the two arguments so that it is not dependent on
  * them staying immutable after returning.  (In the future, this may change
  * to increase efficiency.)
@@ -71,16 +69,6 @@ char *TKGetNextToken(TokenizerT *tk) {
  */
 
 int main(int argc, char **argv) {
-  if (argc != 3) {
-    printf("Invalid input. Two arguments are required\n");
-    return 1;
-  }
-
-  char *delimiters = argv[1];
-  char *stream = argv[2];
-
-  printf("%s\n", delimiters);
-  printf("%s\n", stream);
 
   return 0;
 }
