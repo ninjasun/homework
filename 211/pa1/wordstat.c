@@ -132,9 +132,10 @@ int main(int argc, char** argv)
 		
 		char** array = malloc(sizeof(char *) * numPals);
 		palindrome *arrayBuild = palHead;
-		while (arrayBuild != NULL)
-		{
-			arrayBuild
+		/*while (arrayBuild != NULL)*/
+		/*{*/
+			/*arrayBuild*/
+    /*}*/
 
 
 
