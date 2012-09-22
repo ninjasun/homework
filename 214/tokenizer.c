@@ -2,8 +2,6 @@
  * tokenizer.c
  */
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 
 /*
@@ -31,25 +29,6 @@ typedef struct TokenizerT_ TokenizerT;
  */
 
 TokenizerT *TKCreate(char *separators, char *ts) {
-  int i;
-  int startIndex = 0;
-  int tsLen = strlen(ts);
-  char *buffer = malloc(sizeof(char)*(tsLen + 1));
-
-  for (i = 0; i < tsLen; i++) {
-    //Iterate through ts string
-
-    int j;
-    int sepLen = strlen(separators);
-
-    for (j = 0; j < sepLen; j++) {
-      if (ts[i] == separators[j]){
-        /*char *currentToken = */
-      }
-      else {
-      }
-    }
-  }
 
   return NULL;
 }
@@ -90,18 +69,6 @@ char *TKGetNextToken(TokenizerT *tk) {
  */
 
 int main(int argc, char **argv) {
-	if (argc != 3) {
-    printf("Invalid input. Two arguments are required\n");
-    return 1;
-  }
-
-  char *delims = argv[1];
-  char *original = argv[2];
-
-  printf("%s\n", delims);
-  printf("%s\n", original);
-
-
 
   return 0;
 }
