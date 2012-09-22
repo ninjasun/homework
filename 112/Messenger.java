@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class Messenger {
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	throws IOException {
 		
 		Solitaire ss = new Solitaire();
