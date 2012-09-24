@@ -1,0 +1,62 @@
+Test Cases
+
+====================================================================
+Input: ./tokenizer " " "today is a good day"
+Expected Output:
+today
+is
+a
+good
+day
+--------------------------------------------------------------------
+Actual Output:
+today
+is
+a
+good
+day
+====================================================================
+Input: ./tokenizer "/?" "/user/local/?bin/? share"
+Expected Output:
+user
+local
+bin
+ share
+--------------------------------------------------------------------
+Actual Output:
+user
+local
+bin
+ share
+====================================================================
+Input: ./tokenizer "abc" "a brown fox jumps over a black dog"
+Expected Output:
+ 
+rown fox jumps over 
+ 
+l
+k dog
+--------------------------------------------------------------------Actual Output:
+ 
+rown fox jumps over 
+ 
+l
+k dog
+====================================================================
+Input: ./tokenizer " xy" "your task is to xabc when"
+Expected Output:
+our
+task
+is
+to
+abc
+when
+--------------------------------------------------------------------
+Actual Output:
+our
+task
+is
+to
+abc
+when
+====================================================================
