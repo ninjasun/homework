@@ -1,0 +1,23 @@
+require 'rake'
+
+task :build do
+  sh 'make'
+  sh 'rm -rf tokenizer.dSYM'
+end
+
+task :run do
+  puts "Delimeters: "
+  delims = gets.chomp
+  puts "Stream: "
+  stream = gets.chomp
+  puts "==============================\n"
+
+  sh "./tokenizer \"#{delims}\" \"#{stream}\""
+end
+
+task :clean do
+  sh 'make clean'
+end
+
+task :default => [:build, :run]
+
