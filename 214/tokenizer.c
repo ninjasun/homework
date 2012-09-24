@@ -131,8 +131,7 @@ int main(int argc, char **argv) {
     i++;
   }
   free(currToken);
-  printf("Count: %d\n", i);
-
+  
   TKDestroy(tk);
 
   return 0;
