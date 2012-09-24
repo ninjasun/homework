@@ -68,6 +68,7 @@ void TKDestroy(TokenizerT *tk) {
 
 char *TKGetNextToken(TokenizerT *tk) {
   while (tk->stream != NULL && strpbrk(tk->stream, tk->delims) == tk->stream){
+    //Ensure that the first character is not a delimiter
     tk->stream += 1;
   }
 
@@ -124,14 +125,12 @@ int main(int argc, char **argv) {
 
   TokenizerT *tk = TKCreate(delimiters, original);
   char *currToken;
-  int i = 0;
   while ( (currToken = TKGetNextToken(tk)) != NULL ) {
     printf("%s\n", currToken);
     free(currToken);
-    i++;
   }
+
   free(currToken);
-  
   TKDestroy(tk);
 
   return 0;
