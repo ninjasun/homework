@@ -92,8 +92,13 @@ char *TKGetNextToken(TokenizerT *tk) {
   /*printf("LENGTH: %d\n ", tokenLength);*/
   strncpy(token, tk->stream, tokenLength);
 
+    token[tokenLength] = '\0';
 
-  tk->stream = tk->stream + strlen(token);
+    tk->stream = ptr;
+    if (tk->stream != NULL) {
+        tk->stream +=1;
+    }
+//  tk->stream = tk->stream + strlen(token);
 
   return token;
 }
