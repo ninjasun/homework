@@ -5,6 +5,10 @@
  *      Author: Thu D. Nguyen (tdnguyen@cs.rutgers.edu)
  *      Author: Chris Mansley
  *      Author: Brian Russell (morbius@cs.rutgers.edu)
+ *
+ *    Fixed on: Sept 21, 2012
+ *      Editor: Bilal Quadri (bilalq@cs.rutgers.edu)
+ *      Editor: Yvgeniy Demo (gdemo@eden.rutgers.edu)
  */
 
 #ifndef TOKENIZER_H_
@@ -13,6 +17,7 @@
 /* Define opaque type for tokenizer objects */
 typedef struct TokenizerT_ {
   char *delims;
+  char *head;
   char *stream;
 } TokenizerT;
 

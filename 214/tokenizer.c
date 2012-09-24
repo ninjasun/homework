@@ -1,5 +1,6 @@
 /*
  * tokenizer.c
+ * Bilal Quadri & Yvgeiny Demo
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,10 +30,11 @@ TokenizerT *TKCreate(char *separators, char *ts) {
   /* Allocate memory */
   TokenizerT *tk = malloc(sizeof(TokenizerT));
   tk->delims = malloc(sizeof(char*) * strlen(separators) + 1);
-  tk->stream = malloc(sizeof(char*) * strlen(ts) + 1);
+  tk->head = malloc(sizeof(char*) * strlen(ts) + 1);
 
   strcpy(tk->delims, separators);
-  strcpy(tk->stream, ts);
+  strcpy(tk->head, ts);
+  tk->stream = (tk->head);
 
   return tk;
 }
@@ -46,7 +48,7 @@ TokenizerT *TKCreate(char *separators, char *ts) {
 
 void TKDestroy(TokenizerT *tk) {
   free(tk->delims);
-  free(tk->stream);
+  free(tk->head);
   free(tk);
 
   return;
@@ -87,10 +89,10 @@ char *TKGetNextToken(TokenizerT *tk) {
     ptr++;
     i++;
   }
-  char *token = malloc(sizeof(char *) * 512 );
+  char *token = malloc(sizeof(char *) * strlen(tk->stream) + 1);
   int tokenLength = ( ((int)(endOfToken - ptr))+i);
   /*printf("LENGTH: %d\n ", tokenLength);*/
-  strncpy(token, tk->stream, tokenLength);
+  token = strncpy(token, tk->stream, tokenLength);
 
     token[tokenLength] = '\0';
 
@@ -98,7 +100,7 @@ char *TKGetNextToken(TokenizerT *tk) {
     if (tk->stream != NULL) {
         tk->stream +=1;
     }
-//  tk->stream = tk->stream + strlen(token);
+/*  tk->stream = tk->stream + strlen(token);*/
 
   return token;
 }
@@ -127,10 +129,9 @@ int main(int argc, char **argv) {
     printf("%s\n", currToken);
     free(currToken);
     i++;
-    if (i > 8){
-      break;
-    }
   }
+  free(currToken);
+  printf("Count: %d\n", i);
 
   TKDestroy(tk);
 

@@ -2,7 +2,7 @@ require 'rake'
 
 task :build do
   sh 'make'
-  sh 'rm -rf tokenizer.dSYM'
+  #sh 'rm -rf tokenizer.dSYM'
 end
 
 task :run do
