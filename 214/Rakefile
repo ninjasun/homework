@@ -15,6 +15,13 @@ task :run do
   sh "./tokenizer \"#{delims}\" \"#{stream}\""
 end
 
+task :test do
+  sh "./tokenizer \" \" \"today is a good day\""
+  sh "./tokenizer \"/?\" \"/user/local/?bin/? share\""
+  sh "./tokenizer \"abc\" \"a brown fox jumps over a black dog\""
+  sh "./tokenizer \" xy\" \"your task is to xabc when\""
+end
+
 task :clean do
   sh 'make clean'
 end
