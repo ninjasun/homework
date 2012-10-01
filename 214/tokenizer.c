@@ -92,7 +92,6 @@ char *TKGetNextToken(TokenizerT *tk) {
   }
   char *token = malloc(sizeof(char *) * strlen(tk->stream) + 1);
   int tokenLength = ( ((int)(endOfToken - ptr))+i);
-  /*printf("LENGTH: %d\n ", tokenLength);*/
   token = strncpy(token, tk->stream, tokenLength);
 
     token[tokenLength] = '\0';
@@ -101,7 +100,6 @@ char *TKGetNextToken(TokenizerT *tk) {
     if (tk->stream != NULL) {
         tk->stream +=1;
     }
-/*  tk->stream = tk->stream + strlen(token);*/
 
   return token;
 }
