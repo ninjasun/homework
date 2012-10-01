@@ -1,0 +1,4 @@
+Claim: The binary tree with minimum average depth has all leaves on =<2
+adjacent levels. [A balanced tree has min average depth]
+
+
