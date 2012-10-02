@@ -2,7 +2,6 @@
 .DS_Store
 scratch
 !scratch/.gitkeep
-214
 !214/*.c
 !214/*.h
 !214/*.pdf
