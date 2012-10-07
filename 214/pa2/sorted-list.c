@@ -14,7 +14,13 @@ SortedListPtr SLCreate(CompareFuncT cf) {
 
 
 void SLDestroy(SortedListPtr list) {
-  free(list->head);
+  Node ptr = list->head;
+  while (ptr != NULL) {
+    Node current = ptr;
+    ptr = ptr->next;
+    free(current);
+  }
+
   free(list);
 
   return;
@@ -35,6 +41,7 @@ int SLInsert(SortedListPtr list, void *newObj){
     Node entry = malloc(sizeof(Node));
     entry->data = newObj;
     entry->next = NULL;
+    list->head = entry;
   }
   else {
   /* List has at least 1 element */
@@ -48,8 +55,40 @@ int SLInsert(SortedListPtr list, void *newObj){
 
 
 int SLRemove(SortedListPtr list, void *newObj) {
+  if (list->head->data == NULL) {
+  /* Empty List */
+    return 0;
+  }
+  else if ( (list->cf(list->head->data, newObj)) == 0) {
+  /* Head needs to be removed */
+    Node toBeErased = list->head;
+    list->head = list->head->next;
+    free(toBeErased);
 
-  return 1;
+    return 1;
+  }
+  else {
+  /* Need to remove something in the middle */
+    Node prev = list->head;
+    Node curr = list->head->next;
+    if (curr == NULL) {
+    /* Edge case bandage */
+      return 0;
+    }
+
+    while ( (prev->next != NULL) && (list->cf(curr->data, newObj) > 0) ){
+      prev = curr;
+      curr = curr->next;
+    }
+    if (list->cf(curr->data, newObj) == 0){
+      prev->next = curr->next;
+      free(curr);
+      return 1;
+    }
+    else {
+      return 0;
+    }
+  }
 }
 
 

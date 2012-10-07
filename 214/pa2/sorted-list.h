@@ -19,7 +19,7 @@ typedef struct ListElement* Node;
 struct SortedList
 {
   Node head;
-  void* cf;
+  int (*cf)(void *, void *);
 };
 typedef struct SortedList* SortedListPtr;
 
