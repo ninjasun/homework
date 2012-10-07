@@ -2,8 +2,3 @@
 .DS_Store
 scratch
 !scratch/.gitkeep
-!214/*.c
-!214/*.h
-!214/*.pdf
-!214/*.txt
-!214/Rakefile
