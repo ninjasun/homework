@@ -44,8 +44,25 @@ int SLInsert(SortedListPtr list, void *newObj){
     list->head = entry;
   }
   else {
-  /* List has at least 1 element */
+    Node ptr = list->head;
 
+    if (list->cf(list->head->data, newObj) < 0){
+    /* New head of list */
+      Node entry = malloc(sizeof(Node));
+      entry->data = newObj;
+      entry->next = ptr;
+      list->head = entry;
+      return 1;
+    }
+
+    /* Insert somewhere in the middle of the list */
+    while ( (ptr->next != NULL) && (list->cf(ptr->next->data, newObj) < 0) ) {
+      ptr = ptr->next;
+    }
+    Node entry = malloc(sizeof(Node));
+    entry->data = newObj;
+    entry->next = ptr->next;
+    ptr->next = entry;
   }
 
   return 1;
