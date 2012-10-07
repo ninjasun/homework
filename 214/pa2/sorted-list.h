@@ -9,8 +9,17 @@
 /*
  * Sorted list type.  You need to fill in the type as part of your implementation.
  */
+
+struct ListElement {
+  void* data;
+  struct ListElement* next;
+};
+typedef struct ListElement* Node;
+
 struct SortedList
 {
+  Node head;
+  void* cf;
 };
 typedef struct SortedList* SortedListPtr;
 
@@ -21,6 +30,8 @@ typedef struct SortedList* SortedListPtr;
  */
 struct SortedListIterator
 {
+  Node head;
+  Node ptr;
 };
 typedef struct SortedListIterator* SortedListIteratorPtr;
 
@@ -46,7 +57,7 @@ typedef int (*CompareFuncT)(void *, void *);
  * SLCreate creates a new, empty sorted list.  The caller must provide
  * a comparator function that can be used to order objects that will be
  * kept in the list.
- * 
+ *
  * If the function succeeds, it returns a (non-NULL) SortedListT object.
  * Else, it returns NULL.
  *
