@@ -58,10 +58,12 @@ int SLRemove(SortedListPtr list, void *newObj) {
 
 /* Iterator Functions */
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list) {
+  return NULL;
 }
 
 
 
 
 void *SLNextItem(SortedListIteratorPtr iter) {
+  return NULL;
 }
