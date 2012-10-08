@@ -1,0 +1,8 @@
+*
+!.gitignore
+!main.c
+!makefile
+!Rakefile
+!sorted-list.c
+!sorted-list.h
+!sorted-list.pdf
