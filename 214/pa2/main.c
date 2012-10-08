@@ -123,6 +123,30 @@ int main()
     printf("%d\n", *foo);
   } while (foo != NULL);
   
+
+  printf("Test Case 5: Strings\n");
+  char* c1 = malloc(sizeof(char) * 5);
+  char* c2 = malloc(sizeof(char) * 5);
+  char* c3 = malloc(sizeof(char) * 5);
+  strcpy(c1, "hey\0");
+  strcpy(c2, "yo\0");
+  strcpy(c3, "kk\0");
+
+  SortedListPtr t5 = SLCreate(&compareStrings);
+  SLInsert(t5, c1);
+  SLInsert(t5, c2);
+  SLInsert(t5, c3);
+  SortedListIteratorPtr p5 = SLCreateIterator(t4);
+  char *resp;
+  do{
+    resp = SLNextItem(p5);
+    if (resp == NULL) {
+      break;
+    }
+    printf("%s\n", resp);
+  } while (resp != NULL);
+
+
   free(n1);
   free(n2);
   free(n3);
