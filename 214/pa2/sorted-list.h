@@ -20,6 +20,7 @@ struct SortedList
 {
   Node head;
   int (*cf)(void *, void *);
+  int changeCount;
 };
 typedef struct SortedList* SortedListPtr;
 
@@ -30,8 +31,10 @@ typedef struct SortedList* SortedListPtr;
  */
 struct SortedListIterator
 {
-  Node head;
+  SortedListPtr list;
   Node ptr;
+  void* maxValue;
+  int changeCount;
 };
 typedef struct SortedListIterator* SortedListIteratorPtr;
 

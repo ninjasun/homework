@@ -7,6 +7,7 @@ SortedListPtr SLCreate(CompareFuncT cf) {
 
   sl->head = NULL;
   sl->cf = cf;
+  sl->changeCount = 0;
 
   return sl;
 }
@@ -35,6 +36,7 @@ int SLInsert(SortedListPtr list, void *newObj){
   /* Fail to insert null */
     return 0;
   }
+  list->changeCount++;
 
   if (list->head == NULL) {
   /* List is empty */
@@ -82,6 +84,7 @@ int SLRemove(SortedListPtr list, void *newObj) {
     list->head = list->head->next;
     free(toBeErased);
 
+    list->changeCount++;
     return 1;
   }
   else {
@@ -100,6 +103,7 @@ int SLRemove(SortedListPtr list, void *newObj) {
     if (list->cf(curr->data, newObj) == 0){
       prev->next = curr->next;
       free(curr);
+      list->changeCount++;
       return 1;
     }
     else {
@@ -110,16 +114,50 @@ int SLRemove(SortedListPtr list, void *newObj) {
 
 
 
+/* Helper Functions */
+void reposition (SortedListIteratorPtr iter) {
+  Node ptr = iter->list->head;
+
+  while((ptr != NULL) && (iter->list->cf(ptr->data,iter->maxValue) >= 0)){
+    ptr = ptr->next;
+  }
+  iter->ptr = ptr;
+
+  return;
+}
+
+
 
 
 /* Iterator Functions */
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list) {
-  return NULL;
+  SortedListIteratorPtr iter = malloc(sizeof(SortedListIteratorPtr));
+  iter->list = list;
+  iter->ptr = list->head;
+  iter->maxValue = list->head->data;
+  iter->changeCount = list->changeCount;
+
+  return iter;
+}
+
+
+
+
+void SLDestroyIterator(SortedListIteratorPtr iter) {
+  free(iter);
+  return;
 }
 
 
 
 
 void *SLNextItem(SortedListIteratorPtr iter) {
-  return NULL;
+  if (iter->changeCount != iter->list->changeCount) {
+    reposition(iter);
+  }
+  void* nextItem = iter->ptr->data;
+  iter->ptr = iter->ptr->next;
+  iter->maxValue = nextItem;
+
+  return nextItem;
 }
