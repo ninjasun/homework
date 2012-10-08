@@ -3,7 +3,7 @@
 
 /* Sorted List Functions */
 SortedListPtr SLCreate(CompareFuncT cf) {
-  SortedListPtr sl = malloc(sizeof(SortedListPtr));
+  SortedListPtr sl = malloc(sizeof(struct SortedList) + 1);
 
   sl->head = NULL;
   sl->cf = cf;
@@ -40,7 +40,7 @@ int SLInsert(SortedListPtr list, void *newObj){
 
   if (list->head == NULL) {
   /* List is empty */
-    Node entry = malloc(sizeof(Node));
+    Node entry = malloc(sizeof(struct ListElement) + 1);
     entry->data = newObj;
     entry->next = NULL;
     list->head = entry;
@@ -50,7 +50,7 @@ int SLInsert(SortedListPtr list, void *newObj){
 
     if (list->cf(list->head->data, newObj) < 0){
     /* New head of list */
-      Node entry = malloc(sizeof(Node));
+      Node entry = malloc(sizeof(struct ListElement) + 1);
       entry->data = newObj;
       entry->next = ptr;
       list->head = entry;
@@ -61,7 +61,7 @@ int SLInsert(SortedListPtr list, void *newObj){
     while ( (ptr->next != NULL) && (list->cf(ptr->next->data, newObj) < 0) ) {
       ptr = ptr->next;
     }
-    Node entry = malloc(sizeof(Node));
+    Node entry = malloc(sizeof(struct ListElement) + 1);
     entry->data = newObj;
     entry->next = ptr->next;
     ptr->next = entry;
@@ -131,7 +131,7 @@ void reposition (SortedListIteratorPtr iter) {
 
 /* Iterator Functions */
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list) {
-  SortedListIteratorPtr iter = malloc(sizeof(SortedListIteratorPtr));
+  SortedListIteratorPtr iter = malloc(sizeof(struct SortedListIterator) + 1);
   iter->list = list;
   iter->ptr = list->head;
   iter->maxValue = list->head->data;
