@@ -117,6 +117,9 @@ int SLRemove(SortedListPtr list, void *newObj) {
 /* Helper Functions */
 void reposition (SortedListIteratorPtr iter) {
   Node ptr = iter->list->head;
+  if (ptr == iter->ptr){
+    return;
+  }
 
   while((ptr != NULL) && (iter->list->cf(ptr->data,iter->maxValue) >= 0)){
     ptr = ptr->next;
