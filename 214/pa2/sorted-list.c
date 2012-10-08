@@ -58,7 +58,7 @@ int SLInsert(SortedListPtr list, void *newObj){
     }
 
     /* Insert somewhere in the middle of the list */
-    while ( (ptr->next != NULL) && (list->cf(ptr->next->data, newObj) < 0) ) {
+    while ( (ptr->next != NULL) && (list->cf(ptr->next->data, newObj) > 0) ) {
       ptr = ptr->next;
     }
     Node entry = malloc(sizeof(struct ListElement) + 1);

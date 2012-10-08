@@ -38,28 +38,24 @@ int main()
   int* n3 = malloc(sizeof(int*));
   int* n4 = malloc(sizeof(int*));
 
-  int* n1 = 5;
-  int* n2 = 10;
-  int* n3 = 3;
-  int* n4 = 8;
+  *n1 = 5;
+  *n2 = 10;
+  *n3 = 3;
+  *n4 = 8;
 
   SLInsert(sl, n1);
   SLInsert(sl, n2);
   SLInsert(sl, n3);
   SLInsert(sl, n4);
 
-  SortedListIteratorPtr sp = SlCreateIterator(sl);
-
-  void* currentValue = malloc(sizeof(void*));
-  currentValue = 0;
-
-  while(currentValue != NULL)
-  {
-  	currentValue = SLNextItem(sp);
-  	printf("%d\n", currentValue);
-  }
-
+  SortedListIteratorPtr sp = SLCreateIterator(sl);
   
-  SLDestroyIteration(sp);
+  int* foo;
+  do{
+    foo = SLNextItem(sp); 
+    printf("%d\n", *foo);
+  } while (foo != NULL);
+  
+  SLDestroyIterator(sp);
   SLDestroy(sl);
 }
