@@ -5,6 +5,7 @@
  */
 
 #include <stdlib.h>
+#include <stdio.h>
 
 /*
  * Sorted list type.  You need to fill in the type as part of your implementation.
