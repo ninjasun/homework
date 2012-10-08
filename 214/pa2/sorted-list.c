@@ -74,7 +74,7 @@ int SLInsert(SortedListPtr list, void *newObj){
 
 
 int SLRemove(SortedListPtr list, void *newObj) {
-  if (list->head->data == NULL) {
+  if (list->head == NULL) {
   /* Empty List */
     return 0;
   }
@@ -134,7 +134,12 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list) {
   SortedListIteratorPtr iter = malloc(sizeof(struct SortedListIterator) + 1);
   iter->list = list;
   iter->ptr = list->head;
-  iter->maxValue = list->head->data;
+  if (iter->ptr == NULL){
+    iter->maxValue = NULL;
+  }
+  else {
+    iter->maxValue = list->head->data;
+  }
   iter->changeCount = list->changeCount;
 
   return iter;

@@ -1,0 +1,36 @@
+Test Plan 1:
+
+Input: 5,10,3,8
+Expected Output: 10,8,5,3
+Actual Output: 10,8,5,3
+
+We added 4 integers to a list in the order 5, 10, 3, 8. We then assigned a iterator to that list and used the SLNextItem method to print out the whole list. 
+This test case shows it inserts new items in sorted order.
+
+Test Plan 2:
+
+Input: 5,10,3,8
+Expected Output: 10,5,3
+Actual Output: 10,5,3
+
+Using the list from before we assigned a new iterator to the list and then removed 8. Then we printed out the list.
+This shows that removals before iterating the list work.
+
+Test Plan 3:
+
+Input: 5,10,3,8,11
+Expected Output 1: 5,3
+Expected Output 2: 11,10,5,3
+Actual Output 1: 5,3
+Actual Output 2: 11,10,5,3
+
+Using a list containing the same numbers as plan 1, we assigned a new iterator and got the first element of the list. We then removed 8 and continue to iterate.
+This shows that removals and aditions before iterating are handled and they don't disrupt the current position but still affect the list being iterated.
+
+Test Plan 4:
+
+Input: remove 5;
+Expected Output: none;
+Actual Output: none;
+
+Made an new list with no data. Tried to remove 5 from the list then created a pointer to the empty list and tried to iterate it.
