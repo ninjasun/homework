@@ -59,6 +59,24 @@ int main()
     printf("%d\n", *foo);
   } while (foo != NULL);
 
+  SortedListIteratorPtr sz = SLCreateIterator(sl);
+
+  SLRemove(sl, n4);
+  printf("remove\n");
+
+  do{
+    foo = SLNextItem(sz);
+    if (foo == NULL) {
+      break;
+    }
+    printf("%d\n", *foo);
+  } while (foo != NULL);
+
+  free(n1);
+  free(n2);
+  free(n3);
+  free(n4);
+  SLDestroyIterator(sz);
   SLDestroyIterator(sp);
   SLDestroy(sl);
 }
