@@ -32,7 +32,7 @@ int compareStrings(void *p1, void *p2)
 int main()
 {
   SortedListPtr sl = SLCreate(&compareInts);
-  
+
   int* n1 = malloc(sizeof(int*));
   int* n2 = malloc(sizeof(int*));
   int* n3 = malloc(sizeof(int*));
@@ -49,13 +49,16 @@ int main()
   SLInsert(sl, n4);
 
   SortedListIteratorPtr sp = SLCreateIterator(sl);
-  
+
   int* foo;
   do{
-    foo = SLNextItem(sp); 
+    foo = SLNextItem(sp);
+    if (foo == NULL) {
+      break;
+    }
     printf("%d\n", *foo);
   } while (foo != NULL);
-  
+
   SLDestroyIterator(sp);
   SLDestroy(sl);
 }

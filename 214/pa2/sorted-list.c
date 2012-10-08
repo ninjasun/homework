@@ -155,6 +155,9 @@ void *SLNextItem(SortedListIteratorPtr iter) {
   if (iter->changeCount != iter->list->changeCount) {
     reposition(iter);
   }
+  if(iter->ptr == NULL){
+    return NULL;
+  }
   void* nextItem = iter->ptr->data;
   iter->ptr = iter->ptr->next;
   iter->maxValue = nextItem;
