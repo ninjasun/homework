@@ -132,19 +132,12 @@ int main()
   strcpy(c2, "yo\0");
   strcpy(c3, "kk\0");
 
+  printf("%s\n", c1);
   SortedListPtr t5 = SLCreate(&compareStrings);
   SLInsert(t5, c1);
-  SLInsert(t5, c2);
-  SLInsert(t5, c3);
-  SortedListIteratorPtr p5 = SLCreateIterator(t4);
-  char *resp;
-  do{
-    resp = SLNextItem(p5);
-    if (resp == NULL) {
-      break;
-    }
-    printf("%s\n", resp);
-  } while (resp != NULL);
+  SortedListIteratorPtr p5 = SLCreateIterator(t5);
+  char *resp = SLNextItem(p5);
+  printf("%s\n", resp);
 
 
   free(n1);

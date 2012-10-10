@@ -34,3 +34,8 @@ Expected Output: none;
 Actual Output: none;
 
 Made an new list with no data. Tried to remove 5 from the list then created a pointer to the empty list and tried to iterate it.
+
+Test Plan 5:
+Input: "hey"
+Expected Output: "hey"
+Actual Output: "hey"
