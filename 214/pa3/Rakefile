@@ -1,0 +1,6 @@
+require 'rake'
+
+task :default do
+  make clean
+  make
+end
