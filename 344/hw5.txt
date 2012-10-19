@@ -1,0 +1,7 @@
+Using the Select algorithm shown in class, we can find the median in O(n) time.
+We can then use the Partitioning algorithm from quicksort that we went over in 
+class to put the median in place and have all elements greater than it to the 
+right, and all elements less than or equal to it on the left in O(n) time.
+We then iterate through the list and count the number of values equal to the 
+median. For the mode to appear at least n/2 times, this number must be greater
+than or equal to n/2. This takes n time.
