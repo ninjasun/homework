@@ -4,5 +4,5 @@ task :default do
   #sh 'make clean'
   sh 'make'
   puts "=====================================\n"
-  sh './indexer foo aiser'
+  sh './indexer foo sample'
 end

@@ -4,14 +4,13 @@
 int fileCallback(const char* pathname, const struct stat* ptr, int flag){
 
   if (flag == 1){
-  // Directory
-    /*puts(pathname);*/
+  // Directory; do nothing
   }
   else if (flag == 0) {
   // File
     printf("File: %s\n", pathname);
   }
-
+  return 0;
 }
 
 
