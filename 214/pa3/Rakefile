@@ -1,6 +1,8 @@
 require 'rake'
 
 task :default do
-  make clean
-  make
+  sh 'make clean'
+  sh 'make'
+  sh './indexer foo indexer.pdf'
+  sh './indexer foo aiser'
 end
