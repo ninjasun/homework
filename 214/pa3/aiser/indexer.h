@@ -1,8 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typdef struct word{
+typedef struct word{
    char word[256];
-   int count;
    struct word *next;
+   struct file *head;
 }word;
+
+typedef struct file{
+   char name[256];
+   int count;
+   struct file *next;
+}file;
