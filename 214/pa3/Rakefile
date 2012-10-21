@@ -1,7 +1,8 @@
 require 'rake'
 
 task :default do
-  sh 'make clean'
+  #sh 'make clean'
   sh 'make'
+  puts "=====================================\n"
   sh './indexer foo aiser'
 end

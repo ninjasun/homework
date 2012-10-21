@@ -8,7 +8,7 @@
 #include <sys/stat.h>
 
 
-int traverser(void* list, char* filename);
+int fileCallback(const char* pathname, const struct stat* ptr, int flag);
 
 
 #endif

@@ -1,4 +1,19 @@
 #include "indexer.h"
+#include <ftw.h>
+
+int fileCallback(const char* pathname, const struct stat* ptr, int flag){
+
+  if (flag == 1){
+  // Directory
+    /*puts(pathname);*/
+  }
+  else if (flag == 0) {
+  // File
+    printf("File: %s\n", pathname);
+  }
+
+}
+
 
 int main(int argc, char **argv) {
 
@@ -7,48 +22,8 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  traverser(NULL, argv[2]);
+  ftw(argv[2], fileCallback, 1);
 
   return 0;
 }
 
-int traverser(void* list, char* filename){
-  struct stat s;
-  if( stat(filename, &s) == 0 )
-  {
-    if( s.st_mode & S_IFDIR )
-    {
-      puts("Directory");
-
-      int len;
-      struct dirent *pDirent;
-      DIR *pDir;
-      pDir = opendir(filename);
-      if (pDir == NULL) {
-        printf ("Cannot open directory '%s'\n", filename);
-        return 0;
-      }
-      while((pDirent = readdir(pDir)) != NULL){
-        if(strcmp(pDirent->d_name, ".") == 0 || strcmp(pDirent->d_name, "..") == 0){
-          continue;
-        }
-        printf("%s/%s\n",filename, pDirent->d_name);
-      }
-      closedir(pDir);
-    }
-    else if( s.st_mode & S_IFREG )
-    {
-      puts("File");
-    }
-    else
-    {
-      puts("WTF");
-    }
-  }
-  else
-  {
-    puts("Error, file not found");
-    return 0;
-  }
-
-}
