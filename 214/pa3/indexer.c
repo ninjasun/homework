@@ -18,18 +18,31 @@ int traverser(void* list, char* filename){
   {
     if( s.st_mode & S_IFDIR )
     {
-      //it's a directory
       puts("Directory");
+
+      int len;
+      struct dirent *pDirent;
+      DIR *pDir;
+      pDir = opendir(filename);
+      if (pDir == NULL) {
+        printf ("Cannot open directory '%s'\n", filename);
+        return 0;
+      }
+      while((pDirent = readdir(pDir)) != NULL){
+        if(strcmp(pDirent->d_name, ".") == 0 || strcmp(pDirent->d_name, "..") == 0){
+          continue;
+        }
+        printf("%s/%s\n",filename, pDirent->d_name);
+      }
+      closedir(pDir);
     }
     else if( s.st_mode & S_IFREG )
     {
-      //it's a file
       puts("File");
     }
     else
     {
       puts("WTF");
-      //something else
     }
   }
   else
