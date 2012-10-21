@@ -6,3 +6,12 @@ task :default do
   puts "=====================================\n"
   sh './indexer foo sample'
 end
+
+task :mem do
+  sh 'make'
+  sh 'valgrind ./indexer foo sample'
+end
+
+task :clean do
+  sh 'make clean'
+end

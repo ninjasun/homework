@@ -1,15 +1,28 @@
 #include "indexer.h"
 #include <ftw.h>
 
-int fileCallback(const char* pathname, const struct stat* ptr, int flag){
 
-  if (flag == 1){
-  // Directory; do nothing
+struct globalList{
+  char* word;
+} wordCount;
+
+
+int fileCallback(const char* pathname, const struct stat* ptr, int flag){
+  if (flag == 0) {
+
+    FILE *file = fopen (pathname, "r");
+    if (file != NULL)
+    {
+      char* line = malloc(1024); //Buffer where line is stored
+      while ( fgets (line, 1024, file ) != NULL) /* read a line */
+      {
+        puts(line);
+      }
+      fclose (file);
+      free(line);
+    }
   }
-  else if (flag == 0) {
-  // File
-    printf("File: %s\n", pathname);
-  }
+
   return 0;
 }
 
@@ -20,6 +33,7 @@ int main(int argc, char **argv) {
     printf("Invalid input. Two arguments are required\n");
     return 1;
   }
+  printf("\n");
 
   ftw(argv[2], fileCallback, 1);
 
