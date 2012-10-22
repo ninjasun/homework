@@ -45,9 +45,50 @@ int addCount(char* path, char* word){
     strcpy(firstFile->fileName, path);
     wordList->files = firstFile;
   }
+  else if (1 == 2){
+    //TODO: EDGE CASE OF INSERTING NEW HEAD
+  }
   else { //At least one word exists
     wordNode* wordPtr = wordList;
-    while(strcmp(
+    int comparison = strcmp(wordPtr->word, word);
+    while( (wordPtr->next != NULL) && (comparison > 0) ){
+      wordPtr = wordPtr->next;
+    }
+    if (comparison == 0){
+      //TODO: WORDNODE ALREADY EXISTS
+      fileNode* filePtr = wordPtr->files;
+      fileNode* prev;
+      while (filePtr != NULL){
+        if (strcmp (filePtr->fileName,path) == 0){
+          filePtr->count++;
+          if (filePtr->next != NULL) {
+            if (filePtr->count > filePtr->next->count){
+              prev->next = filePtr->next;
+              
+            }
+          }
+          return 0;
+        }
+        prev = filePtr;
+        filePtr = filePtr->next;
+      }
+      if (foundFile == 0) {
+        
+      }
+    }
+    else if( (wordPtr->next == NULL) || (comparison != 0) ){
+      //Wordnode needs to be created
+      wordNode* nextPtr = malloc(sizeof(struct wordNode));
+      nextPtr->word = malloc(strlen(word) + 1);
+      strcpy(nextPtr->word, word);
+      nextPtr->next = wordPtr->next;
+      wordPtr->next = nextPtr;
+
+      struct fileNode* firstFile = malloc(sizeof(struct fileNode));
+      firstFile->fileName = malloc(strlen(path) + 1);
+      strcpy(firstFile->fileName, path);
+      wordPtr->files = firstFile;
+    }
   }
 
   return 0;
