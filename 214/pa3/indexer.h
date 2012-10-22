@@ -26,6 +26,8 @@ struct wordNode{
   struct wordNode* next;
 };
 
+typedef struct wordNode wordNode;
+typedef struct fileNode fileNode;
 
 /* Global Structs */
 struct wordNode* wordList;
@@ -36,6 +38,7 @@ char* getDelims();
 int addCount(char* path, char* word);
 void freeFiles();
 void freeWords();
+void printData();
 
 
 #endif

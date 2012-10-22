@@ -15,6 +15,7 @@ int fileCallback(const char* pathname, const struct stat* ptr, int flag){
       {
         char* token;
         for (token=strtok(line, delims); token != NULL; token=strtok(NULL, delims)) {
+          for ( ; *token; ++token) *token = tolower(*token);
           puts(token);
           strcpy(tempWord, token);
           strcpy(tempPath, pathname);
@@ -33,10 +34,23 @@ int fileCallback(const char* pathname, const struct stat* ptr, int flag){
 
 int addCount(char* path, char* word){
   if (wordList == NULL){
+    //First word to be entered
     wordList = malloc(sizeof(struct wordNode));
     wordList->word = malloc(strlen(word) + 1);
     strcpy(wordList->word, word);
+    wordList->next = NULL;
+
+    struct fileNode* firstFile = malloc(sizeof(struct fileNode));
+    firstFile->fileName = malloc(strlen(path) + 1);
+    strcpy(firstFile->fileName, path);
+    wordList->files = firstFile;
   }
+  else { //At least one word exists
+    wordNode* wordPtr = wordList;
+    while(strcmp(
+  }
+
+  return 0;
 }
 
 char* getDelims()
