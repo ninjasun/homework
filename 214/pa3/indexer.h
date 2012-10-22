@@ -36,7 +36,8 @@ struct wordNode* wordList;
 int fileCallback(const char* pathname, const struct stat* ptr, int flag);
 char* getDelims();
 int addCount(char* path, char* word);
-void printData();
+void printData(char* outputFile);
+void gundamFreedom();
 
 
 #endif

@@ -15,3 +15,14 @@ end
 task :clean do
   sh 'make clean'
 end
+
+task :big do
+  sh 'make'
+  puts "=====================================\n"
+  sh './indexer foo aiser'
+end
+  
+task :io do
+  sh 'make'
+  sh './indexer exists sample'
+end
