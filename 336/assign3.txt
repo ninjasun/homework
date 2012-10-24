@@ -1,0 +1,29 @@
+SQL Homework.
+
+ 
+You have to write SQL queries against the following database schema (keys are in bold):
+ 
+·        student(sid, sname, sex, age, year, gpa)
+·        dept(dname, numphds)
+·        prof(pname, dname)
+·        course(cno, cname, dname)
+·        major(dname, sid)
+·        section(dname, cno, sectno, pname)
+·        enroll(sid, grade, dname, cno, sectno)
+ 
+The tables are in a MySQL database.
+
+To login into the db follow the instructions on Sakai
+
+Write the following SQL queries (5 points each):
+(You should submit both the queries, in text format, and the answers you received from the database)
+ 
+Print the names of professors who work in departments that have fewer than 50 PhD students.
+For each Computer Sciences class, print the cno, sectno, and the average gpa of the students enrolled in the class.
+Print the names of students who are enrolled in a course from both the "Computer Sciences" and "Mathematics" departments
+How many students have more than one major?
+Print the ids, names, and GPAs of the students who are currently taking all of the Civil Engineering courses.
+Print the name and department of each professor who has taught a course not from his/her department at least once.
+Print the name(s) of the student(s) who has (have) the highest average grade (computed by the grades from all courses he/she has enrolled).
+Print the student names for each age group with the maximum grade w.r.t. the (combined) courses they have taken from the "Computer Science" and Math departments.
+(10 points) Some courses are popular among students just because students enrolled in those courses usually get good grades. Print the department name, course number, and course enrollment of each course C such that the following two conditions hold: (1) course C's enrollment is 3% larger than the average enrollment of courses offered by C's department, and (2) course C's average grade is 3% larger than the average grade obtained by students in courses offered by C's department. Assume that the enrollment of a course is the sum of the enrollment of all its sections. You can completely ignore any course that has no students enrolled in it.

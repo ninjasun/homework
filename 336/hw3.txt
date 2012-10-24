@@ -1,0 +1,64 @@
+=======================================================================
+Problem 1
+=======================================================================
+SELECT p.pname
+FROM prof p
+LEFT JOIN dept d
+ON p.dname=d.dname
+WHERE d.numphds < 50;
+
+
+Edison, L.
+Brian, C.
+Jones, J.
+Smith, S.
+Walter, A.
+Bucket, T.
+
+
+=======================================================================
+Problem 2
+=======================================================================
+SELECT course.cno, enroll.sectno, AVG(student.gpa) 
+FROM course, enroll, student 
+WHERE course.dname="Computer Sciences" AND course.cno = enroll.cno 
+AND student.sid = enroll.sid GROUP BY course.cno, enroll.sectno;
+
+
+=======================================================================
+Problem 3
+=======================================================================
+SELECT s.sname FROM student s
+RIGHT JOIN
+ (
+    SELECT e3.sid FROM enroll e
+    RIGHT JOIN (
+      SELECT e2.sid FROM enroll e2
+      WHERE e2.dname="Mathematics"
+    ) e3
+    ON e.sid=e3.sid
+    WHERE (e.dname="Computer Sciences")
+) s2
+ON s.sid=s2.sid
+
+
+Zappa, F.
+
+
+=======================================================================
+Problem 4
+=======================================================================
+SELECT count(DISTINCT sid)
+FROM major 
+WHERE sid IN (
+  SELECT sid FROM major 
+  GROUP BY sid HAVING count(sid) > 1
+);
+
+
+4
+
+
+=======================================================================
+Problem 5
+=======================================================================

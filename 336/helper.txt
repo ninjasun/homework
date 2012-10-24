@@ -1,0 +1,49 @@
+
+
+
+SCHEMA
+==========================================================================
+student(sid, sname, sex, age, year, gpa)
+dept(dname, numphds)
+prof(pname, dname)
+course(cno, cname, dname)
+major(dname, sid)
+section(dname, cno, sectno, pname)
+enroll(sid, grade, dname, cno, sectno)
+ 
+DEPT
+==========================================================================
+Chemical Engineering  32
+Civil Engineering 88
+Computer Sciences 47
+Industrial Engineering  41
+Mathematics 129
+Sanitary Engineering  3
+
+PROF
+==========================================================================
+Edison, L.  Chemical Engineering
+Brown, S. Civil Engineering
+Clark, E. Civil Engineering
+Randolph, B.  Civil Engineering
+Brian, C. Computer Sciences
+Jones, J. Computer Sciences
+Smith, S. Industrial Engineering
+Walter, A.  Industrial Engineering
+Robinson, T.  Mathematics
+Bucket, T.  Sanitary Engineering
+
+ENROLL
+==========================================================================
+1 3 Chemical Engineering  310 1
+2 3 Computer Sciences 302 1
+3 3.5 Civil Engineering 375 1
+4 4 Mathematics 461 1
+5 3 Industrial Engineering  514 1
+6 3.5 Computer Sciences 302 2
+7 4 Computer Sciences 302 1
+8 4 Computer Sciences 302 1
+9 3 Civil Engineering 375 1
+10  2 Computer Sciences 302 1
+11  3 Computer Sciences 302 2
+12  2.5 Computer Sciences 302 2
