@@ -1,12 +1,8 @@
 =======================================================================
 Problem 1
 =======================================================================
-SELECT p.pname
-FROM prof p
-LEFT JOIN dept d
-ON p.dname=d.dname
-WHERE d.numphds < 50;
-
+SELECT pname FROM prof, dept 
+WHERE prof.dname=dept.dname AND numphds < 50;
 
 Edison, L.
 Brian, C.
@@ -24,23 +20,21 @@ FROM course, enroll, student
 WHERE course.dname="Computer Sciences" AND course.cno = enroll.cno 
 AND student.sid = enroll.sid GROUP BY course.cno, enroll.sectno;
 
+302    1   3
+302    2   3.074999988079071
+467    1   2.9800000190734863
+701    1   3.283333331346512
+726    1   2.6411764805807785
 
 =======================================================================
 Problem 3
 =======================================================================
-SELECT s.sname FROM student s
-RIGHT JOIN
- (
-    SELECT e3.sid FROM enroll e
-    RIGHT JOIN (
-      SELECT e2.sid FROM enroll e2
-      WHERE e2.dname="Mathematics"
-    ) e3
-    ON e.sid=e3.sid
-    WHERE (e.dname="Computer Sciences")
-) s2
-ON s.sid=s2.sid
-
+SELECT sname FROM student WHERE sid IN 
+(
+  SELECT enroll.sid FROM enroll 
+  WHERE dname="Computer Sciences") AND sid IN 
+  (SELECT enroll.sid FROM enroll WHERE dname="Mathematics"
+);
 
 Zappa, F.
 
