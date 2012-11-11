@@ -4,5 +4,14 @@ task :default do
   #sh 'make clean'
   sh 'make'
   puts "=====================================\n"
-  sh './indexer foo aiser'
+  sh './indexer foo sample'
+end
+
+task :mem do
+  sh 'make'
+  sh 'valgrind ./indexer foo sample'
+end
+
+task :clean do
+  sh 'make clean'
 end
