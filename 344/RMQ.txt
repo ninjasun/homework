@@ -1,0 +1,7 @@
++-1 Range Minimum Query:
+  Given an array, we preprocess it to take 2 indices in the array,
+
+Claim: RMQ in an array is given by LCA of corresponding nodes in Cartesian Tree
+Pf: Consider recursive definition of Cartesian Tree. Let subarray A[k,l]
+containing pair i, j s.t. ( k <= 1 <= j <= l), be the last time i and j are in
+the same recusive subarray. So min of A[k,l] is between i and j and their LCA.

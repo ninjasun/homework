@@ -1,7 +1,10 @@
+Bilal Quadri
+Homework 3
+
 =======================================================================
 Problem 1
 =======================================================================
-SELECT pname FROM prof, dept 
+SELECT pname FROM prof, dept
 WHERE prof.dname=dept.dname AND numphds < 50;
 
 Edison, L.
@@ -15,9 +18,9 @@ Bucket, T.
 =======================================================================
 Problem 2
 =======================================================================
-SELECT course.cno, enroll.sectno, AVG(student.gpa) 
-FROM course, enroll, student 
-WHERE course.dname="Computer Sciences" AND course.cno = enroll.cno 
+SELECT course.cno, enroll.sectno, AVG(student.gpa)
+FROM course, enroll, student
+WHERE course.dname="Computer Sciences" AND course.cno = enroll.cno
 AND student.sid = enroll.sid GROUP BY course.cno, enroll.sectno;
 
 302    1   3
@@ -29,10 +32,10 @@ AND student.sid = enroll.sid GROUP BY course.cno, enroll.sectno;
 =======================================================================
 Problem 3
 =======================================================================
-SELECT sname FROM student WHERE sid IN 
+SELECT sname FROM student WHERE sid IN
 (
-  SELECT enroll.sid FROM enroll 
-  WHERE dname="Computer Sciences") AND sid IN 
+  SELECT enroll.sid FROM enroll
+  WHERE dname="Computer Sciences") AND sid IN
   (SELECT enroll.sid FROM enroll WHERE dname="Mathematics"
 );
 
@@ -43,12 +46,11 @@ Zappa, F.
 Problem 4
 =======================================================================
 SELECT count(DISTINCT sid)
-FROM major 
+FROM major
 WHERE sid IN (
-  SELECT sid FROM major 
+  SELECT sid FROM major
   GROUP BY sid HAVING count(sid) > 1
 );
-
 
 4
 
@@ -56,3 +58,92 @@ WHERE sid IN (
 =======================================================================
 Problem 5
 =======================================================================
+SELECT e.sid, s.sname, s.gpa FROM enroll e, student s
+WHERE e.dname="Civil Engineering" AND e.sid=s.sid
+GROUP BY e.sid
+HAVING count(e.sid) = (SELECT count(*) FROM course WHERE course.dname="Civil Engineering");
+
+29  Hamilton, S.  2.8
+
+
+=======================================================================
+Problem 6
+=======================================================================
+SELECT p.pname, p.dname FROM prof p, section s
+WHERE p.pname=s.pname AND p.dname<>s.dname;
+
+Clark, E. Civil Engineering
+Smith, S. Industrial Engineering
+
+
+=======================================================================
+Problem 7
+=======================================================================
+SELECT s.sname FROM enroll e, student s
+WHERE e.sid=s.sid
+GROUP BY e.sid
+HAVING avg(e.grade)=(
+  SELECT avg(e1.grade) FROM enroll e1
+  GROUP BY e1.sid
+  ORDER BY avg(e1.grade) DESC LIMIT 1
+);
+
+Sulfate, Barry M.
+Sather, Roberto B.
+Stanley, Leotha T.
+Bomber, C.
+Carter, Jimmy
+Baker, C.
+Moeri, S.
+Micheal, Zadicki T.
+Moomchi, B.
+Atny, Mary H.
+Evert, Chris
+Connors, Jimmy
+Mueller, D.
+Ghandi, I.
+Kirk, J.
+Andermanthenol, K.
+Taylor, R.
+Davis, Scott P.
+Kaisler, Janet M.
+
+=======================================================================
+Problem 8
+=======================================================================
+SELECT s.sname, max(e.grade) FROM student s, enroll e
+WHERE s.sid=e.sid AND (e.dname="Computer Sciences" OR e.dname="Mathematics")
+GROUP BY s.age
+
+News, Nightly 3.5
+Zappa, F. 3.5
+Emile, R. 4
+Sulfate, Barry M. 4
+Scott, Kim J. 4
+Stanley, Leotha T.  4
+Sather, Roberto B.  4
+Paul, Mary W. 3.5
+Soong, V. 2.5
+Cheong, R.  4
+Gooch 4
+Thorton, James Q. 3
+Mathews, John W.  3
+Dunbar, D.  3
+Pierson, E. 3
+Kirk, J.  4
+Kool, Joseph F. 2.5
+Smith, L. 3.5
+Barnes, J.  3.5
+Kennedy, Ed 3
+Carter, Jimmy 4
+Kissinger, Henry  3.5
+Ford, Gerald  3.5
+Ghandi, I.  4
+Fred, Edwin B.  3.5
+Longlastname, A.  3.5
+
+
+=======================================================================
+Problem 9
+=======================================================================
+
