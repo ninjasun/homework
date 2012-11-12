@@ -5,6 +5,8 @@ int main(int argc, char **argv) {
     printf("Invalid input. Please enter the name of an index.\n");
     return 1;
   }
+    
+  
 }
 
 int countFiles(const char* indexFile){
@@ -20,15 +22,19 @@ int countFiles(const char* indexFile){
     if (strstr(line, "<file>")){
       inFile = 1;
     }
+    else if (strstr(line, "</file>")){
+        break;
+    }
     else if (inFile) {
       count += 1;
     }
+
   }
   return count;
 }
 
 char** buildFiles(const char* indexFile){
-  int counter = 0;
+  int fileCount = countFiles(indexFile);
   char** fileList = malloc(sizeof(char*) * (countFiles(indexFile) + 1));
   char* line;
   FILE *file = fopen (indexFile, "r");
@@ -53,7 +59,7 @@ char** buildFiles(const char* indexFile){
     else {
         fileList[counter] = malloc(strlen(line) - 2);
         strcpy(fileList[counter], line+2);
-        counter++;
+        fileCount--;
     }
   }
 
