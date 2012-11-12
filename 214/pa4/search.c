@@ -11,6 +11,8 @@ int main(int argc, char **argv) {
   
   char* inputLine;
   char* searchOption;
+
+  char** fileList = 
   
   buildWordList(argv[1]);
     
@@ -97,6 +99,7 @@ char** buildFiles(const char* indexFile){
         fileCount--;
     }
   }
+  return fileList;
 }
 
 

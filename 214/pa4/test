@@ -1,9 +1,9 @@
 <list> and
-	dog: 1
+	1: 1
 </list>
 <list> are
-	dog: 1
-	cat: 1
+	1: 1
+	0: 1
 </list>
 <list> even
 	1: 1
