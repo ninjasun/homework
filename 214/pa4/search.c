@@ -53,7 +53,7 @@ char** buildFiles(const char* indexFile){
       continue;
     }
     else {
-        fileList[counter] = malloc(strlen(line) - 2);
+        fileList[counter] = malloc(strlen(line));
         strcpy(fileList[counter], line+2);
         counter++;
     }
@@ -61,14 +61,17 @@ char** buildFiles(const char* indexFile){
 }
 
 
-wordNode* buildWordList(const char* indexFile) {
-  /*wordNode* wordList = malloc(sizeof(fileNode*) + 1);*/
-  /*wordNode* curr = wordList;*/
+struct wordnode* buildWordList(const char* indexFile) {
+  /*wordNode* wordList = malloc(sizeof(struct wordnode) + 1);*/
+  struct wordnode* wordList = NULL;
+  struct wordnode* curr = NULL;
 
   char* line;
-  char* word = "";
+  char** fileList = buildFiles(indexFile);
+  char* word = NULL;
   FILE *file = fopen (indexFile, "r");
   int inList = 0;
+
 
   if (file != NULL){
     line = malloc(2048); /*Buffer where line is stored*/
@@ -76,19 +79,39 @@ wordNode* buildWordList(const char* indexFile) {
 
   while (fgets(line, 2048, file ) != NULL){
     if (strstr(line, "<list>")){
-      word = malloc(strlen(line+6));
       inList = 1;
+      word = malloc(strlen(line+6));
       strncpy(word, line+7, strlen(line+7) - 1);
-      printf("Word: %s\n", word);
-    }
-    /*else if (strstr(line, "</list>")){*/
-      /*inList = 0;*/
-      /*continue;*/
-    /*}*/
+      curr = malloc(sizeof(struct wordnode) + 1);
+      curr->word = word;
+      curr->files = NULL;
+      curr->next = wordList;
 
+      if (wordList == NULL){
+        wordList = (curr);
+      }
+    }
+    else if (strstr(line, "</list>")){
+      inList = 0;
+      continue;
+    }
+    else if (inList){
+      struct filenode* currFile = malloc(sizeof(struct filenode) + 1);
+
+      int colonSpot = 0;
+      while (colonSpot < strlen(line) && line[colonSpot] != ':'){
+        colonSpot++;
+      }
+      line[colonSpot] = '\0';
+
+      currFile->fileName = malloc(strlen(line) + 1);
+      currFile->fileName = malloc(colonSpot + 1);
+      strcpy(currFile->fileName, line);
+      currFile->next = curr->files;
+      curr->files = currFile;
+    }
   }
   fclose(file);
 
-  return NULL;
-  /*return wordList;*/
+  return wordList;
 }

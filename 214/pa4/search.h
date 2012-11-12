@@ -7,19 +7,16 @@
 
 struct filenode {
   char* fileName;
-  struct filenode *next;
+  struct filenode* next;
 };
 
 struct wordnode {
   char* word;
-  struct wordnode *next;
-  struct filenode *files;
+  struct wordnode* next;
+  struct filenode* files;
 };
 
-typedef struct filenode fileNode;
-typedef struct wordNode wordNode;
-
 char** buildFiles(const char*);
-wordNode* buildWordList(const char*);
+struct wordnode* buildWordList(const char*);
 
 #endif
