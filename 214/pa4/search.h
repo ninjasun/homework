@@ -5,17 +5,21 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct filenode {
-  char* word;
-  fileNode* next;
-} fileNode;
+struct filenode {
+  char* fileName;
+  struct filenode *next;
+};
 
-typedef struct wordnode {
+struct wordnode {
   char* word;
-  wordNode* next;
-} wordNode;
+  struct wordnode *next;
+  struct filenode *files;
+};
+
+typedef struct filenode fileNode;
+typedef struct wordNode wordNode;
 
 char** buildFiles(const char*);
-file** buildWordList(const char*);
+wordNode* buildWordList(const char*);
 
 #endif
