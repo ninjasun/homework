@@ -28,6 +28,7 @@ int countFiles(const char* indexFile){
 }
 
 char** buildFiles(const char* indexFile){
+  int counter = 0;
   char** fileList = malloc(sizeof(char*) * (countFiles(indexFile) + 1));
   char* line;
   FILE *file = fopen (indexFile, "r");
@@ -50,7 +51,9 @@ char** buildFiles(const char* indexFile){
       continue;
     }
     else {
-      //ADD TO FILE LIST
+        fileList[counter] = malloc(strlen(line) - 2);
+        strcpy(fileList[counter], line+2);
+        counter++;
     }
   }
 
