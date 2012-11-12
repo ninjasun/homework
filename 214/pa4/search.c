@@ -5,7 +5,6 @@ int main(int argc, char **argv) {
     printf("Invalid input. Please enter the name of an index.\n");
     return 1;
   }
-
   buildWordList(argv[1]);
   return 0;
 
@@ -68,8 +67,8 @@ char** buildFiles(const char* indexFile){
 
 
 wordNode* buildWordList(const char* indexFile) {
-  wordNode* wordList = malloc(sizeof(fileNode*) + 1);
-  wordNode* curr = wordList;
+  /*wordNode* wordList = malloc(sizeof(fileNode*) + 1);*/
+  /*wordNode* curr = wordList;*/
 
   char* line;
   char* word = "";
@@ -82,16 +81,19 @@ wordNode* buildWordList(const char* indexFile) {
 
   while (fgets(line, 2048, file ) != NULL){
     if (strstr(line, "<list>")){
+      word = malloc(strlen(line+6));
       inList = 1;
-      strcpy(word, line+7);
-      printf("Word is: %s\n", word);
+      strncpy(word, line+7, strlen(line+7) - 1);
+      printf("Word: %s\n", word);
     }
-    if (strstr(line, "</list>")){
-      inList = 0;
-      continue;
-    }
+    /*else if (strstr(line, "</list>")){*/
+      /*inList = 0;*/
+      /*continue;*/
+    /*}*/
 
   }
+  fclose(file);
+
   return NULL;
   /*return wordList;*/
 }
