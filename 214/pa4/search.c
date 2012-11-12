@@ -6,16 +6,14 @@ int main(int argc, char **argv) {
     printf("Invalid input. Please enter the name of an index.\n");
     return 1;
   }
-  
+
   char* searchInput = malloc(1024);
-  
+
   char* inputLine;
   char* searchOption;
 
-  char** fileList = 
-  
   buildWordList(argv[1]);
-    
+
   while (1 == 1)
   {
     printf("Search> ");
@@ -40,7 +38,7 @@ int main(int argc, char **argv) {
     {
       printf("Invalid search input, please try again. \n");
     }
-      
+
   }
 
   return 0;
@@ -68,6 +66,120 @@ int countFiles(const char* indexFile){
 
   }
   return count;
+}
+
+void andSearch (wordNode *head, char* line) {
+   strncpy(line, line + 2);
+   char* token;
+   token = strtok(line, " ");
+   fileNode fileHead = NULL;
+   while (token != NULL) {
+      ptr = head;
+      while (ptr != NULL) {
+         if (strcmp(ptr.word, token) == 0) {
+            if (fileHead == NULL) {
+               fileHead = malloc(sizeof(struct fileNode*) + 1);
+               fileNode tmpPtr2;
+               fileNode tmpPtr;
+               tmpPtr = ptr.files;
+               tmpPtr2 = fileHead;
+               while (tmpPtr != NULL) {
+                  tmpPtr2.fileName = tmpPtr.fileName;
+                  tmpPtr2.next = malloc(sizeof(fileNode*) + 1);
+                  tmpPtr2 = tmpPtr2.next;
+               }
+            }
+            else {
+               fileNode tmpPtr = fileHead;
+               fileNode prev = tmpPtr;
+               fileNode tmpPtr2 = ptr.files;
+               int found = 0;
+               while (tmpPtr != NULL) {
+                  while (tmpPtr2 != NULL) {
+                     if (strcmp(tmpPtr.fileName,tmpPtr2.fileName) == 0){
+                        found = 1;
+                        break;
+                     }
+                     tmpPtr2 = tmpPtr2.next;
+                  }
+                  if (found == 0){
+                     if (strcmp(prev.fileName,tmpPtr.fileName) == 0){
+                        fileHead = fileHead.next;
+                        free(prev);
+                        tmpPtr = fileHead;
+                     }
+                     else {
+                        prev.next = tmpPtr.next;
+                        free(tmpPtr);
+                        tmpPtr = prev.next;
+                     }
+                  }
+                  else {
+                     prev = tmpPtr;
+                     tmpPtr = tmpPtr.next;
+                  }
+                  found = 0;
+               }
+            }
+         }
+      }
+      token = strtok(NULL, " ");
+   }
+   struct filenode tmp = fileHead;
+   while (tmp!= NULL){
+      printf("%s\n", tmp.fileName);
+   }
+}
+
+void orSearch(wordNode *head, char* line){
+  strncpy(line, line + 2);
+  char* token;
+  token = strtok(line, " ");
+  fileNode fileHead = NULL;
+  struct filenode tail = NULL;
+  while (token != NULL) {
+      ptr = head;
+      while (ptr != NULL) {
+         if (strcmp(ptr.word, token) == 0) {
+            if (filehead == NULL) {
+               fileHead = malloc(sizeof(struct filenode*) + 1);
+               struct filenode tmpPtr;
+               struct filenode tmpPtr2;
+               tmpPtr = ptr.files;
+               tmpPtr2 = fileHead;
+               while (tmpPtr != NULL) {
+                  tmpPtr2.fileName = tmpPtr.fileName;
+                  tmpPtr2.next = malloc(sizeof(struct filenode*) + 1);
+                  tail = tmpPtr2;
+                  tmpPtr2 = tmpPtr2.next;
+               }
+            }
+            else {
+               struct filenode tmpPtr = fileHead;
+               struct filenode prev = tmpPtr;
+               struct filenode tmpPtr2 = ptr.files;
+               int found = 0;
+               while (tmpPtr2 != NULL) {
+                  while (tmpPtr != NULL) {
+                     if (strcmp(tmpPtr.fileName, tmpPtr2.fileName) == 0){
+                        found = 1;
+                     }
+                  }
+                  if (found == 0) {
+                     tail.next = malloc(sizeof(struct filenode*) + 1);
+                     tail = tail.next;
+                     tail.fileName = tmpPtr2.fileName;
+                  }
+               }
+            }
+         }
+      }
+  }
+  struct filenode tmp = fileHead;
+  while (tmp != NULL) {
+     printf("%s\n",tmp.fileName);
+     tmp = tmp.next;
+  }
 }
 
 char** buildFiles(const char* indexFile){
