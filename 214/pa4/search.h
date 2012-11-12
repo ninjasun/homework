@@ -5,6 +5,6 @@
 #include <stdio.h>
 #include <string.h>
 
-char** buildFiles();
+char** buildFiles(const char*);
 
 #endif
