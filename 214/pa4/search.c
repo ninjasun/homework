@@ -12,40 +12,28 @@ int main(int argc, char **argv) {
   char* searchOption;
 
 
-  buildWordList(argv[1]);
+  struct wordnode* list = buildWordList(argv[1]);
 
-  return 0;
 
   while (1 == 1)
   {
     printf("Search> ");
-    scanf("%s", searchInput);
+    fgets(searchInput, 1024, stdin);
+    searchInput[strlen(searchInput) - 1] = '\0';
 
-    if(strncmp(searchInput, "q", 1) == 0)
-    {
+    if (searchInput[0] == 'q'){
+      puts("We got q");
       return 0;
     }
-
-    searchOption = strtok(inputLine, " ");
-
-    /*if(strncmp(searchOption[1], "sa", 2) == 0)*/
-    /*{*/
-      /*puts("sa");*/
-    /*}*/
-    /*else if(strncmp(searchOption[1], "so", 2) == 0)*/
-    /*{*/
-      /*puts("so");*/
-    /*}*/
-    /*else*/
-    /*{*/
-      /*printf("Invalid search input, please try again. \n");*/
-    /*}*/
-
-    /*}*/
-    /*else*/
-    /*{*/
-      /*printf("Invalid search input, please try again. \n");*/
-    /*}*/
+    if (searchInput[0] == 's'){
+      if(searchInput[1] == 'a'){
+        puts(searchInput);
+        andSearch(list, searchInput);
+      }
+      if(searchInput[1] == 'o'){
+        orSearch(list, searchInput);
+      }
+    }
   }
 
   return 0;
@@ -76,7 +64,9 @@ int countFiles(const char* indexFile){
 }
 
 void andSearch (struct wordnode *head, char* line) {
+    puts(line);
    strncpy(line, line + 2, strlen(line));
+   puts(line);
    char* token;
    token = strtok(line, " ");
    struct filenode* fileHead = NULL;

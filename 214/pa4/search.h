@@ -18,5 +18,8 @@ struct wordnode {
 
 char** buildFiles(const char*);
 struct wordnode* buildWordList(const char*);
+void andSearch(struct wordnode*, char*);
+void orSearch(struct wordnode*, char*);
+
 
 #endif
