@@ -1,13 +1,47 @@
 #include "search.h"
+#include <stdio.h>
 
 int main(int argc, char **argv) {
   if (argc != 2) {
     printf("Invalid input. Please enter the name of an index.\n");
     return 1;
   }
+  
+  char* searchInput = malloc(1024);
+  
+  char* inputLine;
+  char* searchOption;
+  
   buildWordList(argv[1]);
-  return 0;
+    
+  while (1 == 1)
+  {
+    printf("Search> ");
+    scanf("%s", searchInput);
 
+    if(strncmp(searchInput, "q", 1) == 0)
+    {
+      return 0;
+    }
+
+    searchOption = strtok(inputLine, " ");
+
+    if(strncmp(searchOption[1], "sa", 2) == 0)
+    {
+
+    }
+    else if(strncmp(searchOption[1], "sa", 2) == 0)
+    {
+
+    }
+    else
+    {
+      printf("Invalid search input, please try again. \n");
+    }
+      
+  }
+
+  return 0;
 }
 
 int countFiles(const char* indexFile){
@@ -36,7 +70,7 @@ int countFiles(const char* indexFile){
 
 char** buildFiles(const char* indexFile){
   int fileCount = countFiles(indexFile);
-  char** fileList = malloc(sizeof(char*) * (countFiles(indexFile) + 1));
+  char** fileList = malloc(sizeof(char*) * fileCount + 1);
   char* line;
   FILE *file = fopen (indexFile, "r");
   int inFile = 0;
@@ -58,8 +92,8 @@ char** buildFiles(const char* indexFile){
       continue;
     }
     else {
-        fileList[counter] = malloc(strlen(line) - 2);
-        strcpy(fileList[counter], line+2);
+        fileList[fileCount] = malloc(strlen(line) - 2);
+        strcpy(fileList[fileCount], line+2);
         fileCount--;
     }
   }
