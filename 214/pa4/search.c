@@ -42,6 +42,10 @@ char** buildFiles(const char* indexFile){
       inFile = 1;
       continue;
     }
+    else if (strstr(line, "</file>")){
+      inFile = 0;
+      break;
+    }
     else if (! inFile) {
       continue;
     }
