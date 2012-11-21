@@ -64,7 +64,7 @@ int countFiles(const char* indexFile){
 }
 
 void andSearch (struct wordnode *head, char* line) {
-    puts(line);
+   puts(line);
    strncpy(line, line + 2, strlen(line));
    puts(line);
    char* token;
@@ -73,6 +73,7 @@ void andSearch (struct wordnode *head, char* line) {
    while (token != NULL) {
       struct wordnode* ptr = head;
       while (ptr != NULL) {
+         printf("word: %s, token: %s",ptr->word,token);
          if (strcmp(ptr->word, token) == 0) {
             if (fileHead == NULL) {
                fileHead = malloc(sizeof(struct filenode*) + 1);
@@ -81,6 +82,7 @@ void andSearch (struct wordnode *head, char* line) {
                tmpPtr = ptr->files;
                tmpPtr2 = fileHead;
                while (tmpPtr != NULL) {
+                  printf("NEW HEAD");
                   tmpPtr2->fileName = tmpPtr->fileName;
                   tmpPtr2->next = malloc(sizeof(struct filenode*) + 1);
                   tmpPtr2 = tmpPtr2->next;
@@ -95,6 +97,7 @@ void andSearch (struct wordnode *head, char* line) {
                   while (tmpPtr2 != NULL) {
                      if (strcmp(tmpPtr->fileName,tmpPtr2->fileName) == 0){
                         found = 1;
+                        printf("found: %s", tmpPtr->fileName);
                         break;
                      }
                      tmpPtr2 = tmpPtr2->next;
@@ -119,12 +122,14 @@ void andSearch (struct wordnode *head, char* line) {
                }
             }
          }
+         ptr = ptr->next;
       }
       token = strtok(NULL, " ");
    }
    struct filenode* tmp = fileHead;
    while (tmp!= NULL){
       printf("%s\n", tmp->fileName);
+      tmp = tmp->next;
    }
 }
 
@@ -161,6 +166,7 @@ void orSearch(struct wordnode *head, char* line){
                      if (strcmp(tmpPtr->fileName, tmpPtr2->fileName) == 0){
                         found = 1;
                      }
+                     tmpPtr = tmpPtr->next;
                   }
                   if (found == 0) {
                      tail->next = malloc(sizeof(struct filenode**) + 1);
@@ -170,6 +176,7 @@ void orSearch(struct wordnode *head, char* line){
                }
             }
          }
+         ptr = ptr->next;
       }
   }
   struct filenode* tmp = fileHead;
