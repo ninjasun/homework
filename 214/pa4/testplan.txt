@@ -1,0 +1,1 @@
+Our test plan included a folder called Animals and inside it had two files called Cat and Dog. The files had some word interlaps. We know that in large scale tests the code is a bit inefficient because it has to run through the indexed file three times. 

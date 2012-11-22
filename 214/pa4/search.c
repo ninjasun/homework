@@ -126,6 +126,7 @@ void andSearch (struct wordnode *head, char* line) {
                         fileHead = fileHead->next;
                         free(prev);
                         tmpPtr = fileHead;
+                        prev = tmpPtr;
                      }
                      else {
                         prev->next = tmpPtr->next;
