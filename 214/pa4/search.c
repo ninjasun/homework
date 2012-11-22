@@ -93,17 +93,19 @@ void andSearch (struct wordnode *head, char* line) {
                tmpPtr = ptr->files;
                tmpPtr2 = fileHead;
                tmpPtr2->next = NULL;
+               tmpPtr2->fileName = tmpPtr->fileName;
+               tmpPtr = tmpPtr->next;
+
+               //tmpPtr2 = tmpPtr2->next;
                //tmpPtr = tmpPtr->next;
                //tmpPtr2 = tmpPtr2->next;
                while (tmpPtr != NULL) {
-                  tmpPtr2->fileName = tmpPtr->fileName;
+                  tmpPtr2->next = malloc(sizeof(struct filenode) + 1);
+                  tmpPtr2->next->fileName = tmpPtr->fileName;
+                  tmpPtr2->next->next = NULL;
                   tmpPtr2 = tmpPtr2->next;
                   tmpPtr = tmpPtr->next;
-                  tmpPtr2 = malloc(sizeof(struct filenode) + 1);
-                  tmpPtr2->next = NULL;
                }
-               struct filenode* end = malloc(sizeof(struct filenode) + 1);
-               tmpPtr2 = NULL;
                //fileHead->next = NULL;
             }
             else {
@@ -116,7 +118,7 @@ void andSearch (struct wordnode *head, char* line) {
                   while (tmpPtr2 != NULL) {
                      if (strcmp(tmpPtr->fileName,tmpPtr2->fileName) == 0){
                         found = 1;
-                        printf("found: %s", tmpPtr->fileName);
+                        //printf("found: %s", tmpPtr->fileName);
                         break;
                      }
                      tmpPtr2 = tmpPtr2->next;
