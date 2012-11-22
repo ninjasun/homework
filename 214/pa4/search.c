@@ -109,7 +109,6 @@ void andSearch (struct wordnode *head, char* line) {
                //fileHead->next = NULL;
             }
             else {
-               puts("Never seen");
                struct filenode* tmpPtr = fileHead;
                struct filenode* prev = tmpPtr;
                struct filenode* tmpPtr2 = ptr->files;
@@ -118,7 +117,6 @@ void andSearch (struct wordnode *head, char* line) {
                   while (tmpPtr2 != NULL) {
                      if (strcmp(tmpPtr->fileName,tmpPtr2->fileName) == 0){
                         found = 1;
-                        //printf("found: %s", tmpPtr->fileName);
                         break;
                      }
                      tmpPtr2 = tmpPtr2->next;
@@ -166,15 +164,23 @@ void orSearch(struct wordnode *head, char* line){
          if (strcmp(ptr->word, token) == 0) {
             if (fileHead == NULL) {
                fileHead = malloc(sizeof(struct filenode) + 1);
-               struct filenode* tmpPtr;
                struct filenode* tmpPtr2;
+               struct filenode* tmpPtr;
                tmpPtr = ptr->files;
                tmpPtr2 = fileHead;
+               tmpPtr2->next = NULL;
+               tmpPtr2->fileName = tmpPtr->fileName;
+               tmpPtr = tmpPtr->next;
+
+               //tmpPtr2 = tmpPtr2->next;
+               //tmpPtr = tmpPtr->next;
+               //tmpPtr2 = tmpPtr2->next;
                while (tmpPtr != NULL) {
-                  tmpPtr2->fileName = tmpPtr->fileName;
                   tmpPtr2->next = malloc(sizeof(struct filenode) + 1);
-                  tail = tmpPtr2;
+                  tmpPtr2->next->fileName = tmpPtr->fileName;
+                  tmpPtr2->next->next = NULL;
                   tmpPtr2 = tmpPtr2->next;
+                  tail = tmpPtr2;
                   tmpPtr = tmpPtr->next;
                }
             }
@@ -187,19 +193,23 @@ void orSearch(struct wordnode *head, char* line){
                   while (tmpPtr != NULL) {
                      if (strcmp(tmpPtr->fileName, tmpPtr2->fileName) == 0){
                         found = 1;
+                        break;
                      }
                      tmpPtr = tmpPtr->next;
                   }
                   if (found == 0) {
                      tail->next = malloc(sizeof(struct filenode) + 1);
+                     tail->next->fileName = tmpPtr2->fileName;
+                     tail->next->next = NULL;
                      tail = tail->next;
-                     tail->fileName = tmpPtr2->fileName;
                   }
+                  tmpPtr2 = tmpPtr2->next;
                }
             }
          }
          ptr = ptr->next;
       }
+      token = strtok(NULL, " ");
   }
   struct filenode* tmp = fileHead;
   while (tmp != NULL) {
