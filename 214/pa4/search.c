@@ -13,10 +13,21 @@ int main(int argc, char **argv) {
 
 
   struct wordnode* list = buildWordList(argv[1]);
+  struct wordnode* ptr = list;
 
+  while (ptr != NULL) {
+    printf("Word: %s\n", ptr->word);
+    struct filenode* fptr = ptr->files;
+    while (fptr != NULL){
+      printf("%s, ", fptr->fileName);
+      fptr = fptr->next;
+    }
+    ptr = ptr->next;
+    puts("\n");
+  }
 
-  while (1 == 1)
-  {
+  return 0;
+  while (1 == 1) {
     printf("Search> ");
     fgets(searchInput, 1024, stdin);
     searchInput[strlen(searchInput) - 1] = '\0';
@@ -236,9 +247,7 @@ struct wordnode* buildWordList(const char* indexFile) {
       curr->files = NULL;
       curr->next = wordList;
 
-      if (wordList == NULL){
-        wordList = (curr);
-      }
+      wordList = curr;
     }
     else if (strstr(line, "</list>")){
       inList = 0;
@@ -262,5 +271,13 @@ struct wordnode* buildWordList(const char* indexFile) {
   }
   fclose(file);
 
+  /*struct wordnode* ptr = wordList;*/
+
+  /*while (ptr != NULL) {*/
+    /*printf("Word: %s\n", ptr->word);*/
+    /*struct filenode* fptr = ptr->files;*/
+    /*ptr = ptr->next;*/
+    /*puts("\n");*/
+  /*}*/
   return wordList;
 }
