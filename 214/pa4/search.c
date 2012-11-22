@@ -147,9 +147,12 @@ void andSearch (struct wordnode *head, char* line) {
       token = strtok(NULL, " ");
    }
    struct filenode* tmp = fileHead;
+   struct filenode* freedom = tmp;
    while (tmp != NULL){
       printf("%s\n", tmp->fileName);
+      freedom = tmp;
       tmp = tmp->next;
+      free(freedom);
    }
 }
 
@@ -214,9 +217,12 @@ void orSearch(struct wordnode *head, char* line){
       token = strtok(NULL, " ");
   }
   struct filenode* tmp = fileHead;
+  struct filenode* freedom = tmp;
   while (tmp != NULL) {
      printf("%s\n",tmp->fileName);
+     freedom = tmp;
      tmp = tmp->next;
+     free(freedom);
   }
 }
 
