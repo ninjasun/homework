@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
     }
     if (searchInput[0] == 's'){
       if(searchInput[1] == 'a'){
-        puts(searchInput);
+        //puts(searchInput);
         andSearch(list, searchInput);
       }
       if(searchInput[1] == 'o'){
@@ -75,9 +75,9 @@ int countFiles(const char* indexFile){
 }
 
 void andSearch (struct wordnode *head, char* line) {
-   puts(line);
+   //puts(line);
    strncpy(line, line + 2, strlen(line));
-   puts(line);
+   //puts(line);
    char* token;
    token = strtok(line, " ");
    struct filenode* fileHead = NULL;
@@ -245,7 +245,10 @@ char** buildFiles(const char* indexFile){
     else {
         fileCount--;
         fileList[fileCount] = malloc(strlen(line));
-        strncpy(fileList[fileCount], line+2, strlen(line) - 3);
+        printf("%s\n",line);
+        strncpy(fileList[fileCount], line+2, strlen(line) - 2);
+        //fileList[fileCount][strlen()]
+        printf("%s\n",fileList[fileCount]);
     }
   }
   fclose(file);
