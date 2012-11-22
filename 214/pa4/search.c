@@ -21,9 +21,9 @@ int main(int argc, char **argv) {
 
     if (searchInput[0] == 'q'){
       puts("We got q");
-      return 0;
+      break;
     }
-    if (searchInput[0] == 's'){
+    else if (searchInput[0] == 's'){
       if(searchInput[1] == 'a'){
         //puts(searchInput);
         andSearch(list, searchInput);
