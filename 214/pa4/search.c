@@ -253,10 +253,8 @@ char** buildFiles(const char* indexFile){
     else {
         fileCount--;
         fileList[fileCount] = malloc(strlen(line));
-        printf("%s\n",line);
         strncpy(fileList[fileCount], line+2, strlen(line) - 2);
         //fileList[fileCount][strlen()]
-        printf("%s\n",fileList[fileCount]);
     }
   }
   fclose(file);
