@@ -13,20 +13,20 @@ int main(int argc, char **argv) {
 
 
   struct wordnode* list = buildWordList(argv[1]);
-  struct wordnode* ptr = list;
+  /*struct wordnode* ptr = list;*/
 
-  while (ptr != NULL) {
-    printf("Word: %s\n", ptr->word);
-    struct filenode* fptr = ptr->files;
-    while (fptr != NULL){
-      printf("%s, ", fptr->fileName);
-      fptr = fptr->next;
-    }
-    ptr = ptr->next;
-    puts("\n");
-  }
+  /*while (ptr != NULL) {*/
+    /*printf("Word: %s\n", ptr->word);*/
+    /*struct filenode* fptr = ptr->files;*/
+    /*while (fptr != NULL){*/
+      /*printf("%s, ", fptr->fileName);*/
+      /*fptr = fptr->next;*/
+    /*}*/
+    /*ptr = ptr->next;*/
+    /*puts("\n");*/
+  /*}*/
 
-  return 0;
+  /*return 0;*/
   while (1 == 1) {
     printf("Search> ");
     fgets(searchInput, 1024, stdin);
