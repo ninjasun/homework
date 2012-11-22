@@ -170,6 +170,7 @@ void orSearch(struct wordnode *head, char* line){
                tmpPtr2 = fileHead;
                tmpPtr2->next = NULL;
                tmpPtr2->fileName = tmpPtr->fileName;
+               tail = tmpPtr2;
                tmpPtr = tmpPtr->next;
 
                //tmpPtr2 = tmpPtr2->next;
