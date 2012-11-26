@@ -2,8 +2,6 @@
 
 int main(int argc, char **argv) {
 
-  int cacheSize = 0;
-
   if (argc < 2 || argc > 4) {
     printf("Invalid number of arguments");
     return 1;
