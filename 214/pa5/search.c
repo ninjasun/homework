@@ -79,10 +79,15 @@ char** buildFiles(const char* indexFile, unsigned int size){
   fclose(file);
   return fileList;
 }
+
 void andSearch (char* line) {
 }
 
 void orSearch(char* line){
+}
+
+struct wordnode*  getFileList(char* word) {
+  return NULL;
 }
 
 struct wordnode* buildWordList(const char* indexFile) {
