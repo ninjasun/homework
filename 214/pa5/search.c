@@ -66,12 +66,193 @@ char** buildFiles(const char* indexFile, unsigned int size){
   fclose(file);
   return fileList;
 }
+
+wordnode getFileList(string){
+}
+
+struct wordnode* checkCache(char* word){
+   struct wordnode* wordPtr = cache;
+   struct wordnode* prev = wordPtr;
+   int foundWord = 0;
+   while (wordPtr != NULL) {
+      if (strcmp(wordPtr->word, word) == 0){
+         foundWord = 1;
+         return wordPtr;
+      }
+      prev = wordPtr;
+      wordPtr = wordPtr->next;
+   }
+   struct wordnode* newNode = getFileList(word);
+   prev->next = newNode;
+   cacheSize = cacheSize + newNode->size;
+   struct wordnode* tmp = cache;
+   struct wordnode* cachePtr;
+   cachePtr = cache ->next;
+   while (cacheSize > limit) {
+      if (cachePtr == NULL){
+         freedom(tmp);
+         cache = newNode;
+         cachSize = newNode->size;
+         return newNode;
+      }
+      cacheSize = cacheSize - tmp->size;
+      free(tmp);
+      tmp = cachePtr;
+      cachePtr = cachePtr->next;
+   }
+   return newNode;
+}
+
 void andSearch (struct wordnode *head, char* line) {
-  return;
+   //puts(line);
+   strncpy(line, line + 2, strlen(line));
+   //puts(line);
+   char* token;
+   token = strtok(line, " ");
+   struct filenode* fileHead = NULL;
+   while (token != NULL) {
+      struct wordnode* ptr = head;
+
+      while (ptr != NULL) {
+         //printf("word: %s, token: %s",ptr->word,token);
+         if (strcmp(ptr->word, token) == 0) {
+            if (fileHead == NULL) {
+               fileHead = malloc(sizeof(struct filenode) + 1);
+               struct filenode* tmpPtr2;
+               struct filenode* tmpPtr;
+               tmpPtr = ptr->files;
+               tmpPtr2 = fileHead;
+               tmpPtr2->next = NULL;
+               tmpPtr2->fileName = tmpPtr->fileName;
+               tmpPtr = tmpPtr->next;
+               //tmpPtr2 = tmpPtr2->next;
+               //tmpPtr = tmpPtr->next;
+               //tmpPtr2 = tmpPtr2->next;
+               while (tmpPtr != NULL) {
+                  tmpPtr2->next = malloc(sizeof(struct filenode) + 1);
+                  tmpPtr2->next->fileName = tmpPtr->fileName;
+                  tmpPtr2->next->next = NULL;
+                  tmpPtr2 = tmpPtr2->next;
+                  tmpPtr = tmpPtr->next;
+               }
+               //fileHead->next = NULL;
+            }
+            else {
+               struct filenode* tmpPtr = fileHead;
+               struct filenode* prev = tmpPtr;
+               struct filenode* tmpPtr2 = ptr->files;
+               int found = 0;
+               while (tmpPtr != NULL) {
+                  while (tmpPtr2 != NULL) {
+                     if (strcmp(tmpPtr->fileName,tmpPtr2->fileName) == 0){
+                        found = 1;
+                        break;
+                     }
+                     tmpPtr2 = tmpPtr2->next;
+                  }
+                  if (found == 0){
+                     if (strcmp(prev->fileName,tmpPtr->fileName) == 0){
+                        fileHead = fileHead->next;
+                        free(prev);
+                        tmpPtr = fileHead;
+                        prev = tmpPtr;
+                     }
+                     else {
+                        prev->next = tmpPtr->next;
+                        free(tmpPtr);
+                        tmpPtr = prev->next;
+                     }
+                  }
+                  else {
+                     prev = tmpPtr;
+                     tmpPtr = tmpPtr->next;
+                  }
+                  found = 0;
+               }
+            }
+         }
+         ptr = ptr->next;
+      }
+      token = strtok(NULL, " ");
+   }
+   struct filenode* tmp = fileHead;
+   struct filenode* freedom = tmp;
+   while (tmp != NULL){
+      printf("%s\n", tmp->fileName);
+      freedom = tmp;
+      tmp = tmp->next;
+      free(freedom);
+   }
 }
 
 void orSearch(struct wordnode *head, char* line){
-  return;
+  strncpy(line, line + 2, strlen(line));
+  char* token;
+  token = strtok(line, " ");
+  struct filenode* fileHead = NULL;
+  struct filenode* tail = NULL;
+  while (token != NULL) {
+      struct wordnode* ptr = head;
+      while (ptr != NULL) {
+         if (strcmp(ptr->word, token) == 0) {
+            if (fileHead == NULL) {
+               fileHead = malloc(sizeof(struct filenode) + 1);
+               struct filenode* tmpPtr2;
+               struct filenode* tmpPtr;
+               tmpPtr = ptr->files;
+               tmpPtr2 = fileHead;
+               tmpPtr2->next = NULL;
+               tmpPtr2->fileName = tmpPtr->fileName;
+               tail = tmpPtr2;
+               tmpPtr = tmpPtr->next;
+
+               //tmpPtr2 = tmpPtr2->next;
+               //tmpPtr = tmpPtr->next;
+               //tmpPtr2 = tmpPtr2->next;
+               while (tmpPtr != NULL) {
+                  tmpPtr2->next = malloc(sizeof(struct filenode) + 1);
+                  tmpPtr2->next->fileName = tmpPtr->fileName;
+                  tmpPtr2->next->next = NULL;
+                  tmpPtr2 = tmpPtr2->next;
+                  tail = tmpPtr2;
+                  tmpPtr = tmpPtr->next;
+               }
+            }
+            else {
+               struct filenode* tmpPtr = fileHead;
+               struct filenode* prev = tmpPtr;
+               struct filenode* tmpPtr2 = ptr->files;
+               int found = 0;
+               while (tmpPtr2 != NULL) {
+                  while (tmpPtr != NULL) {
+                     if (strcmp(tmpPtr->fileName, tmpPtr2->fileName) == 0){
+                        found = 1;
+                        break;
+                     }
+                     tmpPtr = tmpPtr->next;
+                  }
+                  if (found == 0) {
+                     tail->next = malloc(sizeof(struct filenode) + 1);
+                     tail->next->fileName = tmpPtr2->fileName;
+                     tail->next->next = NULL;
+                     tail = tail->next;
+                  }
+                  tmpPtr2 = tmpPtr2->next;
+               }
+            }
+         }
+         ptr = ptr->next;
+      }
+      token = strtok(NULL, " ");
+  }
+  struct filenode* tmp = fileHead;
+  struct filenode* freedom = tmp;
+  while (tmp != NULL) {
+     printf("%s\n",tmp->fileName);
+     freedom = tmp;
+     tmp = tmp->next;
+     free(freedom);
+  }
 }
 
 struct wordnode* buildWordList(const char* indexFile) {
