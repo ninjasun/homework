@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
+
 struct filenode {
   char* fileName;
   struct filenode* next;
@@ -17,10 +18,19 @@ struct wordnode {
   unsigned int size;
 };
 
+
+unsigned int cacheSize = 0;
+unsigned int limit = 0;
+struct wordnode* cache = NULL;
+
+
 char** buildFiles(const char*, unsigned int);
 struct wordnode* buildWordList(const char*);
-void andSearch(struct wordnode*, char*);
-void orSearch(struct wordnode*, char*);
+struct wordnode* getFileList(char*);
+struct wordnode* checkCache(char*);
+void andSearch(char*);
+void orSearch(char*);
+void freedom(struct wordnode*);
 
 
 #endif

@@ -1,9 +1,55 @@
 #include "search.h"
 
 int main(int argc, char **argv) {
-  if (argc < 2 || argc > 6) {
+
+  int cacheSize = 0;
+
+  if (argc < 2 || argc > 4) {
     printf("Invalid number of arguments");
     return 1;
+  }
+  else if (argc == 4 && strcmp(argv[1], "-m") == 0)
+  {
+    //cache search
+    char * sizeCache = malloc(sizeof(argv[2]) - 2);
+
+    strncpy(sizeCache, argv[2], sizeof(argv[2])-2);
+
+    limit = atoi(sizeCache);
+
+    if(strstr(argv[2],"MB") != NULL)
+    {
+      limit = limit * 1024;
+    }
+    else if(strstr(argv[2],"GB") != NULL)
+    {
+      limit = limit * 1048576;
+    }
+  }
+
+  char* searchInput = malloc(1024);
+
+  char* inputLine;
+  char* searchOption;
+
+  while (1 == 1) {
+    printf("Search> ");
+    fgets(searchInput, 1024, stdin);
+    searchInput[strlen(searchInput) - 1] = '\0';
+
+    if (searchInput[0] == 'q'){
+      puts("We got q");
+      break;
+    }
+    else if (searchInput[0] == 's'){
+      if(searchInput[1] == 'a'){
+        //puts(searchInput);
+        andSearch(list, searchInput);
+      }
+      if(searchInput[1] == 'o'){
+        orSearch(list, searchInput);
+      }
+    }
   }
 
   return 0;
@@ -31,6 +77,19 @@ int countFiles(const char* indexFile){
 
   }
   return count;
+}
+
+void freedom(struct wordnode* target) {
+  struct filenode* shackled = target->files;
+  while (shackled != NULL) {
+    struct filenode* tmpF = shackled;
+    shackled = shackled->next;
+    free(tmpF->fileName);
+    free(tmpF);
+  }
+
+  free(target->word);
+  free(target);
 }
 
 char** buildFiles(const char* indexFile, unsigned int size){
@@ -65,9 +124,6 @@ char** buildFiles(const char* indexFile, unsigned int size){
   }
   fclose(file);
   return fileList;
-}
-
-wordnode getFileList(string){
 }
 
 struct wordnode* checkCache(char* word){
