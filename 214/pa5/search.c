@@ -312,9 +312,5 @@ void orSearch(char* line){
 }
 
 struct wordnode*  getFileList(char* word) {
-  return NULL;
-}
-
-struct wordnode* buildWordList(const char* indexFile) {
-  return NULL;
+  
 }
