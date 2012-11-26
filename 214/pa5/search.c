@@ -48,10 +48,10 @@ int main(int argc, char **argv) {
     else if (searchInput[0] == 's'){
       if(searchInput[1] == 'a'){
         //puts(searchInput);
-        andSearch(list, searchInput);
+        andSearch(searchInput);
       }
       if(searchInput[1] == 'o'){
-        orSearch(list, searchInput);
+        orSearch(searchInput);
       }
     }
   }
@@ -316,5 +316,5 @@ void orSearch(char* line){
 }
 
 struct wordnode*  getFileList(char* word) {
-  
+
 }
