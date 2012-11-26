@@ -79,6 +79,19 @@ int countFiles(const char* indexFile){
   return count;
 }
 
+void freedom(struct wordnode* target) {
+  struct filenode* shackled = target->files;
+  while (shackled != NULL) {
+    struct filenode* tmpF = shackled;
+    shackled = shackled->next;
+    free(tmpF->fileName);
+    free(tmpF);
+  }
+
+  free(target->word);
+  free(target);
+}
+
 char** buildFiles(const char* indexFile, unsigned int size){
   int fileCount = countFiles(indexFile);
   char** fileList = malloc(sizeof(char*) * fileCount + 1);
@@ -112,12 +125,10 @@ char** buildFiles(const char* indexFile, unsigned int size){
   fclose(file);
   return fileList;
 }
-void andSearch (struct wordnode *head, char* line) {
-  return;
+void andSearch (char* line) {
 }
 
-void orSearch(struct wordnode *head, char* line){
-  return;
+void orSearch(char* line){
 }
 
 struct wordnode* buildWordList(const char* indexFile) {
