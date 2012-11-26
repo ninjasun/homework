@@ -1,0 +1,56 @@
+<list> and
+	2: 1
+	1: 1
+</list>
+<list> are
+	1: 1
+	0: 1
+</list>
+<list> beetles
+	2: 1
+</list>
+<list> even
+	1: 1
+</list>
+<list> for
+	1: 1
+	0: 1
+</list>
+<list> hercules
+	2: 1
+</list>
+<list> hungry
+	1: 1
+</list>
+<list> hunt
+	1: 1
+	0: 1
+</list>
+<list> i
+	0: 1
+</list>
+<list> kabuterimon
+	2: 1
+</list>
+<list> kittens
+	1: 2
+	0: 2
+</list>
+<list> love
+	0: 1
+</list>
+<list> more
+	1: 1
+</list>
+<list> puppies
+	1: 2
+	0: 1
+</list>
+<list> stable
+	1: 1
+</list>
+<files>
+2 animals/bugs/cool
+1 animals/dog
+0 animals/cat
+</files>
