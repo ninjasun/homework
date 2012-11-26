@@ -19,6 +19,7 @@ struct wordnode {
 };
 
 
+char* index_file;
 unsigned int cacheSize = 0;
 unsigned int limit = 0;
 struct wordnode* cache = NULL;
