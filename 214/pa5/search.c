@@ -9,6 +9,8 @@ int main(int argc, char **argv) {
   else if (argc == 4 && strcmp(argv[1], "-m") == 0)
   {
     //cache search
+
+    index_file = argv[3];
     char * sizeCache = malloc(sizeof(argv[2]) - 2);
 
     strncpy(sizeCache, argv[2], sizeof(argv[2])-2);
@@ -23,6 +25,10 @@ int main(int argc, char **argv) {
     {
       limit = limit * 1048576;
     }
+  }
+  else
+  {
+    index_file = argv[1];
   }
 
   char* searchInput = malloc(1024);
