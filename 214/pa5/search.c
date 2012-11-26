@@ -33,7 +33,7 @@ int countFiles(const char* indexFile){
   return count;
 }
 
-char** buildFiles(const char* indexFile){
+char** buildFiles(const char* indexFile, unsigned int size){
   int fileCount = countFiles(indexFile);
   char** fileList = malloc(sizeof(char*) * fileCount + 1);
   char* line;
