@@ -72,17 +72,12 @@ int main(int argc, char **argv) {
 
   struct wordnode* tmp = cache;
   while (tmp != NULL) {
-    tmp = cache;
-    cache = cache->next;
-    free(tmp->word);
+    printf("\nWord: %s\n", tmp->word);
     struct filenode* ft = tmp->files;
     while (ft != NULL){
-      free(ft->fileName);
-      struct filenode* ftmp = ft;
+      printf("\tFile: %s\n", ft->fileName);
       ft = ft->next;
-      free(ftmp);
     }
-    free(tmp);
   }
 
   return 0;
