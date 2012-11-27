@@ -40,6 +40,7 @@ int main(int argc, char **argv) {
   char* searchOption;
 
   while (1 == 1) {
+    printf("%s%d\n","Current cacheSize: ", cacheSize);
     printf("Search> ");
     fgets(searchInput, 1024, stdin);
     searchInput[strlen(searchInput) - 1] = '\0';
@@ -151,6 +152,7 @@ struct wordnode* checkCache(char* word){
    puts("finished get file list");
    if (cache == NULL){
       cache = newNode;
+      cacheSize = newNode->size;
       return cache;
    }
    prev->next = newNode;
@@ -159,6 +161,7 @@ struct wordnode* checkCache(char* word){
    struct wordnode* tmp = cache;
    while ((cacheSize > limit) && (limit != 0)) {
       if (strcmp(cache->next->word, newNode->word) == 0){
+         tmp = cache;
          freedom(tmp);
          cache = newNode;
          cacheSize = newNode->size;
