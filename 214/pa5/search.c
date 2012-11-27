@@ -60,7 +60,14 @@ int main(int argc, char **argv) {
     }
   }
 
+  free(sizeCache);
+  free(searchInput);
+
   free(theFiles);
+  free(index_file);
+  free(cacheSize);
+  free(limit);
+  free(cache);
 
   return 0;
 }
@@ -85,6 +92,8 @@ int countFiles(){
       count += 1;
     }
   }
+
+  free(line);
   return count;
 }
 
@@ -126,9 +135,9 @@ void buildFiles(){
     else {
         fileCount--;
         fileList[fileCount] = malloc(strlen(line) + 1);
-        printf("%s\n",line);
+        //printf("%s\n",line);
         strncpy(fileList[fileCount], line+2, strlen(line) - 2);
-        printf("%s\n",fileList[fileCount]);
+        //printf("%s\n",fileList[fileCount]);
     }
   }
   fclose(file);
@@ -147,16 +156,13 @@ struct wordnode* checkCache(char* word){
       prev = wordPtr;
       wordPtr = wordPtr->next;
    }
-   puts("getfilelist");
    struct wordnode* newNode = getFileList(word);
-   puts("finished get file list");
    if (cache == NULL){
       cache = newNode;
       cacheSize = newNode->size;
       return cache;
    }
    prev->next = newNode;
-   puts("i set prev->next");
    cacheSize = cacheSize + newNode->size;
    struct wordnode* tmp = cache;
    while ((cacheSize > limit) && (limit != 0)) {
@@ -165,7 +171,6 @@ struct wordnode* checkCache(char* word){
          freedom(tmp);
          cache = newNode;
          cacheSize = newNode->size;
-         puts("Im in the if statement");
          return newNode;
       }
       cacheSize = cacheSize - cache->size;
@@ -173,7 +178,6 @@ struct wordnode* checkCache(char* word){
       cache = cache->next;
       free(tmp);
    }
-   puts("finished while loop");
    return newNode;
 }
 
@@ -188,10 +192,8 @@ void andSearch (char* line) {
       struct wordnode* ptr = checkCache(token);
       while (ptr != NULL) {
          //printf("word: %s, token: %s",ptr->word,token);
-         puts("im in the ptr loop");
          if ((ptr->files != NULL) && (strcmp(ptr->word, token) == 0)) {
             if (fileHead == NULL) {
-               puts("In 1 Start");
                fileHead = malloc(sizeof(struct filenode) + 1);
                struct filenode* tmpPtr2;
                struct filenode* tmpPtr;
@@ -212,10 +214,8 @@ void andSearch (char* line) {
                   tmpPtr = tmpPtr->next;
                }
                //fileHead->next = NULL;
-               puts("In 1");
             }
             else {
-               puts("In 2 Start");
                struct filenode* tmpPtr = fileHead;
                struct filenode* prev = tmpPtr;
                struct filenode* tmpPtr2 = ptr->files;
@@ -247,7 +247,6 @@ void andSearch (char* line) {
                   }
                   found = 0;
                }
-               puts("In 2");
             }
          }
          ptr = ptr->next;
