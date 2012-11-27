@@ -375,12 +375,13 @@ struct wordnode*  getFileList(char* targetWord) {
   fclose(file);
   free(line);
 
-  if (inList == 1) {
-    return list;
-  }
-  else {
-    free(list->word);
-    free(list);
-    return NULL;
-  }
+  /*if (inList == 1) {*/
+    /*return list;*/
+  /*}*/
+  /*else {*/
+    /*free(list->word);*/
+    /*free(list);*/
+    /*return NULL;*/
+  /*}*/
+  return list;
 }
