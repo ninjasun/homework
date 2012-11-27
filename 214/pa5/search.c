@@ -173,8 +173,7 @@ void andSearch (char* line) {
    token = strtok(line, " ");
    struct filenode* fileHead = NULL;
    while (token != NULL) {
-      struct wordnode* ptr = head;
-
+      struct wordnode* ptr = checkCache(token);
       while (ptr != NULL) {
          //printf("word: %s, token: %s",ptr->word,token);
          if (strcmp(ptr->word, token) == 0) {
@@ -254,7 +253,7 @@ void orSearch(char* line){
   struct filenode* fileHead = NULL;
   struct filenode* tail = NULL;
   while (token != NULL) {
-      struct wordnode* ptr = head;
+      struct wordnode* ptr = checkCache(token);
       while (ptr != NULL) {
          if (strcmp(ptr->word, token) == 0) {
             if (fileHead == NULL) {
