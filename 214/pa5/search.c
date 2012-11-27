@@ -31,9 +31,9 @@ int main(int argc, char **argv) {
   {
     index_file = argv[1];
   }
-  printf("%s\n", index_file);
+  //printf("%s\n", index_file);
   buildFiles();
-  printf("After buildFiles");
+
   char* searchInput = malloc(1024);
 
   char* inputLine;
@@ -51,7 +51,6 @@ int main(int argc, char **argv) {
     else if (searchInput[0] == 's'){
       if(searchInput[1] == 'a'){
         //puts(searchInput);
-        puts("before andSearch");
         andSearch(searchInput);
       }
       if(searchInput[1] == 'o'){
@@ -183,9 +182,7 @@ void andSearch (char* line) {
    token = strtok(line, " ");
    struct filenode* fileHead = NULL;
    while (token != NULL) {
-      printf("Before checkCache");
       struct wordnode* ptr = checkCache(token);
-      printf("After checkCache");
       while (ptr != NULL) {
          //printf("word: %s, token: %s",ptr->word,token);
          if (strcmp(ptr->word, token) == 0) {
