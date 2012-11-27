@@ -366,6 +366,7 @@ struct wordnode*  getFileList(char* targetWord) {
       line[colonSpot] = '\0';
       char* name = theFiles[atoi(line)];
       currFile->fileName = malloc(strlen(name) + 1);
+      strcpy(currFile->fileName, name);
       currFile->next = list->files;
       list->files = currFile;
     }
