@@ -61,7 +61,6 @@ int main(int argc, char **argv) {
   }
 
   free(searchInput);
-  /*free(index_file);*/
 
   /*int ind = 0;*/
   /*while (theFiles[ind] != NULL) {*/
