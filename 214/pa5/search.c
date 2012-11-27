@@ -26,6 +26,7 @@ int main(int argc, char **argv) {
       limit = limit * 1048576;
     }
     //printf("%d\n", limit);
+    free(sizeCache);
   }
   else
   {
@@ -60,8 +61,6 @@ int main(int argc, char **argv) {
     }
   }
 
-
-  free(sizeCache);
   free(searchInput);
   free(index_file);
 
