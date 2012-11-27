@@ -66,6 +66,12 @@ int main(int argc, char **argv) {
     ind ++;
   }
 
+  struct wordnode* tmp;
+  while (tmp != NULL) {
+    tmp = cache;
+    cache = cache->next;
+    freedom(tmp);
+  }
   return 0;
 }
 
