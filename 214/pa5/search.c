@@ -25,12 +25,13 @@ int main(int argc, char **argv) {
     {
       limit = limit * 1048576;
     }
+    //printf("%d\n", limit);
   }
   else
   {
     index_file = argv[1];
   }
-
+  printf("%s\n", index_file);
   buildFiles();
 
   char* searchInput = malloc(1024);
@@ -44,7 +45,7 @@ int main(int argc, char **argv) {
     searchInput[strlen(searchInput) - 1] = '\0';
 
     if (searchInput[0] == 'q'){
-      puts("We got q");
+      //puts("We got q");
       break;
     }
     else if (searchInput[0] == 's'){
@@ -57,6 +58,8 @@ int main(int argc, char **argv) {
       }
     }
   }
+
+  free(theFiles);
 
   return 0;
 }
@@ -80,7 +83,6 @@ int countFiles(){
     else if (inFile) {
       count += 1;
     }
-
   }
   return count;
 }
@@ -147,20 +149,18 @@ struct wordnode* checkCache(char* word){
    struct wordnode* newNode = getFileList(word);
    prev->next = newNode;
    cacheSize = cacheSize + newNode->size;
-   struct wordnode* tmp = cache;
-   struct wordnode* cachePtr;
-   cachePtr = cache ->next;
-   while (cacheSize > limit) {
-      if (cachePtr == NULL){
+   struct wordnode* tmp;
+   while ((cacheSize > limit) && (limit != 0)) {
+      if (strcmp(cache->next->word, newNode->word) == 0){
          freedom(tmp);
          cache = newNode;
          cacheSize = newNode->size;
          return newNode;
       }
-      cacheSize = cacheSize - tmp->size;
+      cacheSize = cacheSize - cache->size;
+      tmp = cache;
+      cache = cache->next;
       free(tmp);
-      tmp = cachePtr;
-      cachePtr = cachePtr->next;
    }
    return newNode;
 }
