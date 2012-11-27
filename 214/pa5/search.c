@@ -69,14 +69,14 @@ int main(int argc, char **argv) {
     free(theFiles[ind]);
     ind ++;
   }
-/*
-  struct wordnode* tmp;
+
+  struct wordnode* tmp = 3;
   while (tmp != NULL) {
     tmp = cache;
     cache = cache->next;
     freedom(tmp);
   }
-*/
+
   return 0;
 }
 
