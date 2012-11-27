@@ -146,8 +146,15 @@ struct wordnode* checkCache(char* word){
       prev = wordPtr;
       wordPtr = wordPtr->next;
    }
+   puts("getfilelist");
    struct wordnode* newNode = getFileList(word);
+   puts("finished get file list");
+   if (cache == NULL){
+      cache = newNode;
+      return cache;
+   }
    prev->next = newNode;
+   puts("i set prev->next");
    cacheSize = cacheSize + newNode->size;
    struct wordnode* tmp;
    while ((cacheSize > limit) && (limit != 0)) {
@@ -155,6 +162,7 @@ struct wordnode* checkCache(char* word){
          freedom(tmp);
          cache = newNode;
          cacheSize = newNode->size;
+         puts("Im in the if statement");
          return newNode;
       }
       cacheSize = cacheSize - cache->size;
@@ -162,6 +170,7 @@ struct wordnode* checkCache(char* word){
       cache = cache->next;
       free(tmp);
    }
+   puts("finished while loop");
    return newNode;
 }
 
