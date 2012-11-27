@@ -254,7 +254,7 @@ void andSearch (char* line) {
    struct filenode* tmp = fileHead;
    struct filenode* freedom = tmp;
    while (tmp != NULL){
-      printf("%s\n", tmp->fileName);
+      printf("%s", tmp->fileName);
       freedom = tmp;
       tmp = tmp->next;
       free(freedom);
@@ -324,7 +324,7 @@ void orSearch(char* line){
   struct filenode* tmp = fileHead;
   struct filenode* freedom = tmp;
   while (tmp != NULL) {
-     printf("%s\n",tmp->fileName);
+     printf("%s",tmp->fileName);
      freedom = tmp;
      tmp = tmp->next;
      free(freedom);
