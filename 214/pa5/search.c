@@ -61,24 +61,14 @@ int main(int argc, char **argv) {
   }
 
   free(searchInput);
-  free(index_file);
+  /*free(index_file);*/
 
-  int ind = 0;
-  while (theFiles[ind] != NULL) {
-    free(theFiles[ind]);
-    ind ++;
-  }
+  /*int ind = 0;*/
+  /*while (theFiles[ind] != NULL) {*/
+    /*free(theFiles[ind]);*/
+    /*ind ++;*/
+  /*}*/
 
-  struct wordnode* tmp = cache;
-  while (tmp != NULL) {
-    printf("\nWord: %s\n", tmp->word);
-    struct filenode* ft = tmp->files;
-    while (ft != NULL){
-      printf("\tFile: %s\n", ft->fileName);
-      ft = ft->next;
-    }
-    tmp = tmp->next;
-  }
 
   return 0;
 }
