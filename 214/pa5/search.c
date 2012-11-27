@@ -98,7 +98,7 @@ void freedom(struct wordnode* target) {
   free(target);
 }
 
-void buildFiles(const char* indexFile){
+void buildFiles(){
   int fileCount = countFiles();
   char** fileList = malloc(sizeof(char*) * fileCount + 1);
   char* line;
@@ -316,6 +316,61 @@ void orSearch(char* line){
   }
 }
 
-struct wordnode*  getFileList(char* word) {
+struct wordnode*  getFileList(char* targetWord) {
+  struct wordnode* list = malloc(sizeof(struct wordnode) +1);
+  list->word = malloc(strlen(targetWord) + 1);
+  strcpy(list->word, targetWord);
+  list->next = NULL;
+  list->files = NULL;
+  list->size = 0;
 
+  int inList = 0;
+  char* line;
+  FILE *file = fopen (index_file, "r");
+
+  if (file != NULL){
+    line = malloc(2048);
+  }
+
+  while (fgets(line, 2048, file ) != NULL){
+    if (strstr(line, "<list>")){
+      char* word = line+7;
+      char* nl = strstr(word, "\n");
+      if (nl != NULL) {
+        *nl = '\0';
+      }
+      if (0 == strcmp(targetWord, word)) {
+        inList = 1;
+        continue;
+      }
+    }
+    else if ((inList  == 1) && (strstr(line, "</list>"))){
+      break;
+    }
+    else if (inList == 1) {
+      struct filenode* currFile = malloc(sizeof(struct filenode) + 1);
+
+      int colonSpot = 0;
+      while (colonSpot < strlen(line) && line[colonSpot] != ':'){
+        colonSpot++;
+      }
+      line[colonSpot] = '\0';
+      char* name = theFiles[atoi(line)];
+      currFile->fileName = malloc(strlen(name) + 1);
+      currFile->next = list->files;
+      list->files = currFile;
+    }
+  }
+
+  fclose(file);
+  free(line);
+
+  if (inList == 1) {
+    return list;
+  }
+  else {
+    free(list->word);
+    free(list);
+    return NULL;
+  }
 }
