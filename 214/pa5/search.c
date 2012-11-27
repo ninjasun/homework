@@ -74,7 +74,15 @@ int main(int argc, char **argv) {
   while (tmp != NULL) {
     tmp = cache;
     cache = cache->next;
-    freedom(tmp);
+    free(tmp->word);
+    struct filenode* ft = tmp->files;
+    while (ft != NULL){
+      free(ft->fileName);
+      struct filenode* ftmp = ft;
+      ft = ft->next;
+      free(ftmp);
+    }
+    free(tmp);
   }
 
   return 0;
