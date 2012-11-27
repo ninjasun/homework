@@ -1,0 +1,7 @@
+For this assignment we first test with just two files containing 15 words each. We tried to test with cache size 0 and cache size 1. Then we tried to maximize the memory to make sure it would properly remove from the cache. 
+
+Our folder was called animals and inside we put another folder called bugs. Animals contains two text files to be indexed called cat and dog. Bugs contains a text file named cool.
+
+For the large scale testing we found a large book in text format and compared it against another book. These would hit the memory limit often but the program still worked which showed that it does the proper memory management.
+
+We also just tested the normal search using both the large and small scale testing.
