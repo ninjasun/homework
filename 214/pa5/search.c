@@ -183,10 +183,12 @@ void andSearch (char* line) {
    struct filenode* fileHead = NULL;
    while (token != NULL) {
       struct wordnode* ptr = checkCache(token);
+      puts("finished checkCache");
       while (ptr != NULL) {
          //printf("word: %s, token: %s",ptr->word,token);
          if (strcmp(ptr->word, token) == 0) {
             if (fileHead == NULL) {
+               puts("In 1 Start");
                fileHead = malloc(sizeof(struct filenode) + 1);
                struct filenode* tmpPtr2;
                struct filenode* tmpPtr;
@@ -198,6 +200,7 @@ void andSearch (char* line) {
                //tmpPtr2 = tmpPtr2->next;
                //tmpPtr = tmpPtr->next;
                //tmpPtr2 = tmpPtr2->next;
+               puts("In 1 Before While");
                while (tmpPtr != NULL) {
                   tmpPtr2->next = malloc(sizeof(struct filenode) + 1);
                   tmpPtr2->next->fileName = tmpPtr->fileName;
@@ -206,8 +209,10 @@ void andSearch (char* line) {
                   tmpPtr = tmpPtr->next;
                }
                //fileHead->next = NULL;
+               puts("In 1");
             }
             else {
+               puts("In 2 Start");
                struct filenode* tmpPtr = fileHead;
                struct filenode* prev = tmpPtr;
                struct filenode* tmpPtr2 = ptr->files;
@@ -239,6 +244,7 @@ void andSearch (char* line) {
                   }
                   found = 0;
                }
+               puts("In 2");
             }
          }
          ptr = ptr->next;
