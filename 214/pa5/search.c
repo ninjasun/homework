@@ -148,7 +148,7 @@ struct wordnode* checkCache(char* word){
    struct wordnode* tmp = cache;
    struct wordnode* cachePtr;
    cachePtr = cache ->next;
-   while (cacheSize > limit) {
+   while ((cacheSize > limit) && (limit != 0)) {
       if (cachePtr == NULL){
          freedom(tmp);
          cache = newNode;
