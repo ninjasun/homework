@@ -60,15 +60,24 @@ int main(int argc, char **argv) {
     }
   }
 
+
   free(sizeCache);
   free(searchInput);
-
-  free(theFiles);
   free(index_file);
-  free(cacheSize);
-  free(limit);
-  free(cache);
 
+
+  int ind = 0;
+  while (theFiles[ind] != NULL) {
+    free(theFiles[ind]);
+    ind ++;
+  }
+
+  struct wordnode* tmp;
+  while (tmp != NULL) {
+    tmp = cache;
+    cache = cache->next;
+    freedom(tmp);
+  }
   return 0;
 }
 
@@ -116,6 +125,7 @@ void buildFiles(){
   char* line;
   FILE *file = fopen (index_file, "r");
   int inFile = 0;
+  fileList[fileCount] = NULL;
 
   if (file != NULL) {
     line = malloc(2048); //Buffer where line is stored
