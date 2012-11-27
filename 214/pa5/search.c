@@ -147,7 +147,7 @@ void buildFiles(){
     else {
         fileCount--;
         fileList[fileCount] = malloc(strlen(line) + 1);
-        printf("%s\n",line);
+        //printf("%s\n",line);
         strncpy(fileList[fileCount], line+2, strlen(line) - 1);
         //åprintf("%s\n",fileList[fileCount]);
     }
