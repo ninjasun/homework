@@ -22,10 +22,12 @@ struct wordnode {
 char* index_file;
 unsigned int cacheSize = 0;
 unsigned int limit = 0;
+char** theFiles = NULL;
 struct wordnode* cache = NULL;
 
 
-char** buildFiles(const char*, unsigned int);
+int countFiles();
+void buildFiles();
 struct wordnode* buildWordList(const char*);
 struct wordnode* getFileList(char*);
 struct wordnode* checkCache(char*);

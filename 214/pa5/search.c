@@ -31,6 +31,8 @@ int main(int argc, char **argv) {
     index_file = argv[1];
   }
 
+  buildFiles();
+
   char* searchInput = malloc(1024);
 
   char* inputLine;
@@ -59,9 +61,9 @@ int main(int argc, char **argv) {
   return 0;
 }
 
-int countFiles(const char* indexFile){
+int countFiles(){
   char* line;
-  FILE *file = fopen (indexFile, "r");
+  FILE *file = fopen (index_file, "r");
   int count = 0;
   int inFile = 0;
 
@@ -96,11 +98,11 @@ void freedom(struct wordnode* target) {
   free(target);
 }
 
-char** buildFiles(const char* indexFile, unsigned int size){
-  int fileCount = countFiles(indexFile);
+void buildFiles(const char* indexFile){
+  int fileCount = countFiles();
   char** fileList = malloc(sizeof(char*) * fileCount + 1);
   char* line;
-  FILE *file = fopen (indexFile, "r");
+  FILE *file = fopen (index_file, "r");
   int inFile = 0;
 
   if (file != NULL) {
@@ -127,7 +129,7 @@ char** buildFiles(const char* indexFile, unsigned int size){
     }
   }
   fclose(file);
-  return fileList;
+  theFiles = fileList;
 }
 
 struct wordnode* checkCache(char* word){
