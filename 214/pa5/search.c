@@ -147,20 +147,18 @@ struct wordnode* checkCache(char* word){
    struct wordnode* newNode = getFileList(word);
    prev->next = newNode;
    cacheSize = cacheSize + newNode->size;
-   struct wordnode* tmp = cache;
-   struct wordnode* cachePtr;
-   cachePtr = cache ->next;
+   struct wordnode* tmp;
    while ((cacheSize > limit) && (limit != 0)) {
-      if (cachePtr == NULL){
+      if (strcmp(cache->next->word, newNode->word) == 0){
          freedom(tmp);
          cache = newNode;
          cacheSize = newNode->size;
          return newNode;
       }
-      cacheSize = cacheSize - tmp->size;
+      cacheSize = cacheSize - cache->size;
+      tmp = cache;
+      cache = cache->next;
       free(tmp);
-      tmp = cachePtr;
-      cachePtr = cachePtr->next;
    }
    return newNode;
 }
