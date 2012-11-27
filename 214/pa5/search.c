@@ -41,7 +41,6 @@ int main(int argc, char **argv) {
   char* searchOption;
 
   while (1 == 1) {
-    printf("%s%d\n","Current cacheSize: ", cacheSize);
     printf("Search> ");
     fgets(searchInput, 1024, stdin);
     searchInput[strlen(searchInput) - 1] = '\0';
@@ -148,9 +147,9 @@ void buildFiles(){
     else {
         fileCount--;
         fileList[fileCount] = malloc(strlen(line) + 1);
-        //printf("%s\n",line);
-        strncpy(fileList[fileCount], line+2, strlen(line) - 2);
-        //printf("%s\n",fileList[fileCount]);
+        printf("%s\n",line);
+        strncpy(fileList[fileCount], line+2, strlen(line) - 1);
+        //åprintf("%s\n",fileList[fileCount]);
     }
   }
   fclose(file);
@@ -196,6 +195,7 @@ struct wordnode* checkCache(char* word){
 
 void andSearch (char* line) {
    //puts(line);
+   int foundNull = 0;
    strncpy(line, line + 2, strlen(line));
    //puts(line);
    char* token;
@@ -205,6 +205,10 @@ void andSearch (char* line) {
       struct wordnode* ptr = checkCache(token);
       while (ptr != NULL) {
          //printf("word: %s, token: %s",ptr->word,token);
+         if(ptr->files == NULL)
+         {
+            foundNull = 1;
+         }
          if ((ptr->files != NULL) && (strcmp(ptr->word, token) == 0)) {
             if (fileHead == NULL) {
                fileHead = malloc(sizeof(struct filenode) + 1);
@@ -218,7 +222,6 @@ void andSearch (char* line) {
                //tmpPtr2 = tmpPtr2->next;
                //tmpPtr = tmpPtr->next;
                //tmpPtr2 = tmpPtr2->next;
-               puts("In 1 Before While");
                while (tmpPtr != NULL) {
                   tmpPtr2->next = malloc(sizeof(struct filenode) + 1);
                   tmpPtr2->next->fileName = tmpPtr->fileName;
@@ -268,11 +271,14 @@ void andSearch (char* line) {
    }
    struct filenode* tmp = fileHead;
    struct filenode* freedom = tmp;
-   while (tmp != NULL){
-      printf("%s", tmp->fileName);
-      freedom = tmp;
-      tmp = tmp->next;
-      free(freedom);
+   if(foundNull == 0)
+   {
+     while (tmp != NULL){
+        printf("%s", tmp->fileName);
+        freedom = tmp;
+        tmp = tmp->next;
+        free(freedom);
+     }
    }
 }
 
