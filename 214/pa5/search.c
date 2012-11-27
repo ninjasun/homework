@@ -156,7 +156,7 @@ struct wordnode* checkCache(char* word){
    prev->next = newNode;
    puts("i set prev->next");
    cacheSize = cacheSize + newNode->size;
-   struct wordnode* tmp;
+   struct wordnode* tmp = cache;
    while ((cacheSize > limit) && (limit != 0)) {
       if (strcmp(cache->next->word, newNode->word) == 0){
          freedom(tmp);
@@ -183,10 +183,10 @@ void andSearch (char* line) {
    struct filenode* fileHead = NULL;
    while (token != NULL) {
       struct wordnode* ptr = checkCache(token);
-      puts("finished checkCache");
       while (ptr != NULL) {
          //printf("word: %s, token: %s",ptr->word,token);
-         if (strcmp(ptr->word, token) == 0) {
+         puts("im in the ptr loop");
+         if ((ptr->files != NULL) && (strcmp(ptr->word, token) == 0)) {
             if (fileHead == NULL) {
                puts("In 1 Start");
                fileHead = malloc(sizeof(struct filenode) + 1);
@@ -270,7 +270,7 @@ void orSearch(char* line){
   while (token != NULL) {
       struct wordnode* ptr = checkCache(token);
       while (ptr != NULL) {
-         if (strcmp(ptr->word, token) == 0) {
+         if ((ptr->files != NULL) && (strcmp(ptr->word, token) == 0)) {
             if (fileHead == NULL) {
                fileHead = malloc(sizeof(struct filenode) + 1);
                struct filenode* tmpPtr2;
