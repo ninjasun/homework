@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
     ind ++;
   }
 
-  struct wordnode* tmp = 3;
+  struct wordnode* tmp = cache;
   while (tmp != NULL) {
     tmp = cache;
     cache = cache->next;
