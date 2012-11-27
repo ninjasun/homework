@@ -366,20 +366,23 @@ struct wordnode*  getFileList(char* targetWord) {
       line[colonSpot] = '\0';
       char* name = theFiles[atoi(line)];
       currFile->fileName = malloc(strlen(name) + 1);
+      strcpy(currFile->fileName, name);
       currFile->next = list->files;
       list->files = currFile;
+      list->size += sizeof(struct filenode) + sizeof(struct filenode*) + sizeof(char*) + 2 + strlen(name);
     }
   }
 
   fclose(file);
   free(line);
 
-  if (inList == 1) {
-    return list;
-  }
-  else {
-    free(list->word);
-    free(list);
-    return NULL;
-  }
+  /*if (inList == 1) {*/
+    /*return list;*/
+  /*}*/
+  /*else {*/
+    /*free(list->word);*/
+    /*free(list);*/
+    /*return NULL;*/
+  /*}*/
+  return list;
 }

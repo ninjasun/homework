@@ -2,5 +2,5 @@ require 'rake'
 
 task :default do
   sh 'make'
-  sh './search test'
+  sh './search -m 512MB test'
 end
