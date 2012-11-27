@@ -25,12 +25,13 @@ int main(int argc, char **argv) {
     {
       limit = limit * 1048576;
     }
+    //printf("%d\n", limit);
   }
   else
   {
     index_file = argv[1];
   }
-
+  printf("%s\n", index_file);
   buildFiles();
 
   char* searchInput = malloc(1024);
@@ -44,7 +45,7 @@ int main(int argc, char **argv) {
     searchInput[strlen(searchInput) - 1] = '\0';
 
     if (searchInput[0] == 'q'){
-      puts("We got q");
+      //puts("We got q");
       break;
     }
     else if (searchInput[0] == 's'){
@@ -57,6 +58,8 @@ int main(int argc, char **argv) {
       }
     }
   }
+
+  free(theFiles);
 
   return 0;
 }
@@ -80,7 +83,6 @@ int countFiles(){
     else if (inFile) {
       count += 1;
     }
-
   }
   return count;
 }
@@ -98,7 +100,7 @@ void freedom(struct wordnode* target) {
   free(target);
 }
 
-void buildFiles(const char* indexFile){
+void buildFiles(){
   int fileCount = countFiles();
   char** fileList = malloc(sizeof(char*) * fileCount + 1);
   char* line;
