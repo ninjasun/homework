@@ -60,7 +60,11 @@ int main(int argc, char **argv) {
     }
   }
 
-  free(theFiles);
+  int ind = 0;
+  while (theFiles[ind] != NULL) {
+    free(theFiles[ind]);
+    ind ++;
+  }
 
   return 0;
 }
@@ -107,6 +111,7 @@ void buildFiles(){
   char* line;
   FILE *file = fopen (index_file, "r");
   int inFile = 0;
+  fileList[fileCount] = NULL;
 
   if (file != NULL) {
     line = malloc(2048); //Buffer where line is stored
