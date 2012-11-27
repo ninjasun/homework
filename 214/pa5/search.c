@@ -64,19 +64,19 @@ int main(int argc, char **argv) {
   free(searchInput);
   free(index_file);
 
-
   int ind = 0;
   while (theFiles[ind] != NULL) {
     free(theFiles[ind]);
     ind ++;
   }
-
+/*
   struct wordnode* tmp;
   while (tmp != NULL) {
     tmp = cache;
     cache = cache->next;
     freedom(tmp);
   }
+*/
   return 0;
 }
 
