@@ -78,6 +78,7 @@ int main(int argc, char **argv) {
       printf("\tFile: %s\n", ft->fileName);
       ft = ft->next;
     }
+    tmp = tmp->next;
   }
 
   return 0;
