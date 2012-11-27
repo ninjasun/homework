@@ -369,6 +369,7 @@ struct wordnode*  getFileList(char* targetWord) {
       strcpy(currFile->fileName, name);
       currFile->next = list->files;
       list->files = currFile;
+      list->size += sizeof(struct filenode) + sizeof(struct filenode*) + sizeof(char*) + 2 + strlen(name);
     }
   }
 
