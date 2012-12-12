@@ -35,18 +35,14 @@ void producer(char* orderFileName) {
       int i = 0;
       for (token = strtok(line, delims); token != NULL; token=strtok(NULL, delims)) {
         switch(i) {
-          case 0://name
-            newBook->title = token;
-            break;
-          case 1://price
-            newBook->price = atof(token);
-            break;
-          case 2://customerID
-            newBook->id = atoi(token);
-            break;
-          case 3://category
-            newBook->category = token;
-            break;
+          case 0: /*name*/
+            newBook->title = token; break;
+          case 1: /*price*/
+            newBook->price = atof(token); break;
+          case 2: /*customerID*/
+            newBook->id = atoi(token); break;
+          case 3: /*category*/
+            newBook->category = token; break;
           default :
             break;
         }
@@ -101,24 +97,18 @@ int main(int argc, char** argv) {
       int i = 0;
       for (token=strtok(line, delims); token != NULL; token=strtok(NULL, delims)) {
         switch(i) {
-          case 0://name
-            newCust->name = token;
-            break;
-          case 1://id
-            newCust->id = atoi(token);
-            break;
-          case 2://balance
-            newCust->balance = atof(token);
-            break;
-          case 3://address
-            newCust->address = token;
-            break;
-          case 4://state
-            newCust->state = token;
-            break;
-          case 5://zip
-            newCust->zip = token;
-            break;
+          case 0: /*name*/
+            newCust->name = token; break;
+          case 1: /*id*/
+            newCust->id = atoi(token); break;
+          case 2: /*balance*/
+            newCust->balance = atof(token); break;
+          case 3: /*address*/
+            newCust->address = token; break;
+          case 4: /*state*/
+            newCust->state = token; break;
+          case 5: /*zip*/
+            newCust->zip = token; break;
           default :
             break;
         }
