@@ -6,4 +6,11 @@
 #include <string.h>
 #include <pthread.h>
 
+struct book {
+   char* title;
+   double price;
+   int customerID;
+   char* category;
+};
+
 #endif

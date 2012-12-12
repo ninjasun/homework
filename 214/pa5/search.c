@@ -183,10 +183,8 @@ struct wordnode* checkCache(char* word){
 }
 
 void andSearch (char* line) {
-   //puts(line);
    int foundNull = 0;
    strncpy(line, line + 2, strlen(line));
-   //puts(line);
    char* token;
    token = strtok(line, " ");
    struct filenode* fileHead = NULL;
