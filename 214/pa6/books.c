@@ -45,6 +45,8 @@ int main(int argc, char** argv) {
         }
         i++;
       }
+      newCust->next = customerList;
+      customerList = newCust;
     }
     free(line);
     fclose(dbFile);
