@@ -98,17 +98,27 @@ int main(int argc, char** argv) {
       for (token=strtok(line, delims); token != NULL; token=strtok(NULL, delims)) {
         switch(i) {
           case 0: /*name*/
-            newCust->name = token; break;
+            newCust->name = malloc(strlen(token) + 1);
+            strcpy(newCust->name, token); 
+            break;
           case 1: /*id*/
-            newCust->id = atoi(token); break;
+            newCust->id = atoi(token); 
+            break;
           case 2: /*balance*/
-            newCust->balance = atof(token); break;
+            newCust->balance = atof(token); 
+            break;
           case 3: /*address*/
-            newCust->address = token; break;
+            newCust->address = malloc(strlen(token) + 1);
+            strcpy(newCust->address, token); 
+            break;
           case 4: /*state*/
-            newCust->state = token; break;
+            newCust->state = malloc(strlen(token) + 1);
+            strcpy(newCust->state, token); 
+            break;
           case 5: /*zip*/
-            newCust->zip = token; break;
+            newCust->zip = malloc(strlen(token) + 1); 
+            strcpy(newCust->zip, token);
+            break;
           default :
             break;
         }
