@@ -1,7 +1,7 @@
 #include "books.h"
 
-producer(char* file) {
-
+void producer(char* file) {
+  return NULL;
 }
 
 int main(int argc, char** argv) {
@@ -15,7 +15,7 @@ int main(int argc, char** argv) {
   char* categoryList = argv[3];
 
   struct customer* customerList = NULL;
-
+  struct book* bookList = NULL;
   FILE *dbFile = fopen(db, "r");
   if (dbFile != NULL) {
     char* line = malloc(2048);
@@ -60,6 +60,39 @@ int main(int argc, char** argv) {
     return 1;
   }
 
+  FILE *orderFile=fopen(orders, "r");
+  if (orderFile != NULL) {
+     char* line = malloc(2048);
+     while(fgets (line, 2048, orderFile) != NULL) {
+        struct book* newBook = malloc(sizeof(struct book) + 1);
+        char* token;
+        char* delims = "|";
+        int i = 0;
+        for (token = strtok(line, delims); token != NULL; token=strtok(NULL, delims)) {
+          switch(i) {
+            case 0://name
+               newBook->title = token;
+               break;
+            case 1://id
+                newBook->price = atof(token);
+                break;
+            case 2://balance
+                newBook->customerID = atoi(token);
+                break;
+            case 3://address
+                newBook->category = token;
+                break;
+            default :
+                break;
+        }
+        i++;
+        }
+        newBook->next= bookList;
+        bookList = newBook;
+     }
+     free(line);
+     fclose(orderFile);
+  }
   /*pthread_t producer, consumer;*/
 
 }
