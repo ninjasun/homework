@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
     free(tmpW->word);
     free(tmpW);
   }
-  
+
   return 0;
 }
 
@@ -82,12 +82,16 @@ void andSearch (struct wordnode *head, char* line) {
    //puts(line);
    char* token;
    token = strtok(line, " ");
+   int foundAll = 0;
+   int foundWord;
    struct filenode* fileHead = NULL;
    while (token != NULL) {
       struct wordnode* ptr = head;
+      foundWord = 0;
       while (ptr != NULL) {
          //printf("word: %s, token: %s",ptr->word,token);
          if (strcmp(ptr->word, token) == 0) {
+            foundWord = 1;
             if (fileHead == NULL) {
                fileHead = malloc(sizeof(struct filenode) + 1);
                struct filenode* tmpPtr2;
@@ -146,15 +150,27 @@ void andSearch (struct wordnode *head, char* line) {
          }
          ptr = ptr->next;
       }
+      if (foundWord == 0) {
+         foundAll = 1;
+      }
       token = strtok(NULL, " ");
    }
    struct filenode* tmp = fileHead;
    struct filenode* freedom = tmp;
-   while (tmp != NULL){
-      printf("%s\n", tmp->fileName);
-      freedom = tmp;
-      tmp = tmp->next;
-      free(freedom);
+   if (foundAll != 1){
+      while (tmp != NULL){
+         printf("%s\n", tmp->fileName);
+         freedom = tmp;
+         tmp = tmp->next;
+         free(freedom);
+      }
+   }
+   else {
+      while (tmp != NULL) {
+         freedom = tmp;
+         tmp = tmp->next;
+         free (freedom);
+      }
    }
 }
 
