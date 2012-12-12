@@ -36,13 +36,17 @@ void producer(char* orderFileName) {
       for (token = strtok(line, delims); token != NULL; token=strtok(NULL, delims)) {
         switch(i) {
           case 0: /*name*/
-            newBook->title = token; break;
+            newBook->title = malloc(strlen(token) + 1);
+            strcpy(newBook->title, token); 
+            break;
           case 1: /*price*/
             newBook->price = atof(token); break;
           case 2: /*customerID*/
             newBook->id = atoi(token); break;
           case 3: /*category*/
-            newBook->category = token; break;
+            newBook->category = malloc(strlen(token) + 1); 
+            strcpy(newBook->category, token);
+            break;
           default :
             break;
         }
