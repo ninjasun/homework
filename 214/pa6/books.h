@@ -10,8 +10,9 @@
 struct book {
    char* title;
    double price;
-   int customerID;
+   int id;
    char* category;
+   struct book* next;
 };
 
 struct customer {
@@ -24,6 +25,9 @@ struct customer {
   struct customer* next;
 };
 
+
+struct book* orders = NULL;
+struct customer* customerList = NULL;
 
 
 #endif

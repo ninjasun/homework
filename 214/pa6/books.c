@@ -1,7 +1,70 @@
 #include "books.h"
 
-void producer(char* file) {
-  return NULL;
+/*Globals
+ *
+ * struct book {
+ *    char* title;
+ *    double price;
+ *    int id;
+ *    char* category;
+ *    struct book* next;
+ * };
+ * struct book* orders = NULL;
+ *
+ * struct customer {
+ *   char* name;
+ *   int id;
+ *   double balance;
+ *   char* address;
+ *   char* state;
+ *   char* zip;
+ *   struct customer* next;
+ * };
+ * struct customer* customerList = NULL;
+ */
+
+void producer(char* orderFileName) {
+  /* Open orders file and load into memory */
+  FILE *orderFile = fopen(orderFileName, "r");
+  if (orderFile != NULL) {
+    char* line = malloc(2048);
+    while(fgets (line, 2048, orderFile) != NULL) {
+      struct book* newBook = malloc(sizeof(struct book) + 1);
+      char* token;
+      char* delims = "|";
+      int i = 0;
+      for (token = strtok(line, delims); token != NULL; token=strtok(NULL, delims)) {
+        switch(i) {
+          case 0://name
+            newBook->title = token;
+            break;
+          case 1://price
+            newBook->price = atof(token);
+            break;
+          case 2://customerID
+            newBook->id = atoi(token);
+            break;
+          case 3://category
+            newBook->category = token;
+            break;
+          default :
+            break;
+        }
+        i++;
+      }
+      newBook->next = orders;
+      orders = newBook;
+    }
+
+    free(line);
+    fclose(orderFile);
+  }
+  return;
+}
+
+void consumer(char* db, char* category) {
+  struct customer* customerList = NULL;
+  return;
 }
 
 int main(int argc, char** argv) {
@@ -14,8 +77,20 @@ int main(int argc, char** argv) {
   char* orders = argv[2];
   char* categoryList = argv[3];
 
-  struct customer* customerList = NULL;
-  struct book* bookList = NULL;
+  /* Build categories list */
+  int categoryCount = 0;
+  char* token;
+  for (token = strtok(categoryList, " "); token != NULL; token=strtok(NULL, " ")) {
+    categoryCount++;
+  }
+  char** categories = malloc(sizeof(char*) * categoryCount + 1);
+  int i = 0;
+  for (token = strtok(categoryList, " "); token != NULL; token=strtok(NULL, " ")) {
+    categories[i] = malloc( sizeof(char) * (strlen(token) + 1) );
+    strcpy(categories[i], token);
+  }
+
+  /* Load in database of customers */
   FILE *dbFile = fopen(db, "r");
   if (dbFile != NULL) {
     char* line = malloc(2048);
@@ -60,39 +135,8 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  FILE *orderFile=fopen(orders, "r");
-  if (orderFile != NULL) {
-     char* line = malloc(2048);
-     while(fgets (line, 2048, orderFile) != NULL) {
-        struct book* newBook = malloc(sizeof(struct book) + 1);
-        char* token;
-        char* delims = "|";
-        int i = 0;
-        for (token = strtok(line, delims); token != NULL; token=strtok(NULL, delims)) {
-          switch(i) {
-            case 0://name
-               newBook->title = token;
-               break;
-            case 1://id
-                newBook->price = atof(token);
-                break;
-            case 2://balance
-                newBook->customerID = atoi(token);
-                break;
-            case 3://address
-                newBook->category = token;
-                break;
-            default :
-                break;
-        }
-        i++;
-        }
-        newBook->next= bookList;
-        bookList = newBook;
-     }
-     free(line);
-     fclose(orderFile);
-  }
-  /*pthread_t producer, consumer;*/
-
+  return 0;
 }
+
+
+
