@@ -35,14 +35,15 @@ struct customer {
 struct book* orders = NULL;
 struct customer* customerList = NULL;
 int running = 1;
+char** allCats;
 
-void producer(char*);
-void consumer(char*);
+void* producer(void*);
+void* consumer(void*);
 
 
-void producer(char* orderFileName) {
+void* producer(void* orderFileName) {
   /* Open orders file and load into memory */
-  FILE *orderFile = fopen(orderFileName, "r");
+  FILE *orderFile = fopen((char*)orderFileName, "r");
   if (orderFile != NULL) {
     char* line = malloc(2048);
     while(fgets (line, 2048, orderFile) != NULL) {
@@ -80,17 +81,13 @@ void producer(char* orderFileName) {
   }
 
   running = 0;
-  return;
+  return NULL;
 }
 
 
 void* consumer(void* categoryI) {
 
-  int categoryIndex = (int)categoryI;
-
-  char* categoryName = allCats[categoryIndex];
-
-  struct bookWrapper* prev = orders;
+  char* categoryName = categoryI;
 
   while ((running == 1) || (orders != NULL)) {
 
@@ -100,12 +97,10 @@ void* consumer(void* categoryI) {
     struct book* prev = orders;
 
     //check Mutex
-    pthread_mutex_lock(orders->lock);
+    pthread_mutex_lock(&bookLock);
 
-    while(myOrders->next != NULL)
-    {
-      if(strcmp(myOrders->category, categoryName) == 0)
-      {
+    while(myOrders->next != NULL) {
+      if(strcmp(myOrders->category, categoryName) == 0) {
         prev->next = myOrders->next;
         found = 1;
         break;
@@ -116,15 +111,14 @@ void* consumer(void* categoryI) {
       }
     }
 
-    pthread_mutex_unlock(orders->lock);
+    pthread_mutex_unlock(&bookLock);
 
-    if(found == 1)
-    { 
-      customerID = myOrders->id;
+    if(found == 1) {
+      int customerID = myOrders->id;
 
       struct customer* customerPtr = customerList;
 
-      while (customerPtr != NULL) 
+      while (customerPtr != NULL)
       {
         if(customerPtr->id == customerID)
         {
@@ -134,13 +128,14 @@ void* consumer(void* categoryI) {
           {
           //successfull
             customerPtr->balance = currentBalance - myOrders->price;
-            struct hist* newHist = malloc(sizeof(hist));
+            struct hist* newHist = malloc(sizeof(struct hist));
 
             newHist->line = malloc(2048);
 
-            strcat (newHist->line, '"');
+            /*strcat (newHist->line, "\"");*/
             strcat (newHist->line, myOrders->title);
-            strcat (newHist->line, '"| ');
+            /*strcat (newHist->line, "\"| ");*/
+            strcat (newHist->line, "| ");
             strcat (newHist->line, ftoa(myOrders->price));
             strcat (newHist->line, "| ");
             strcat (newHist->line, ftoa(currentBalance));
@@ -150,30 +145,28 @@ void* consumer(void* categoryI) {
           }
           else
           {
-            struct hist* newHist = malloc(sizeof(hist));
+            struct hist* newHist = malloc(sizeof(struct hist));
 
             newHist->line = malloc(2048);
 
-            strcat (newHist->line, '"');
             strcat (newHist->line, myOrders->title);
-            strcat (newHist->line, '"| ');
+            strcat (newHist->line, "| ");
             strcat (newHist->line, ftoa(myOrders->price));
 
             newHist->next = customerPtr->fail;
             customerPtr->fail = newHist;
           }
-        }    
+        }
       }
-      free(myOrders);  
+      free(myOrders);
     }
-    
-    if(running == 0)
-    {
-      return;
-    }  
+
+    if(running == 0) {
+      return NULL;
+    }
 
   }
-  return;
+  return NULL;
 }
 
 void output() {
@@ -282,13 +275,14 @@ int main(int argc, char** argv) {
     fclose(dbFile);
 
     /* Init mutexes and run threads */
+    allCats = categories;
     pthread_mutex_init(&bookLock, NULL);
-
     pthread_t prodT;
-    pthread_create(&prodT, NULL, producer, (void*)argv[2]);
+
+    pthread_create(&prodT, NULL, producer, argv[2]);
     pthread_t categoriesT[categoryCount];
     for (i = 0; i < categoryCount; i++) {
-      pthread_create(&categoriesT[i], NULL, consumer, (void*)categories[i]);
+      pthread_create(&categoriesT[i], NULL, consumer, categories[i]);
     }
 
     pthread_join(prodT, NULL);
@@ -297,18 +291,16 @@ int main(int argc, char** argv) {
     }
 
     pthread_mutex_destroy(&bookLock);
+    output();
   }
   else {
     puts("Database file failed to open");
     return 1;
   }
 
-  //create the producer
-  //for each category create a producer and pass the category name
   //free the categories
 
-  output();
-  gundamFreedom();
+  /*gundamFreedom();*/
 
   return 0;
 }
