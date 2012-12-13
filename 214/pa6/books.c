@@ -103,6 +103,10 @@ void* consumer(void* categoryI) {
 
     while(myOrders->next != NULL) {
       if(strcmp(myOrders->category, categoryName) == 0) {
+        if (prev == myOrders) {
+          myOrders = prev;
+          orders = prev->next;
+        }
         prev->next = myOrders->next;
         found = 1;
         break;
@@ -110,6 +114,12 @@ void* consumer(void* categoryI) {
       else{
         prev = myOrders;
         myOrders = myOrders->next;
+      }
+    }
+    if (myOrders != NULL && myOrders->next == NULL) {
+      if(strcmp(myOrders->category, categoryName) == 0) {
+        orders = myOrders->next;
+        found = 1;
       }
     }
 
