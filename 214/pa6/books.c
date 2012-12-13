@@ -36,7 +36,7 @@ struct customer* customerList = NULL;
 int running = 1;
 
 void producer(char*);
-void consumer(char*, char*);
+void consumer(char*);
 
 
 void producer(char* orderFileName) {
@@ -79,7 +79,7 @@ void producer(char* orderFileName) {
 }
 
 
-void consumer(char* db, char* category) {
+void consumer(char* category) {
   struct customer* customerList = NULL;
   return;
 }
@@ -199,4 +199,37 @@ int main(int argc, char** argv) {
   return 0;
 }
 
+//customerlist (contains 2 linked lists of hist and a shit ton of strings), orders(strings)
+void gundamFreedom() {
+  struct book* tmp;
+  while (orders != NULL) {
+    tmp = orders;
+    orders = orders->next;
+    free(tmp->title);
+    free(tmp->category);
+    free(tmp);
+  }
 
+  struct customer* cusTmp;
+  while (customerList != NULL) {
+    tmp = customerList;
+    customerList = customerList->next;
+    while(tmp->success != NULL) {
+      struct hisTmp = tmp->success;
+      tmp->success = tmp->success->next;
+      free(hisTmp->line);
+      free(hisTmp);
+    }
+    while(tmp->fail != NULL) {
+      struct hisTmp = tmp->fail;
+      tmp->fail = tmp->fail->next;
+      free(hisTmp->line);
+      free(hisTmp);
+    }
+    free(tmp->name);
+    free(tmp->address);
+    free(tmp->state);
+    free(tmp->zip);
+    free(tmp);
+  }
+}
