@@ -133,8 +133,6 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  char* db = argv[1];
-  char* orders = argv[2];
   char* categoryList = argv[3];
 
   /* Build categories list */
@@ -151,7 +149,7 @@ int main(int argc, char** argv) {
   }
 
   /* Load in database of customers */
-  FILE *dbFile = fopen(db, "r");
+  FILE *dbFile = fopen(argv[1], "r");
   if (dbFile != NULL) {
     char* line = malloc(2048);
     while (fgets (line, 2048, dbFile) != NULL) {
@@ -199,7 +197,17 @@ int main(int argc, char** argv) {
     /* Init mutexes and run threads */
     pthread_mutex_init(&bookLock, NULL);
 
+    pthread_t prodT;
+    pthread_create(&prodT, NULL, producer, (void*)argv[2]);
+    pthread_t categoriesT[categoryCount];
+    for (i = 0; i < categoryCount; i++) {
+      pthread_create(&categoriesT[i], NULL, consumer, (void*)categories[i]);
+    }
 
+    pthread_join(prodT, NULL);
+    for (i = 0; i < categoryCount; i++) {
+      pthread_join(categoriesT[i], NULL);
+    }
 
   }
   else {
