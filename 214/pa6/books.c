@@ -90,8 +90,97 @@ void producer(char* orderFileName) {
 }
 
 
-void consumer(char* category) {
-  struct customer* customerList = NULL;
+void* consumer(void* categoryI) {
+
+  int categoryIndex = (int)categoryI;
+
+  char* categoryName = allCats[categoryIndex];
+
+  struct bookWrapper* prev = orders;
+
+  while ((running == 1) || (orders != NULL)) {
+
+    int found = 0;
+
+    struct book* myOrders = orders;
+    struct book* prev = orders;
+
+    //check Mutex
+    pthread_mutex_lock(orders->lock);
+
+    while(myOrders->next != NULL)
+    {
+      if(strcmp(myOrders->category, categoryName) == 0)
+      {
+        prev->next = myOrders->next;
+        found = 1;
+        break;
+      }
+      else{
+        prev = myOrders;
+        myOrders = myOrders->next;
+      }
+    }
+
+    pthread_mutex_unlock(orders->lock);
+     
+    if(running == 0)
+    {
+      return;
+    }  
+
+    if(found == 1)
+    { 
+      customerID = myOrders->id;
+
+      struct customer* customerPtr = customerList;
+
+      while (customerPtr != NULL) 
+      {
+        if(customerPtr->id == customerID)
+        {
+          double currentBalance = customerPtr->balance;
+
+          if(currentBalance >= myOrders->price)
+          {
+          //successfull
+            customerPtr->balance = currentBalance - myOrders->price;
+            struct hist* newHist = malloc(sizeof(hist));
+
+            newHist->line = malloc(2048);
+
+            strcat (newHist->line, '"');
+            strcat (newHist->line, myOrders->title);
+            strcat (newHist->line, '"| ');
+            strcat (newHist->line, ftoa(myOrders->price));
+            strcat (newHist->line, "| ");
+            strcat (newHist->line, ftoa(currentBalance));
+
+            newHist->next = customerPtr->success;
+            customerPtr->success = newHist;
+          }
+          else
+          {
+            struct hist* newHist = malloc(sizeof(hist));
+
+            newHist->line = malloc(2048);
+
+            strcat (newHist->line, '"');
+            strcat (newHist->line, myOrders->title);
+            strcat (newHist->line, '"| ');
+            strcat (newHist->line, ftoa(myOrders->price));
+
+            newHist->next = customerPtr->fail;
+            customerPtr->fail = newHist;
+          }
+        }    
+      }
+        
+    }
+
+    free(myOrders);
+
+  }
   return;
 }
 
@@ -206,6 +295,13 @@ int main(int argc, char** argv) {
     puts("Database file failed to open");
     return 1;
   }
+
+  //create the producer
+  //for each category create a producer and pass the category name
+  //free the categories
+
+  output();
+  gundamFreedom();
 
   return 0;
 }
