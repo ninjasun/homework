@@ -1,7 +1,8 @@
-book:
-	gcc -lpthread book.c -o book 
+books:
+	gcc -lpthread books.c -o books
 clean: 
-	rm -f book
+	rm -f books
+test:
+	./books database.txt orders.txt \"SPORTS01 HOUSING01 POLITICS01\"
 
-.PHONY: all clean
-
+.PHONY: test clean

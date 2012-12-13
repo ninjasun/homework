@@ -1,8 +1,8 @@
 require 'rake'
 
-task :default do
+task :default => [:clean] do
   sh 'make'
-  sh './books databases.txt orders.txt "SPORTS01 HOUSING01 POLITICS01"'
+  sh './books database.txt orders.txt "SPORTS01 HOUSING01 POLITICS01"'
 end
 
 task :clean do

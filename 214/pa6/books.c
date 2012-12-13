@@ -275,6 +275,10 @@ int main(int argc, char** argv) {
     free(line);
     fclose(dbFile);
 
+  if ( 1 != 0) {
+    puts("yo");
+    return 2;
+  }
     /* Init mutexes and run threads */
     allCats = categories;
     pthread_mutex_init(&bookLock, NULL);
