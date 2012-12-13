@@ -84,6 +84,43 @@ void consumer(char* db, char* category) {
   return;
 }
 
+void output() {
+  struct customer* ptr = customerList;
+
+  //loop through customers
+  while (ptr != NULL) {
+
+    //print customer information
+    puts("=== BEGIN CUSTOMER INFO ===\n");
+    puts("### BALANCE ###\n");
+    printf("Customer name: %s\n", ptr->name);
+    printf("Customer ID number: %i\n", ptr->id);
+    printf("Remaining credit balance after all purchases (a dollar amount): %d\n", ptr->balance);
+    
+    //print successes
+    puts("### SUCCESSFUL ORDERS ###\n");
+
+    struct hist* success = ptr->success;
+    while (success != NULL) {
+      printf("Customer name: %s\n", success->line);
+      success = success->next;
+    }
+
+    //print fails
+    puts("### REJECTED ORDERS ###\n");
+
+    struct hist* fail = ptr->fail;
+
+    while (fail != NULL) {
+      printf("Customer name: %s\n", success->line);
+      fail = fail->next;
+    }
+
+    puts("=== END CUSTOMER INFO ===\n\n");
+
+    ptr = ptr->next;
+  }
+}
 
 int main(int argc, char** argv) {
   if (argc != 4) {
