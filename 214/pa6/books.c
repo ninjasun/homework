@@ -123,11 +123,6 @@ void* consumer(void* categoryI) {
     }
 
     pthread_mutex_unlock(orders->lock);
-     
-    if(running == 0)
-    {
-      return;
-    }  
 
     if(found == 1)
     { 
@@ -175,10 +170,13 @@ void* consumer(void* categoryI) {
           }
         }    
       }
-        
+      free(myOrders);  
     }
-
-    free(myOrders);
+    
+    if(running == 0)
+    {
+      return;
+    }  
 
   }
   return;
