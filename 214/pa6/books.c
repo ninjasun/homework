@@ -13,6 +13,8 @@ struct book {
    struct book* next;
 };
 
+pthread_mutex_t bookLock;
+
 struct hist {
   char* line;
   struct hist* next;
@@ -28,16 +30,6 @@ struct customer {
   struct hist* success;
   struct hist* fail;
   struct customer* next;
-};
-
-struct customerWrapper {
-  struct customer* head;
-  pthread_mutex_t lock;
-};
-
-struct bookWrapper {
-  struct book* head;
-  pthread_mutex_t lock;
 };
 
 struct book* orders = NULL;
@@ -77,8 +69,10 @@ void producer(char* orderFileName) {
         }
         i++;
       }
+      pthread_mutex_lock(&bookLock);
       newBook->next = orders;
       orders = newBook;
+      pthread_mutex_unlock(&bookLock);
     }
 
     free(line);
@@ -106,8 +100,8 @@ void output() {
     puts("### BALANCE ###\n");
     printf("Customer name: %s\n", ptr->name);
     printf("Customer ID number: %i\n", ptr->id);
-    printf("Remaining credit balance after all purchases (a dollar amount): %d\n", ptr->balance);
-    
+    printf("Remaining credit balance after all purchases (a dollar amount): %f\n", ptr->balance);
+
     //print successes
     puts("### SUCCESSFUL ORDERS ###\n");
 
@@ -201,6 +195,12 @@ int main(int argc, char** argv) {
     }
     free(line);
     fclose(dbFile);
+
+    /* Init mutexes and run threads */
+    pthread_mutex_init(&bookLock, NULL);
+
+
+
   }
   else {
     puts("Database file failed to open");
@@ -212,35 +212,36 @@ int main(int argc, char** argv) {
 
 //customerlist (contains 2 linked lists of hist and a shit ton of strings), orders(strings)
 void gundamFreedom() {
-  struct book* tmp;
-  while (orders != NULL) {
-    tmp = orders;
-    orders = orders->next;
-    free(tmp->title);
-    free(tmp->category);
-    free(tmp);
-  }
+  return;
+  /*struct book* tmp;*/
+  /*while (orders != NULL) {*/
+    /*tmp = orders;*/
+    /*orders = orders->next;*/
+    /*free(tmp->title);*/
+    /*free(tmp->category);*/
+    /*free(tmp);*/
+  /*}*/
 
-  struct customer* cusTmp;
-  while (customerList != NULL) {
-    tmp = customerList;
-    customerList = customerList->next;
-    while(tmp->success != NULL) {
-      struct hisTmp = tmp->success;
-      tmp->success = tmp->success->next;
-      free(hisTmp->line);
-      free(hisTmp);
-    }
-    while(tmp->fail != NULL) {
-      struct hisTmp = tmp->fail;
-      tmp->fail = tmp->fail->next;
-      free(hisTmp->line);
-      free(hisTmp);
-    }
-    free(tmp->name);
-    free(tmp->address);
-    free(tmp->state);
-    free(tmp->zip);
-    free(tmp);
-  }
+  /*struct customer* cusTmp;*/
+  /*while (customerList != NULL) {*/
+    /*tmp = customerList;*/
+    /*customerList = customerList->next;*/
+    /*while(tmp->success != NULL) {*/
+      /*struct hisTmp = tmp->success;*/
+      /*tmp->success = tmp->success->next;*/
+      /*free(hisTmp->line);*/
+      /*free(hisTmp);*/
+    /*}*/
+    /*while(tmp->fail != NULL) {*/
+      /*struct hisTmp = tmp->fail;*/
+      /*tmp->fail = tmp->fail->next;*/
+      /*free(hisTmp->line);*/
+      /*free(hisTmp);*/
+    /*}*/
+    /*free(tmp->name);*/
+    /*free(tmp->address);*/
+    /*free(tmp->state);*/
+    /*free(tmp->zip);*/
+    /*free(tmp);*/
+  /*}*/
 }
