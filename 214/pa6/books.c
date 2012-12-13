@@ -131,14 +131,14 @@ void* consumer(void* categoryI) {
             struct hist* newHist = malloc(sizeof(struct hist));
 
             newHist->line = malloc(2048);
-
-            /*strcat (newHist->line, "\"");*/
+            char floatTmp[2048] = { '\0' };
             strcat (newHist->line, myOrders->title);
-            /*strcat (newHist->line, "\"| ");*/
             strcat (newHist->line, "| ");
-            strcat (newHist->line, ftoa(myOrders->price));
+            sprintf(floatTmp, "%.2f", myOrders->price);
+            strcat (newHist->line, floatTmp);
             strcat (newHist->line, "| ");
-            strcat (newHist->line, ftoa(currentBalance));
+            sprintf(floatTmp, "%.2f", currentBalance);
+            strcat (newHist->line, floatTmp);
 
             newHist->next = customerPtr->success;
             customerPtr->success = newHist;
@@ -148,10 +148,11 @@ void* consumer(void* categoryI) {
             struct hist* newHist = malloc(sizeof(struct hist));
 
             newHist->line = malloc(2048);
-
+            char floatTmp[2048] = { '\0' };
             strcat (newHist->line, myOrders->title);
             strcat (newHist->line, "| ");
-            strcat (newHist->line, ftoa(myOrders->price));
+            sprintf(floatTmp, "%.2f", myOrders->price);
+            strcat (newHist->line, floatTmp);
 
             newHist->next = customerPtr->fail;
             customerPtr->fail = newHist;
