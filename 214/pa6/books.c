@@ -95,6 +95,43 @@ void consumer(char* category) {
   return;
 }
 
+void output() {
+  struct customer* ptr = customerList;
+
+  //loop through customers
+  while (ptr != NULL) {
+
+    //print customer information
+    puts("=== BEGIN CUSTOMER INFO ===\n");
+    puts("### BALANCE ###\n");
+    printf("Customer name: %s\n", ptr->name);
+    printf("Customer ID number: %i\n", ptr->id);
+    printf("Remaining credit balance after all purchases (a dollar amount): %d\n", ptr->balance);
+    
+    //print successes
+    puts("### SUCCESSFUL ORDERS ###\n");
+
+    struct hist* success = ptr->success;
+    while (success != NULL) {
+      printf("Customer name: %s\n", success->line);
+      success = success->next;
+    }
+
+    //print fails
+    puts("### REJECTED ORDERS ###\n");
+
+    struct hist* fail = ptr->fail;
+
+    while (fail != NULL) {
+      printf("Customer name: %s\n", success->line);
+      fail = fail->next;
+    }
+
+    puts("=== END CUSTOMER INFO ===\n\n");
+
+    ptr = ptr->next;
+  }
+}
 
 int main(int argc, char** argv) {
   if (argc != 4) {
@@ -173,4 +210,37 @@ int main(int argc, char** argv) {
   return 0;
 }
 
+//customerlist (contains 2 linked lists of hist and a shit ton of strings), orders(strings)
+void gundamFreedom() {
+  struct book* tmp;
+  while (orders != NULL) {
+    tmp = orders;
+    orders = orders->next;
+    free(tmp->title);
+    free(tmp->category);
+    free(tmp);
+  }
 
+  struct customer* cusTmp;
+  while (customerList != NULL) {
+    tmp = customerList;
+    customerList = customerList->next;
+    while(tmp->success != NULL) {
+      struct hisTmp = tmp->success;
+      tmp->success = tmp->success->next;
+      free(hisTmp->line);
+      free(hisTmp);
+    }
+    while(tmp->fail != NULL) {
+      struct hisTmp = tmp->fail;
+      tmp->fail = tmp->fail->next;
+      free(hisTmp->line);
+      free(hisTmp);
+    }
+    free(tmp->name);
+    free(tmp->address);
+    free(tmp->state);
+    free(tmp->zip);
+    free(tmp);
+  }
+}
