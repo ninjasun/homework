@@ -14,6 +14,7 @@ struct book {
 };
 
 pthread_mutex_t bookLock;
+pthread_mutex_t runLock;
 
 struct hist {
   char* line;
@@ -80,8 +81,10 @@ void* producer(void* orderFileName) {
     free(line);
     fclose(orderFile);
   }
-
+  pthread_mutex_lock(&runLock);
   running = 0;
+    pthread_mutex_unlock(&runLock);
+
   return NULL;
 }
 
@@ -89,11 +92,14 @@ void* producer(void* orderFileName) {
 void* consumer(void* categoryI) {
 
   char* categoryName = categoryI;
+  puts("### Before while ###\n");
+    pthread_mutex_lock(&runLock);
 
   while ((running == 1) || (orders != NULL)) {
+  pthread_mutex_unlock(&runLock);
 
     int found = 0;
-
+    puts("### Inside while ###\n");
     //check Mutex
     pthread_mutex_lock(&bookLock);
 
@@ -102,7 +108,10 @@ void* consumer(void* categoryI) {
 
 
     while(myOrders->next != NULL) {
+      printf("ORDERS CATEGORY: _%s_\n", myOrders->category);
+      printf("_%s_\n", categoryName);
       if(strcmp(myOrders->category, categoryName) == 0) {
+        puts("### Found node ###\n");
         if (prev == myOrders) {
           myOrders = prev;
           orders = prev->next;
@@ -126,6 +135,7 @@ void* consumer(void* categoryI) {
     pthread_mutex_unlock(&bookLock);
 
     if(found == 1) {
+       puts("### Found node and doing shit ###\n");
       int customerID = myOrders->id;
 
       struct customer* customerPtr = customerList;
@@ -173,9 +183,12 @@ void* consumer(void* categoryI) {
       }
       free(myOrders);
     }
+  pthread_mutex_lock(&runLock);
 
     if(running == 0) {
       return NULL;
+        pthread_mutex_unlock(&runLock);
+
     }
 
   }
