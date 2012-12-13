@@ -1,5 +1,5 @@
 book:
-	gcc -o book book.c
+	gcc -lpthread book.c -o book 
 clean: 
 	rm -f book
 

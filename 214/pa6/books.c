@@ -3,6 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include <pthread.h>
+#include <semaphore.h>
 
 struct book {
    char* title;
@@ -29,7 +30,15 @@ struct customer {
   struct customer* next;
 };
 
+struct customerWrapper {
+  struct customer* head;
+  pthread_mutex_t lock;
+};
 
+struct bookWrapper {
+  struct book* head;
+  pthread_mutex_t lock;
+};
 
 struct book* orders = NULL;
 struct customer* customerList = NULL;
@@ -75,6 +84,8 @@ void producer(char* orderFileName) {
     free(line);
     fclose(orderFile);
   }
+
+  running = 0;
   return;
 }
 
