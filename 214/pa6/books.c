@@ -36,6 +36,7 @@ struct book* orders = NULL;
 struct customer* customerList = NULL;
 int running = 1;
 char** allCats;
+char** categories;
 
 void* producer(void*);
 void* consumer(void*);
@@ -93,11 +94,12 @@ void* consumer(void* categoryI) {
 
     int found = 0;
 
+    //check Mutex
+    pthread_mutex_lock(&bookLock);
+
     struct book* myOrders = orders;
     struct book* prev = orders;
 
-    //check Mutex
-    pthread_mutex_lock(&bookLock);
 
     while(myOrders->next != NULL) {
       if(strcmp(myOrders->category, categoryName) == 0) {
@@ -219,14 +221,11 @@ int main(int argc, char** argv) {
   /* Build categories list */
   int categoryCount = 0;
   char* token;
+  categories = malloc(sizeof(char*) * 50);
   for (token = strtok(categoryList, " "); token != NULL; token=strtok(NULL, " ")) {
+    categories[categoryCount] = malloc( sizeof(char) * (strlen(token) + 1) );
+    strcpy(categories[categoryCount], token);
     categoryCount++;
-  }
-  char** categories = malloc(sizeof(char*) * categoryCount + 1);
-  int i = 0;
-  for (token = strtok(categoryList, " "); token != NULL; token=strtok(NULL, " ")) {
-    categories[i] = malloc( sizeof(char) * (strlen(token) + 1) );
-    strcpy(categories[i], token);
   }
 
   /* Load in database of customers */
@@ -275,17 +274,17 @@ int main(int argc, char** argv) {
     free(line);
     fclose(dbFile);
 
-  if ( 1 != 0) {
-    puts("yo");
-    return 2;
-  }
     /* Init mutexes and run threads */
-    allCats = categories;
     pthread_mutex_init(&bookLock, NULL);
     pthread_t prodT;
 
     pthread_create(&prodT, NULL, producer, argv[2]);
+  /*if ( 1 != 0) {*/
+    /*puts("yo");*/
+    /*return 2;*/
+  /*}*/
     pthread_t categoriesT[categoryCount];
+    int i;
     for (i = 0; i < categoryCount; i++) {
       pthread_create(&categoriesT[i], NULL, consumer, categories[i]);
     }
@@ -296,7 +295,7 @@ int main(int argc, char** argv) {
     }
 
     pthread_mutex_destroy(&bookLock);
-    output();
+    /*output();*/
   }
   else {
     puts("Database file failed to open");
@@ -306,6 +305,7 @@ int main(int argc, char** argv) {
   //free the categories
 
   /*gundamFreedom();*/
+  puts("done");
 
   return 0;
 }
