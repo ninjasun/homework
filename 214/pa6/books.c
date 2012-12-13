@@ -36,7 +36,7 @@ struct customer* customerList = NULL;
 int running = 1;
 
 void producer(char*);
-void consumer(char*, char*);
+void consumer(char*);
 
 
 void producer(char* orderFileName) {
@@ -79,7 +79,7 @@ void producer(char* orderFileName) {
 }
 
 
-void consumer(char* db, char* category) {
+void consumer(char* category) {
   struct customer* customerList = NULL;
   return;
 }
