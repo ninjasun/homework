@@ -209,6 +209,7 @@ int main(int argc, char** argv) {
       pthread_join(categoriesT[i], NULL);
     }
 
+    pthread_mutex_destroy(&bookLock);
   }
   else {
     puts("Database file failed to open");
