@@ -1,27 +1,43 @@
-#include "books.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <pthread.h>
 
-/*Globals
- *
- * struct book {
- *    char* title;
- *    double price;
- *    int id;
- *    char* category;
- *    struct book* next;
- * };
- * struct book* orders = NULL;
- *
- * struct customer {
- *   char* name;
- *   int id;
- *   double balance;
- *   char* address;
- *   char* state;
- *   char* zip;
- *   struct customer* next;
- * };
- * struct customer* customerList = NULL;
- */
+struct book {
+   char* title;
+   double price;
+   int id;
+   char* category;
+   struct book* next;
+};
+
+struct hist {
+  char* line;
+  struct hist* next;
+};
+
+struct customer {
+  char* name;
+  int id;
+  double balance;
+  char* address;
+  char* state;
+  char* zip;
+  struct hist* success;
+  struct hist* fail;
+  struct customer* next;
+};
+
+
+
+struct book* orders = NULL;
+struct customer* customerList = NULL;
+int running = 1;
+
+void producer(char*);
+void consumer(char*, char*);
+
 
 void producer(char* orderFileName) {
   /* Open orders file and load into memory */
@@ -37,14 +53,14 @@ void producer(char* orderFileName) {
         switch(i) {
           case 0: /*name*/
             newBook->title = malloc(strlen(token) + 1);
-            strcpy(newBook->title, token); 
+            strcpy(newBook->title, token);
             break;
           case 1: /*price*/
             newBook->price = atof(token); break;
           case 2: /*customerID*/
             newBook->id = atoi(token); break;
           case 3: /*category*/
-            newBook->category = malloc(strlen(token) + 1); 
+            newBook->category = malloc(strlen(token) + 1);
             strcpy(newBook->category, token);
             break;
           default :
@@ -62,10 +78,12 @@ void producer(char* orderFileName) {
   return;
 }
 
+
 void consumer(char* db, char* category) {
   struct customer* customerList = NULL;
   return;
 }
+
 
 int main(int argc, char** argv) {
   if (argc != 4) {
@@ -96,6 +114,8 @@ int main(int argc, char** argv) {
     char* line = malloc(2048);
     while (fgets (line, 2048, dbFile) != NULL) {
       struct customer* newCust = malloc(sizeof(struct customer) + 1);
+      newCust->success = NULL;
+      newCust->fail = NULL;
       char* token;
       char* delims = "|";
       int i = 0;
@@ -103,24 +123,24 @@ int main(int argc, char** argv) {
         switch(i) {
           case 0: /*name*/
             newCust->name = malloc(strlen(token) + 1);
-            strcpy(newCust->name, token); 
+            strcpy(newCust->name, token);
             break;
           case 1: /*id*/
-            newCust->id = atoi(token); 
+            newCust->id = atoi(token);
             break;
           case 2: /*balance*/
-            newCust->balance = atof(token); 
+            newCust->balance = atof(token);
             break;
           case 3: /*address*/
             newCust->address = malloc(strlen(token) + 1);
-            strcpy(newCust->address, token); 
+            strcpy(newCust->address, token);
             break;
           case 4: /*state*/
             newCust->state = malloc(strlen(token) + 1);
-            strcpy(newCust->state, token); 
+            strcpy(newCust->state, token);
             break;
           case 5: /*zip*/
-            newCust->zip = malloc(strlen(token) + 1); 
+            newCust->zip = malloc(strlen(token) + 1);
             strcpy(newCust->zip, token);
             break;
           default :
@@ -141,6 +161,5 @@ int main(int argc, char** argv) {
 
   return 0;
 }
-
 
 
