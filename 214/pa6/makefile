@@ -1,4 +1,4 @@
-books:
+all:
 	gcc -lpthread books.c -o books
 clean: 
 	rm -f books

@@ -51,7 +51,7 @@ void* producer(void* orderFileName) {
     while(fgets (line, 2048, orderFile) != NULL) {
       struct book* newBook = malloc(sizeof(struct book) + 1);
       char* token;
-      char* delims = "|";
+      char* delims = "|\n";
       int i = 0;
       for (token = strtok(line, delims); token != NULL; token=strtok(NULL, delims)) {
         switch(i) {
@@ -91,7 +91,7 @@ void* producer(void* orderFileName) {
 
 void* consumer(void* categoryI) {
 
-  char* categoryName = categoryI;
+  char* categoryName = (char*)categoryI;
   puts("### Before while ###\n");
     pthread_mutex_lock(&runLock);
 
@@ -108,8 +108,8 @@ void* consumer(void* categoryI) {
 
 
     while(myOrders->next != NULL) {
-      printf("ORDERS CATEGORY: _%s_\n", myOrders->category);
-      printf("_%s_\n", categoryName);
+      printf("Struct:_%s_\n", myOrders->category);
+      printf("CategoryName:_%s_\n", categoryName);
       if(strcmp(myOrders->category, categoryName) == 0) {
         puts("### Found node ###\n");
         if (prev == myOrders) {
@@ -318,7 +318,7 @@ int main(int argc, char** argv) {
     }
 
     pthread_mutex_destroy(&bookLock);
-    /*output();*/
+    output();
   }
   else {
     puts("Database file failed to open");
